@@ -22,6 +22,5 @@ import {
 	IonTabBar,
 	IonTabButton,
 	IonLabel,
-	IonIcon,
 } from "@ionic/vue";
 </script>

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { RouteRecordRaw } from "vue-router";
+import AppMenu from "../components/AppMenu.vue";
 
 const routes: Array<RouteRecordRaw> = [
 	{
@@ -9,7 +10,7 @@ const routes: Array<RouteRecordRaw> = [
 	{
 		path: "/",
 		name: "AppMenu",
-		component: () => import("../components/AppMenu.vue"),
+		component: AppMenu,
 		children: [
 			{
 				path: "",
