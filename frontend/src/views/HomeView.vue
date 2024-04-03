@@ -2,10 +2,13 @@
    <ion-page>
       <ion-content>
          <section class="subheader">
-            <h1>Lorem ipsum dolor sit amet consectetur</h1>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque ullam perspiciatis consequatur est a
-               incidunt
-               rem ab, hic magni esse veniam ut corporis illum maiores molestiae temporibus eveniet praesentium ad.</p>
+            <div>
+               <h1>Lorem ipsum dolor sit amet consectetur</h1>
+               <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque ullam perspiciatis consequatur est a
+                  incidunt
+                  rem ab, hic magni esse veniam ut corporis illum maiores molestiae temporibus eveniet praesentium ad.
+               </p>
+            </div>
          </section>
          <section class="ayudanos text-center">
             <h2>¿No sabes como ayudarnos?</h2>
@@ -67,7 +70,7 @@ import { IonPage, IonContent } from '@ionic/vue';
 <style lang="scss" scoped>
 .subheader {
    height: 50vh;
-   background-image: url(../../public/img/pexels-francesco-ungaro-96938.jpg);
+   background-image: url(../../public/img/pexels-hiang-kanjinna-1629061.jpg);
    background-size: cover;
    background-position: center;
 }
@@ -79,10 +82,13 @@ import { IonPage, IonContent } from '@ionic/vue';
 .adopciones {
    background-color: #F2F2F2;
    padding: 20px;
+   color: black;
 }
 
 .ong {
+   background-color: white;
    padding: 20px;
+   color: black;
 }
 
 .ayudanos {
