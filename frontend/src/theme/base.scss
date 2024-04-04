@@ -1,0 +1,19 @@
+$urgente: rgba(255, 0, 0, 0.445);
+$especial: rgba(255, 0, 255, 0.445);
+$apadrinado: rgba(0, 255, 76, 0.445);
+
+.adopcion-urgente {
+    background-color: $urgente;
+}
+
+.casos-especiales {
+    background-color: $especial;
+}
+
+.apadrinado {
+    background-color: $apadrinado;
+}
+
+.sin-estado {
+    background-color: none;
+}

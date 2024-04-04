@@ -22,27 +22,21 @@
                   <div>
                      <h3>Adopta</h3>
                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia ab voluptatem quis nostrum,
-                        eum
-                        minus
-                        perspiciatis obcaecati sint accusantium minima corrupti esse.</p>
+                        eum</p>
                   </div>
                </article>
                <article class="voluntario text-center">
                   <div>
                      <h3>Hazte voluntario</h3>
                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia ab voluptatem quis nostrum,
-                        eum
-                        minus
-                        perspiciatis obcaecati sint accusantium minima corrupti esse.</p>
+                        eum</p>
                   </div>
                </article>
                <article class="dona text-center">
                   <div>
                      <h3>Dona</h3>
                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia ab voluptatem quis nostrum,
-                        eum
-                        minus
-                        perspiciatis obcaecati sint accusantium minima corrupti esse.</p>
+                        eum</p>
                   </div>
                </article>
             </div>
@@ -50,8 +44,12 @@
          <section class="adopciones text-center">
             <h2>Adopciones urgentes</h2>
             <p>Conoce nuestros animales que necesitan tu ayuda</p>
-            <div>
-               ¿Componente de perritos?
+            <div class="cartasAnimal">
+               <AppCartaAnimal :animal="infoAnimal.animal" :estado-adopcion="infoAnimal.estado" :nombre="infoAnimal.Nombre" :raza="infoAnimal.raza"/>
+               <AppCartaAnimal :animal="infoAnimal.animal" :estado-adopcion="infoAnimal.estado" :nombre="infoAnimal.Nombre" :raza="infoAnimal.raza"/>
+               <AppCartaAnimal :animal="infoAnimal.animal" :estado-adopcion="infoAnimal.estado" :nombre="infoAnimal.Nombre" :raza="infoAnimal.raza"/>
+               <AppCartaAnimal :animal="infoAnimal.animal" :estado-adopcion="infoAnimal.estado" :nombre="infoAnimal.Nombre" :raza="infoAnimal.raza"/>
+               <AppCartaAnimal :animal="infoAnimal.animal" :estado-adopcion="infoAnimal.estado" :nombre="infoAnimal.Nombre" :raza="infoAnimal.raza"/>
             </div>
          </section>
          <section class="ong text-center">
@@ -64,8 +62,15 @@
       </ion-content>
    </ion-page>
 </template>
-<script>
+<script setup lang="ts">
 import { IonPage, IonContent } from '@ionic/vue';
+import AppCartaAnimal from '@/components/AppCartaAnimal.vue';
+const infoAnimal = {
+   animal: 'Perro',
+   estado: 'casos-especiales',
+   Nombre: 'Felix',
+   raza: 'American Staffordshire Terrier'
+}
 </script>
 <style lang="scss" scoped>
 .subheader {
@@ -73,6 +78,14 @@ import { IonPage, IonContent } from '@ionic/vue';
    background-image: url(../../public/img/pexels-hiang-kanjinna-1629061.jpg);
    background-size: cover;
    background-position: center;
+   justify-content: end;
+   display: flex;
+   align-items: center;
+
+   div {
+      width: 500px;
+      margin-right: 160px;
+   }
 }
 
 .text-center {
@@ -83,6 +96,11 @@ import { IonPage, IonContent } from '@ionic/vue';
    background-color: #F2F2F2;
    padding: 20px;
    color: black;
+   .cartasAnimal {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   }
 }
 
 .ong {
@@ -111,6 +129,11 @@ import { IonPage, IonContent } from '@ionic/vue';
 
          div {
             background-color: #ff914dab;
+            width: 345px;
+            border-radius: 0px 5px 5px 0px;
+            ;
+            padding: 10px;
+            margin: 220px 10px 10px 0px;
          }
       }
 
