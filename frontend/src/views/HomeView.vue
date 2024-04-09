@@ -45,11 +45,7 @@
             <h2>Adopciones urgentes</h2>
             <p>Conoce nuestros animales que necesitan tu ayuda</p>
             <div class="cartasAnimal">
-               <AppCartaAnimal :animal="infoAnimal.animal" :estado-adopcion="infoAnimal.estado" :nombre="infoAnimal.Nombre" :raza="infoAnimal.raza"/>
-               <AppCartaAnimal :animal="infoAnimal.animal" :estado-adopcion="infoAnimal.estado" :nombre="infoAnimal.Nombre" :raza="infoAnimal.raza"/>
-               <AppCartaAnimal :animal="infoAnimal.animal" :estado-adopcion="infoAnimal.estado" :nombre="infoAnimal.Nombre" :raza="infoAnimal.raza"/>
-               <AppCartaAnimal :animal="infoAnimal.animal" :estado-adopcion="infoAnimal.estado" :nombre="infoAnimal.Nombre" :raza="infoAnimal.raza"/>
-               <AppCartaAnimal :animal="infoAnimal.animal" :estado-adopcion="infoAnimal.estado" :nombre="infoAnimal.Nombre" :raza="infoAnimal.raza"/>
+               <AppCartaAnimal v-for="animal in infoAnimal" :animal="animal.animal" :estado-adopcion="animal.estado" :nombre="animal.Nombre" :raza="animal.raza" :urlImg="animal.urlImg"/>
             </div>
          </section>
          <section class="ong text-center">
@@ -65,12 +61,37 @@
 <script setup lang="ts">
 import { IonPage, IonContent } from '@ionic/vue';
 import AppCartaAnimal from '@/components/AppCartaAnimal.vue';
-const infoAnimal = {
+const infoAnimal = [{
    animal: 'Perro',
    estado: 'casos-especiales',
    Nombre: 'Felix',
-   raza: 'American Staffordshire Terrier'
-}
+   raza: 'American Staffordshire Terrier',
+   urlImg:'../../public/img/felix.jpg'
+},{
+   animal: 'Perro',
+   estado: 'casos-especiales',
+   Nombre: 'Felix',
+   raza: 'American Staffordshire Terrier',
+   urlImg:'../../public/img/felix.jpg'
+},{
+   animal: 'Perro',
+   estado: 'casos-especiales',
+   Nombre: 'Felix',
+   raza: 'American Staffordshire Terrier',
+   urlImg:'../../public/img/felix.jpg'
+},{
+   animal: 'Perro',
+   estado: 'casos-especiales',
+   Nombre: 'Felix',
+   raza: 'American Staffordshire Terrier',
+   urlImg:'../../public/img/felix.jpg'
+},{
+   animal: 'Perro',
+   estado: 'casos-especiales',
+   Nombre: 'Felix',
+   raza: 'American Staffordshire Terrier',
+   urlImg:'../../public/img/felix.jpg'
+},]
 </script>
 <style lang="scss" scoped>
 .subheader {
