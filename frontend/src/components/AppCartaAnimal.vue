@@ -2,7 +2,7 @@
     <article>
         <h3 :class="props.estadoAdopcion">{{ props.estadoAdopcion }}</h3>
         <div class="contenedorImg">
-            <img src="../../public/img/felix.jpg" alt="Foto animal">
+            <img :src="props.urlImg" alt="Foto animal">
         </div>
         <h1>{{props.nombre}}</h1>
         <p>{{props.animal}} | {{props.raza}}</p>
@@ -24,6 +24,10 @@ const props = defineProps({
         required: true
     },
     raza: {
+        type: String,
+        required: true
+    },
+    urlImg: {
         type: String,
         required: true
     }
