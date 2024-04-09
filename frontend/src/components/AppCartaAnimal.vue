@@ -1,5 +1,5 @@
 <template>
-    <article>
+    <article class="cartaAnimal">
         <h3 :class="props.estadoAdopcion">{{ props.estadoAdopcion }}</h3>
         <div class="contenedorImg">
             <img :src="props.urlImg" alt="Foto animal">
@@ -35,7 +35,8 @@ const props = defineProps({
 </script>
 <style lang="scss" scoped>
 article {
-    width: 10%;
+    color: black;
+    text-align: center;
     background-color: white;
     margin: 10px;
 
@@ -44,7 +45,7 @@ article {
             width: 100%;
             height: 130px;
             object-fit: cover;
-            margin: -28px;
+            margin-top: -28px;
             border-radius: 5px 5px 0px 0px;
         }
     }
@@ -60,7 +61,7 @@ article {
         border-radius: 0px 0px 5px 5px;
     }
     h1 {
-        margin-top: 35px;
+        margin-top: 10px;
     }
     h3 {
         margin: 0px;
@@ -69,6 +70,9 @@ article {
         position: relative;
         top: 0px;
         border-radius: 5px 5px 0px 0px;
+    }
+    p {
+        padding: 5px;
     }
 }
 </style>

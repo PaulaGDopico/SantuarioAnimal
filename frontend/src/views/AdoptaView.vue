@@ -13,8 +13,11 @@
 					</p>
 				</div>
 			</section>
-			<section class="filtros">
-
+			<div class="content">
+				<section class="filtros">
+				<form action="">
+					<p>Hola</p>
+				</form>
 			</section>
 			<section class="listaAnimales">
 				<div class="cartasAnimal">
@@ -23,43 +26,86 @@
 						:urlImg="animal.urlImg" />
 				</div>
 			</section>
+			</div>
 		</ion-content>
 	</ion-page>
 </template>
 <script setup lang="ts">
 import { IonPage, IonContent } from '@ionic/vue';
 import AppCartaAnimal from '@/components/AppCartaAnimal.vue';
-const infoAnimal = [{
-	animal: 'Perro',
-	estado: 'casos-especiales',
-	Nombre: 'Felix',
-	raza: 'American Staffordshire Terrier',
-	urlImg: '../../public/img/felix.jpg'
-}, {
-	animal: 'Perro',
-	estado: 'casos-especiales',
-	Nombre: 'Felix',
-	raza: 'American Staffordshire Terrier',
-	urlImg: '../../public/img/felix.jpg'
-}, {
-	animal: 'Perro',
-	estado: 'casos-especiales',
-	Nombre: 'Felix',
-	raza: 'American Staffordshire Terrier',
-	urlImg: '../../public/img/felix.jpg'
-}, {
-	animal: 'Perro',
-	estado: 'casos-especiales',
-	Nombre: 'Felix',
-	raza: 'American Staffordshire Terrier',
-	urlImg: '../../public/img/felix.jpg'
-}, {
-	animal: 'Perro',
-	estado: 'casos-especiales',
-	Nombre: 'Felix',
-	raza: 'American Staffordshire Terrier',
-	urlImg: '../../public/img/felix.jpg'
-},]
+const infoAnimal = [
+	{
+		animal: 'Perro',
+		estado: 'adopcion-urgente',
+		Nombre: 'Max',
+		raza: 'Labrador Retriever',
+		urlImg: '../../public/img/perro.jpg'
+	},
+	{
+		animal: 'Gato',
+		estado: 'apadrinado',
+		Nombre: 'Luna',
+		raza: 'Siamés',
+		urlImg: '../../public/img/gato.jpg'
+	},
+	{
+		animal: 'Perro',
+		estado: 'casos-especiales',
+		Nombre: 'Rocky',
+		raza: 'Bulldog Francés',
+		urlImg: '../../public/img/perro.jpg'
+	},
+	{
+		animal: 'Gato',
+		estado: 'sin-estado',
+		Nombre: 'Simba',
+		raza: 'Maine Coon',
+		urlImg: '../../public/img/gato.jpg'
+	},
+	{
+		animal: 'Perro',
+		estado: 'casos-especiales',
+		Nombre: 'Bella',
+		raza: 'Poodle',
+		urlImg: '../../public/img/perro.jpg'
+	},
+	{
+		animal: 'Gato',
+		estado: 'adopcion-urgente',
+		Nombre: 'Milo',
+		raza: 'British Shorthair',
+		urlImg: '../../public/img/gato.jpg'
+	},
+	{
+		animal: 'Perro',
+		estado: 'sin-estado',
+		Nombre: 'Coco',
+		raza: 'Chihuahua',
+		urlImg: '../../public/img/perro.jpg'
+	},
+	{
+		animal: 'Gato',
+		estado: 'apadrinado',
+		Nombre: 'Nina',
+		raza: 'Persa',
+		urlImg: '../../public/img/gato.jpg'
+	},
+	{
+		animal: 'Perro',
+		estado: 'adopcion-urgente',
+		Nombre: 'Duke',
+		raza: 'Golden Retriever',
+		urlImg: '../../public/img/perro.jpg'
+	},
+	{
+		animal: 'Gato',
+		estado: 'sin-estado',
+		Nombre: 'Mia',
+		raza: 'Ragdoll',
+		urlImg: '../../public/img/gato.jpg'
+	}
+];
+
 </script>
 <style lang="scss">
 .subheader {
@@ -76,4 +122,25 @@ const infoAnimal = [{
 		margin-right: 160px;
 	}
 }
+.content {
+	display: flex;
+	.listaAnimales {
+	width: 80%;
+	.cartasAnimal {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+
+		.cartaAnimal {
+			width: 15%;
+		}
+	}
+}
+
+.filtros {
+	width: 20%;
+}
+}
+
 </style>
