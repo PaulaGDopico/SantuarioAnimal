@@ -11,6 +11,18 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+
+}
+
+enum Sexo {
+  MACHO
+  HEMBRA
+}
+
+enum EstadoAnimal {
+  SALUDABLE
+  ENFERMO
 }
 
 model Animal {
@@ -19,13 +31,46 @@ model Animal {
   updatedAt        DateTime @updatedAt
   nombre           String
   tipo             String
-  estado           String
+  estado           EstadoAnimal
   peso             Float
   raza             String
   fecha_nacimiento DateTime
   fecha_ingreso    DateTime
-  sexo             String
+  sexo             Sexo
   img              String
-  description      String
+  descripcion      String?  @db.Text
   estado_salud     String
+
+  Habitacion           Habitacion @relation(fields: [habitacionId], references: [id])
+  habitacionId         Int
+  Donaciones_recibidas Donacion[]
+}
+
+model Habitacion {
+  id      Int      @id @default(autoincrement())
+  aforo   Int
+  animals Animal[]
+}
+
+model Afiliado {
+  id                    Int        @id @default(autoincrement())
+  nombre                String
+  email                 String
+  telefono              String
+  donacion              String
+  Donaciones_realizadas Donacion[]
+}
+
+model Donacion {
+  id               Int    @id @default(autoincrement())
+  titulo           String
+  contexto         String
+  img              String @unique
+  dinero_necesario Float
+  dinero_alcanzado Float
+
+  animal     Animal   @relation(fields: [animalId], references: [id])
+  animalId   Int
+  afiliado   Afiliado @relation(fields: [afiliadoId], references: [id])
+  afiliadoId Int
 }
