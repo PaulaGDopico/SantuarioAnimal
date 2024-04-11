@@ -25,6 +25,21 @@ const routes: Array<RouteRecordRaw> = [
 				name: "Adopta",
 				component: () => import("../views/AdoptaView.vue"),
 			},
+			{
+				path: "/voluntariado",
+				name: "Voluntariado",
+				component: () => import("../views/VoluntariadoView.vue"),
+			},
+			{
+				path: "/sobre-nosotros",
+				name: "Sobre Nosotros",
+				component: () => import("../views/SobreNosotrosView.vue"),
+			},
+			{
+				path: "/contactanos",
+				name: "Contactanos",
+				component: () => import("../views/ContactanosView.vue"),
+			},
 		],
 	},
 ];

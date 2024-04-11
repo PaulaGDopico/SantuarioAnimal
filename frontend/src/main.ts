@@ -26,7 +26,6 @@ import './theme/base.scss';
 
 /* SCSS mixins */
 
-
 const app = createApp(App)
   .use(IonicVue)
   .use(router);
