@@ -39,7 +39,7 @@ article {
     text-align: center;
     background-color: white;
     margin: 10px;
-
+    height: 265px;
     .contenedorImg {
         img {
             width: 100%;
@@ -73,6 +73,7 @@ article {
     }
     p {
         padding: 5px;
+        height: 15%;
     }
 }
 </style>

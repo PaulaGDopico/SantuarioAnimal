@@ -11,49 +11,59 @@
             </div>
          </section>
          <section class="ayudanos text-center">
-            <h2>¿No sabes como ayudarnos?</h2>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati dicta pariatur laudantium. Error
-               dolorum
-               quia enim nemo, necessitatibus quibusdam alias maiores voluptas dolore facere quasi natus id quam nam.
-               Amet!
-            </p>
-            <div class="contenedorArticulos">
-               <article class="adopta text-center">
-                  <div>
-                     <h3>Adopta</h3>
-                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia ab voluptatem quis nostrum,
-                        eum</p>
-                  </div>
-               </article>
-               <article class="voluntario text-center">
-                  <div>
-                     <h3>Hazte voluntario</h3>
-                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia ab voluptatem quis nostrum,
-                        eum</p>
-                  </div>
-               </article>
-               <article class="dona text-center">
-                  <div>
-                     <h3>Dona</h3>
-                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia ab voluptatem quis nostrum,
-                        eum</p>
-                  </div>
-               </article>
+            <div class="main-wrapper">
+               <h2>¿No sabes como ayudarnos?</h2>
+               <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati dicta pariatur laudantium. Error
+                  dolorum
+                  quia enim nemo, necessitatibus quibusdam alias maiores voluptas dolore facere quasi natus id quam nam.
+                  Amet!
+               </p>
+               <div class="contenedorArticulos">
+                  <article class="adopta text-center">
+                     <div>
+                        <h3>Adopta</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia ab voluptatem quis
+                           nostrum,
+                           eum</p>
+                     </div>
+                  </article>
+                  <article class="voluntario text-center">
+                     <div>
+                        <h3>Hazte voluntario</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia ab voluptatem quis
+                           nostrum,
+                           eum</p>
+                     </div>
+                  </article>
+                  <article class="dona text-center">
+                     <div>
+                        <h3>Dona</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia ab voluptatem quis
+                           nostrum,
+                           eum</p>
+                     </div>
+                  </article>
+               </div>
             </div>
+
          </section>
-         <section class="adopciones text-center">
+         <section class="adopciones text-center main-wrapper">
             <h2>Adopciones urgentes</h2>
             <p>Conoce nuestros animales que necesitan tu ayuda</p>
             <div class="cartasAnimal">
-               <AppCartaAnimal v-for="animal in infoAnimal" :animal="animal.animal" :estado-adopcion="animal.estado" :nombre="animal.Nombre" :raza="animal.raza" :urlImg="animal.urlImg"/>
+               <AppCartaAnimal v-for="animal in infoAnimal" :animal="animal.animal" :estado-adopcion="animal.estado"
+                  :nombre="animal.Nombre" :raza="animal.raza" :urlImg="animal.urlImg" />
             </div>
          </section>
-         <section class="ong text-center">
-            <h2>Empresas solidarias</h2>
-            <p>Gracias a ellas podemos seguir ejerciendo nuestra labor dia a dia</p>
-            <div>
-               ¿Curresel empresas?
+         <section class="ong text-center ">
+            <div class="main-wrapper">
+               <h2>Empresas solidarias</h2>
+               <p>Gracias a ellas podemos seguir ejerciendo nuestra labor dia a dia</p>
+               <div>
+                  ¿Curresel empresas?
+               </div>
             </div>
+
          </section>
       </ion-content>
    </ion-page>
@@ -61,37 +71,42 @@
 <script setup lang="ts">
 import { IonPage, IonContent } from '@ionic/vue';
 import AppCartaAnimal from '@/components/AppCartaAnimal.vue';
-const infoAnimal = [{
-   animal: 'Perro',
-   estado: 'casos-especiales',
-   Nombre: 'Felix',
-   raza: 'American Staffordshire Terrier',
-   urlImg:'../../public/img/felix.jpg'
-},{
-   animal: 'Perro',
-   estado: 'casos-especiales',
-   Nombre: 'Felix',
-   raza: 'American Staffordshire Terrier',
-   urlImg:'../../public/img/felix.jpg'
-},{
-   animal: 'Perro',
-   estado: 'casos-especiales',
-   Nombre: 'Felix',
-   raza: 'American Staffordshire Terrier',
-   urlImg:'../../public/img/felix.jpg'
-},{
-   animal: 'Perro',
-   estado: 'casos-especiales',
-   Nombre: 'Felix',
-   raza: 'American Staffordshire Terrier',
-   urlImg:'../../public/img/felix.jpg'
-},{
-   animal: 'Perro',
-   estado: 'casos-especiales',
-   Nombre: 'Felix',
-   raza: 'American Staffordshire Terrier',
-   urlImg:'../../public/img/felix.jpg'
-},]
+const infoAnimal = [
+	{
+		animal: 'Perro',
+		estado: 'adopcion-urgente',
+		Nombre: 'Max',
+		raza: 'Labrador Retriever',
+		urlImg: '../../public/img/perro.jpg'
+	},
+	{
+		animal: 'Gato',
+		estado: 'apadrinado',
+		Nombre: 'Luna',
+		raza: 'Siamés',
+		urlImg: '../../public/img/gato.jpg'
+	},
+	{
+		animal: 'Perro',
+		estado: 'casos-especiales',
+		Nombre: 'Rocky',
+		raza: 'Bulldog Francés',
+		urlImg: '../../public/img/perro.jpg'
+	},
+	{
+		animal: 'Gato',
+		estado: 'sin-estado',
+		Nombre: 'Simba',
+		raza: 'Maine Coon',
+		urlImg: '../../public/img/gato.jpg'
+	},
+	{
+		animal: 'Perro',
+		estado: 'casos-especiales',
+		Nombre: 'Bella',
+		raza: 'Poodle',
+		urlImg: '../../public/img/perro.jpg'
+	}]
 </script>
 <style lang="scss" scoped>
 .subheader {
@@ -117,6 +132,7 @@ const infoAnimal = [{
    background-color: #F2F2F2;
    padding: 20px;
    color: black;
+
    .cartasAnimal {
       display: flex;
       justify-content: center;
