@@ -1,5 +1,4 @@
 import express from "express";
-import { Application } from "express";
 import habitacionRoutes from "./routes/habitacionRoutes";
 import animalRoutes from "./routes/animalRoutes";
 
