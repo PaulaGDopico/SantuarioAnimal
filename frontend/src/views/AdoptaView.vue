@@ -61,6 +61,13 @@
                             :estado-adopcion="animal.estado" :nombre="animal.Nombre" :raza="animal.raza"
                             :urlImg="animal.urlImg" />
                     </div>
+                    <div class="d-flex justify-content-center paginacion">
+                        <a :href="`http://localhost:8100/adopta/`" class="buttonPag">Anterior</a>
+                        <a v-for="(numero, index) in paginas" class="numberPag" :href="`http://localhost:8100/adopta/${numero}`">
+                            {{ index+1 }}
+                        </a>  
+                        <a :href="`http://localhost:8100/adopta/`" class="buttonPag">Siguiente</a>
+                    </div>
                 </section>
             </div>
         </ion-content>
@@ -236,6 +243,7 @@ const filtros = ref({
     altura: 'todos',
     peso: 0
 });
+const paginas = ref(10)
 
 const result = computed(() => {
     return infoAnimal.value.filter(animal => {
@@ -309,6 +317,26 @@ ion-checkbox::part(container) {
 
             .cartaAnimal {
                 width: 15%;
+            }
+        }
+        .paginacion {
+            margin: 20px;
+            .buttonPag {
+                margin: 0px 10px;
+                color: white;
+                padding: 5px;
+                background-color: #ff914d;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                text-decoration: none   ;
+            }
+            .numberPag {
+                text-decoration: none;
+                background-color: white;
+                border-radius: 5px;
+                padding: 5px 10px;
+                margin: 5px;
             }
         }
     }
