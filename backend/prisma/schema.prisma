@@ -9,10 +9,9 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
-
 }
 
 enum Sexo {
@@ -20,26 +19,32 @@ enum Sexo {
   HEMBRA
 }
 
-enum EstadoAnimal {
-  SALUDABLE
-  ENFERMO
+enum EstadoAdopcionAnimal {
+  ADOPCION_URGENTE
+  CASOS_ESPECIALES
+  APADRINANDO
+  SIN_ESTADO
+}
+
+enum TipoAnimal {
+  PERRO
+  GATO
 }
 
 model Animal {
-  id               Int      @id @default(autoincrement())
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  id               Int                  @id @default(autoincrement())
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
   nombre           String
-  tipo             String
-  estado           EstadoAnimal
-  peso             Float
+  tipo             TipoAnimal
+  estado_adopcion  EstadoAdopcionAnimal
+  peso             String
   raza             String
   fecha_nacimiento DateTime
   fecha_ingreso    DateTime
   sexo             Sexo
   img              String
-  descripcion      String?  @db.Text
-  estado_salud     String
+  descripcion      String?              @db.Text
 
   Habitacion           Habitacion @relation(fields: [habitacionId], references: [id])
   habitacionId         Int
@@ -62,12 +67,13 @@ model Afiliado {
 }
 
 model Donacion {
-  id               Int    @id @default(autoincrement())
+  id               Int      @id @default(autoincrement())
   titulo           String
   contexto         String
-  img              String @unique
+  img              String   @unique
   dinero_necesario Float
   dinero_alcanzado Float
+  fecha_inicio     DateTime
 
   animal     Animal   @relation(fields: [animalId], references: [id])
   animalId   Int
