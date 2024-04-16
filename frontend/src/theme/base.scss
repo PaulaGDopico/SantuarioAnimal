@@ -2,6 +2,10 @@ $urgente: rgba(255, 0, 0, 0.445);
 $especial: rgba(255, 0, 255, 0.445);
 $apadrinado: rgba(0, 255, 76, 0.445);
 
+.main-wrapper {
+    margin: 20px auto;
+	max-width: 1440px;
+}
 .adopcion-urgente {
     background-color: $urgente;
 }
@@ -16,4 +20,10 @@ $apadrinado: rgba(0, 255, 76, 0.445);
 
 .sin-estado {
     background-color: none;
+}
+.d-flex {
+    display: flex;
+}
+.justify-content-center {
+    justify-content: center;
 }

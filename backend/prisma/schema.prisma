@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+enum Sexo {
+  MACHO
+  HEMBRA
+}
+
+enum EstadoAdopcionAnimal {
+  ADOPCION_URGENTE
+  CASOS_ESPECIALES
+  APADRINANDO
+  SIN_ESTADO
+}
+
+enum TipoAnimal {
+  PERRO
+  GATO
+}
+
+model Animal {
+  id               Int                  @id @default(autoincrement())
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+  nombre           String
+  tipo             TipoAnimal
+  estado_adopcion  EstadoAdopcionAnimal
+  peso             String
+  raza             String
+  fecha_nacimiento DateTime
+  fecha_ingreso    DateTime
+  sexo             Sexo
+  img              String
+  descripcion      String?              @db.Text
+
+  Habitacion           Habitacion @relation(fields: [habitacionId], references: [id])
+  habitacionId         Int
+  Donaciones_recibidas Donacion[]
+}
+
+model Habitacion {
+  id      Int      @id @default(autoincrement())
+  aforo   Int
+  animals Animal[]
+}
+
+model Afiliado {
+  id                    Int        @id @default(autoincrement())
+  nombre                String
+  email                 String
+  telefono              String
+  donacion              String
+  Donaciones_realizadas Donacion[]
+}
+
+model Donacion {
+  id               Int      @id @default(autoincrement())
+  titulo           String
+  contexto         String
+  img              String   @unique
+  dinero_necesario Float
+  dinero_alcanzado Float
+  fecha_inicio     DateTime
+
+  animal     Animal   @relation(fields: [animalId], references: [id])
+  animalId   Int
+  afiliado   Afiliado @relation(fields: [afiliadoId], references: [id])
+  afiliadoId Int
+}
