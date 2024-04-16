@@ -1,7 +1,8 @@
 import express from "express";
-const router = express.Router();
-
+import upload from "../middleware/multerMiddleware";
 import * as animalService from "../services/animalService";
+
+const router = express.Router();
 
 router.get("/:pageNum", async (req, res) => {
 	try {
@@ -20,9 +21,35 @@ router.get("/:pageNum", async (req, res) => {
 	}
 });
 
-router.post("/", async (req, res) => {
+router.post("/", upload.single("image"), async (req, res) => {
 	try {
-		const newAnimal = await animalService.createAnimal(req.body);
+		const {
+			nombre,
+			tipo,
+			estado_adopcion,
+			peso,
+			raza,
+			fecha_nacimiento,
+			fecha_ingreso,
+			sexo,
+			descripcion,
+			habitacionId,
+		} = req.body;
+		const imageName = req.file ? req.file.path : "";
+		const newAnimal = await animalService.createAnimal({
+			nombre,
+			tipo,
+			estado_adopcion,
+			peso,
+			raza,
+			fecha_nacimiento,
+			fecha_ingreso,
+			sexo,
+			img: imageName,
+			descripcion,
+			Habitacion: { connect: { id: Number(habitacionId) } },
+		});
+
 		res.status(201).json(newAnimal);
 	} catch (error) {
 		console.error("Error creating animal:", error);
@@ -30,23 +57,23 @@ router.post("/", async (req, res) => {
 	}
 });
 
-/*Update, se puede enviar solo el campo que quieras modificar en el body del json
-Ejemplo:
-{
-  "nombre": "Updated Name"
-}
-*/
-router.put("/:animalId", async (req, res) => {
+router.put("/:animalId", upload.single("image"), async (req, res) => {
 	try {
-		const animalId = parseInt(req.params.animalId);
-		const updatedAnimal = await animalService.updateAnimal(
-			animalId,
-			req.body
-		);
-		res.json(updatedAnimal);
+		 const animalId = parseInt(req.params.animalId);
+		 
+		 let imagePath = req.body.img; // Preserve the existing image path if not updating the image
+		 
+		 // If a new image is uploaded, update the image path
+		 if (req.file) {
+			  imagePath = req.file.path;
+		 }
+
+		 const updatedAnimal = await animalService.updateAnimal(animalId, req.body);
+
+		 res.json(updatedAnimal);
 	} catch (error) {
-		console.error("Error updating animal:", error);
-		res.status(500).json({ error: "Internal server error" });
+		 console.error("Error updating animal:", error);
+		 res.status(500).json({ error: "Internal server error" });
 	}
 });
 

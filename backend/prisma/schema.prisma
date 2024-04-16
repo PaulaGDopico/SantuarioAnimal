@@ -38,7 +38,7 @@ model Animal {
   nombre           String
   tipo             TipoAnimal
   estado_adopcion  EstadoAdopcionAnimal
-  peso             Float
+  peso             String
   raza             String
   fecha_nacimiento DateTime
   fecha_ingreso    DateTime

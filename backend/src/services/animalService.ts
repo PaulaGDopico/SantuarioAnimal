@@ -9,6 +9,7 @@ export const getAllAnimals = async (page_num: number, offset: number) => {
 };
 
 export const createAnimal = async (animal: Prisma.AnimalCreateInput) => {
+	console.log(animal);
 	return prisma.animal.create({
 		data: animal,
 	});
