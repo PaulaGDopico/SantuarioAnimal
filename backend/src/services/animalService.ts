@@ -8,6 +8,12 @@ export const getAllAnimals = async (page_num: number, offset: number) => {
 	});
 };
 
+export const getAnimal = async (animalId: number) => {
+	return prisma.animal.findUnique({
+		where: { id: animalId },
+	});
+};
+
 export const createAnimal = async (animal: Prisma.AnimalCreateInput) => {
 	console.log(animal);
 	return prisma.animal.create({

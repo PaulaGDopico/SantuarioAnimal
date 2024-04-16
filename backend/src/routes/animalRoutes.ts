@@ -4,9 +4,11 @@ import * as animalService from "../services/animalService";
 
 const router = express.Router();
 
-router.get("/:pageNum", async (req, res) => {
+//Multiples animales
+// ex: http://localhost:3000/animales?page=1
+router.get("/", async (req, res) => {
 	try {
-		const pageNum = parseInt(req.params.pageNum as string);
+		const pageNum = parseInt(req.query.page as string);
 		const offset = 5; //Numero de items por pagina
 
 		if (isNaN(pageNum) || isNaN(offset)) {
@@ -15,6 +17,23 @@ router.get("/:pageNum", async (req, res) => {
 
 		const animales = await animalService.getAllAnimals(pageNum, offset);
 		res.json(animales);
+	} catch (error) {
+		console.error("Error retrieving animales:", error);
+		res.status(400).json({ error: "Invalid parameters" });
+	}
+});
+
+//Animal individual
+router.get("/:animalId", async (req, res) => {
+	try {
+		const animalId = parseInt(req.params.animalId as string);
+
+		if (isNaN(animalId)) {
+			throw new Error("Invalid parameters");
+		}
+
+		const animal = await animalService.getAnimal(animalId);
+		res.json(animal);
 	} catch (error) {
 		console.error("Error retrieving animales:", error);
 		res.status(400).json({ error: "Invalid parameters" });
@@ -59,27 +78,30 @@ router.post("/", upload.single("image"), async (req, res) => {
 
 router.put("/:animalId", upload.single("image"), async (req, res) => {
 	try {
-		 const animalId = parseInt(req.params.animalId);
-		 
-		 let imagePath = req.body.img; // Preserve the existing image path if not updating the image
-		 
-		 // If a new image is uploaded, update the image path
-		 if (req.file) {
-			  imagePath = req.file.path;
-		 }
+		const animalId = parseInt(req.params.animalId);
 
-		 const updatedAnimal = await animalService.updateAnimal(animalId, req.body);
+		let imagePath = req.body.img; // Preserve the existing image path if not updating the image
 
-		 res.json(updatedAnimal);
+		// If a new image is uploaded, update the image path
+		if (req.file) {
+			imagePath = req.file.path;
+		}
+
+		const updatedAnimal = await animalService.updateAnimal(
+			animalId,
+			req.body
+		);
+
+		res.json(updatedAnimal);
 	} catch (error) {
-		 console.error("Error updating animal:", error);
-		 res.status(500).json({ error: "Internal server error" });
+		console.error("Error updating animal:", error);
+		res.status(500).json({ error: "Internal server error" });
 	}
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:animalId", async (req, res) => {
 	try {
-		const animalId = parseInt(req.params.id);
+		const animalId = parseInt(req.params.animalId);
 		await animalService.deleteAnimal(animalId);
 		res.status(200).json({
 			message: `Animal with ID ${animalId} was deleted successfully`,
