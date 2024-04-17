@@ -22,12 +22,7 @@
 								:icon="heartOutline" />
 							<ion-label>Adopta</ion-label>
 						</ion-tab-button>
-						<ion-tab-button tab="voluntariado" href="/voluntariado">
-							<ion-icon
-								:name="thumbsUpOutline"
-								:icon="thumbsUpOutline" />
-							<ion-label>Voluntariado</ion-label>
-						</ion-tab-button>
+						<menu-dropdown-item></menu-dropdown-item>
 						<ion-tab-button
 							tab="sobre-nosotros"
 							href="/sobre-nosotros">
@@ -67,7 +62,7 @@
 								:icon="heartOutline" />
 							<ion-label> Adopta</ion-label>
 						</ion-item>
-						<ion-item router-link="/voluntariado">
+						<ion-item>
 							<ion-icon
 								slot="start"
 								:name="thumbsUpOutline"
@@ -139,6 +134,8 @@ import {
 	pawOutline,
 	chatbubblesOutline,
 } from "ionicons/icons";
+
+import MenuDropdownItem from "./MenuDropdownItem.vue";
 </script>
 
 <style lang="scss">
