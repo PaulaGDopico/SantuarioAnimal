@@ -16,13 +16,47 @@
 							<ion-icon :name="homeOutline" :icon="homeOutline" />
 							<ion-label>Home</ion-label>
 						</ion-tab-button>
+
 						<ion-tab-button tab="adopta" href="/adopta">
 							<ion-icon
 								:name="heartOutline"
 								:icon="heartOutline" />
 							<ion-label>Adopta</ion-label>
 						</ion-tab-button>
-						<menu-dropdown-item></menu-dropdown-item>
+
+						<ion-tab-button
+							tab="voluntario"
+							id="voluntario-popover">
+							<ion-icon
+								:name="thumbsUpOutline"
+								:icon="thumbsUpOutline" />
+							<ion-label>Voluntarios</ion-label>
+						</ion-tab-button>
+						<ion-popover
+							trigger="voluntario-popover"
+							triggerAction="click">
+							<ion-content class="">
+								<ion-tab-bar color="primary">
+									<ion-tab-button
+										tab="voluntariado"
+										href="/voluntariado">
+										<ion-icon
+											:name="handLeftOutline"
+											:icon="handLeftOutline" />
+										<ion-label>Voluntario</ion-label>
+									</ion-tab-button>
+									<ion-tab-button
+										tab="donaciones"
+										href="/donaciones">
+										<ion-icon
+											:name="heartCircleOutline"
+											:icon="heartCircleOutline" />
+										<ion-label>Donaciones</ion-label>
+									</ion-tab-button>
+								</ion-tab-bar>
+							</ion-content>
+						</ion-popover>
+
 						<ion-tab-button
 							tab="sobre-nosotros"
 							href="/sobre-nosotros">
@@ -62,13 +96,9 @@
 								:icon="heartOutline" />
 							<ion-label> Adopta</ion-label>
 						</ion-item>
-						<ion-item>
-							<ion-icon
-								slot="start"
-								:name="thumbsUpOutline"
-								:icon="thumbsUpOutline" />
-							<ion-label> Voluntariado</ion-label>
-						</ion-item>
+
+						<menu-dropdown-item></menu-dropdown-item>
+
 						<ion-item router-link="/sobre-nosotros">
 							<ion-icon
 								slot="start"
@@ -125,14 +155,17 @@ import {
 	IonContent,
 	IonIcon,
 	IonItem,
+	IonPopover,
 } from "@ionic/vue";
 
 import {
 	homeOutline,
 	heartOutline,
-	thumbsUpOutline,
 	pawOutline,
 	chatbubblesOutline,
+	thumbsUpOutline,
+	handLeftOutline,
+	heartCircleOutline,
 } from "ionicons/icons";
 
 import MenuDropdownItem from "./MenuDropdownItem.vue";
