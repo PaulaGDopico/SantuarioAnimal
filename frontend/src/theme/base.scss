@@ -2,6 +2,12 @@ $urgente: rgba(255, 0, 0, 0.445);
 $especial: rgba(255, 0, 255, 0.445);
 $apadrinado: rgba(0, 255, 76, 0.445);
 
+*{
+    font-family: "Ubuntu", sans-serif;
+}
+h1,h2,h3,h4,h5 {
+    font-family: "Patua One", serif;
+}
 .main-wrapper {
     margin: 20px auto;
 	max-width: 1440px;
@@ -21,9 +27,43 @@ $apadrinado: rgba(0, 255, 76, 0.445);
 .sin-estado {
     background-color: none;
 }
+.btn {
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 5px;
+    text-decoration: none;
+    transition: 0.3s ease ;
+}
+.btn-primary {
+    background-color: #ff914d;
+}
+.btn-secondary {
+    background-color: gray;
+}
+.btn:hover {
+    opacity: 0.5;
+}
+
 .d-flex {
     display: flex;
 }
 .justify-content-center {
     justify-content: center;
+}
+.align-items-center {
+    align-items: center;
+}
+.w50 {
+    width: 50%;
+}
+.w40 {
+    width: 40%;
+}
+.w60 {
+    width: 60%;
+}
+.w100 {
+    width: 100%;
 }
