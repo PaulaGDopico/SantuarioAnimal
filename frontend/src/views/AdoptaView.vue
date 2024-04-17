@@ -11,6 +11,7 @@
                         temporibus
                         eveniet praesentium ad.
                     </p>
+                    <RouterLink class="" :to="{ name: 'InfoAdopta' }">Requisitos para adoptar</RouterLink>
                 </div>
             </section>
             <div class="content main-wrapper">
@@ -50,22 +51,24 @@
                         <h2>Peso</h2>
                         <div class="d-flex align-peso">
                             <label for="peso" class="peso">0</label>
-                            <ion-range aria-label="Range with pin" :pin="true" :pin-formatter="pinFormatter" name="peso" id="peso" v-model="filtros.peso"></ion-range>
+                            <ion-range aria-label="Range with pin" :pin="true" :pin-formatter="pinFormatter" name="peso"
+                                id="peso" v-model="filtros.peso"></ion-range>
                             <label for="peso" class="peso">100</label>
                         </div>
                     </form>
                 </section>
                 <section class="listaAnimales">
                     <div class="cartasAnimal d-flex justify-content-center">
-                        <AppCartaAnimal v-for="animal in result" :animal="animal.animal"
+                        <AppCartaAnimal v-for="animal in result" :id="1" :animal="animal.animal"
                             :estado-adopcion="animal.estado" :nombre="animal.Nombre" :raza="animal.raza"
                             :urlImg="animal.urlImg" />
                     </div>
                     <div class="d-flex justify-content-center paginacion">
                         <a :href="`http://localhost:8100/adopta/`" class="buttonPag">Anterior</a>
-                        <a v-for="(numero, index) in paginas" class="numberPag" :href="`http://localhost:8100/adopta/${numero}`">
-                            {{ index+1 }}
-                        </a>  
+                        <a v-for="(numero, index) in paginas" class="numberPag"
+                            :href="`http://localhost:8100/adopta/${numero}`">
+                            {{ index + 1 }}
+                        </a>
                         <a :href="`http://localhost:8100/adopta/`" class="buttonPag">Siguiente</a>
                     </div>
                 </section>
@@ -74,7 +77,7 @@
     </ion-page>
 </template>
 <script setup lang="ts">
-import { IonPage, IonContent, IonCheckbox,IonRange } from '@ionic/vue';
+import { IonPage, IonContent, IonCheckbox, IonRange } from '@ionic/vue';
 import AppCartaAnimal from '@/components/AppCartaAnimal.vue';
 import { computed, ref } from 'vue';
 
@@ -248,26 +251,26 @@ const paginas = ref(10)
 const result = computed(() => {
     return infoAnimal.value.filter(animal => {
         return ( //Filtrar por tipo de animal
-            (!filtros.value.tipoPerro && !filtros.value.tipoGato) || 
-            (filtros.value.tipoPerro && animal.animal === 'Perro') || 
+            (!filtros.value.tipoPerro && !filtros.value.tipoGato) ||
+            (filtros.value.tipoPerro && animal.animal === 'Perro') ||
             (filtros.value.tipoGato && animal.animal === 'Gato')
         ) && ( //Filtrar por estado
-            (!filtros.value.urgente && !filtros.value.especial && !filtros.value.apadrinando && !filtros.value.sinEstado) ||
-            (filtros.value.urgente && animal.estado === 'adopcion-urgente') ||
-            (filtros.value.especial && animal.estado === 'casos-especiales') ||
-            (filtros.value.apadrinando && animal.estado === 'apadrinado') ||
-            (filtros.value.sinEstado && animal.estado === 'sin-estado')
-        ) && ( //Filtrar por genero
-            (!filtros.value.hembra && !filtros.value.macho) ||
-            (filtros.value.hembra && animal.sexo === 'hembra') ||
-            (filtros.value.macho && animal.sexo === 'macho')
-        ) && ( //Filtrar por peso
-            (filtros.value.peso === 0) || 
-            (filtros.value.peso == animal.peso)
-        ) && ( //filtrar por alura
-            (filtros.value.altura === 'todos') || 
-            (filtros.value.altura == animal.altura)
-        )
+                (!filtros.value.urgente && !filtros.value.especial && !filtros.value.apadrinando && !filtros.value.sinEstado) ||
+                (filtros.value.urgente && animal.estado === 'adopcion-urgente') ||
+                (filtros.value.especial && animal.estado === 'casos-especiales') ||
+                (filtros.value.apadrinando && animal.estado === 'apadrinado') ||
+                (filtros.value.sinEstado && animal.estado === 'sin-estado')
+            ) && ( //Filtrar por genero
+                (!filtros.value.hembra && !filtros.value.macho) ||
+                (filtros.value.hembra && animal.sexo === 'hembra') ||
+                (filtros.value.macho && animal.sexo === 'macho')
+            ) && ( //Filtrar por peso
+                (filtros.value.peso === 0) ||
+                (filtros.value.peso == animal.peso)
+            ) && ( //filtrar por alura
+                (filtros.value.altura === 'todos') ||
+                (filtros.value.altura == animal.altura)
+            )
     });
 });
 
@@ -277,13 +280,16 @@ const result = computed(() => {
 .align-peso {
     align-items: center;
 }
+
 ion-checkbox {
 
     --size: 32px;
 }
+
 #peso {
     padding: 0px;
 }
+
 ion-checkbox::part(container) {
     border-radius: 6px;
     border: 2px solid #ff914d;
@@ -291,7 +297,7 @@ ion-checkbox::part(container) {
 }
 
 .subheader {
-    height: 50vh;
+    height: 40vh;
     background-image: url(/img/pexels-helena-lopes-1959054.jpg);
     background-size: cover;
     background-position: center;
@@ -301,6 +307,13 @@ ion-checkbox::part(container) {
     div {
         width: 500px;
         margin-right: 160px;
+        a {
+            background-color: white;
+            text-decoration: none;
+            color: #ff914d;
+            padding: 5px;
+            border-radius: 5px;
+        }
     }
 }
 
@@ -319,8 +332,10 @@ ion-checkbox::part(container) {
                 width: 15%;
             }
         }
+
         .paginacion {
             margin: 20px;
+
             .buttonPag {
                 margin: 0px 10px;
                 color: white;
@@ -329,8 +344,9 @@ ion-checkbox::part(container) {
                 border-radius: 5px;
                 display: flex;
                 align-items: center;
-                text-decoration: none   ;
+                text-decoration: none;
             }
+
             .numberPag {
                 text-decoration: none;
                 background-color: white;

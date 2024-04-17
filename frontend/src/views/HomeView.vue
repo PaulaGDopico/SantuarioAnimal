@@ -51,7 +51,7 @@
             <h2>Adopciones urgentes</h2>
             <p>Conoce nuestros animales que necesitan tu ayuda</p>
             <div class="cartasAnimal">
-               <AppCartaAnimal v-for="animal in infoAnimal" :animal="animal.animal" :estado-adopcion="animal.estado"
+               <AppCartaAnimal v-for="animal in infoAnimal" :id="1" :animal="animal.animal" :estado-adopcion="animal.estado"
                   :nombre="animal.Nombre" :raza="animal.raza" :urlImg="animal.urlImg" />
             </div>
          </section>

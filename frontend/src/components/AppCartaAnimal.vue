@@ -1,45 +1,60 @@
 <template>
-    <article class="cartaAnimal">
+    <ion-col size="7" size-md="2" class="cartaAnimal">
         <h3 :class="props.estadoAdopcion">{{ props.estadoAdopcion }}</h3>
         <div class="contenedorImg">
             <img :src="props.urlImg" alt="Foto animal">
         </div>
-        <h1>{{props.nombre}}</h1>
-        <p>{{props.animal}} | {{props.raza}}</p>
-        <a href="#">Ver Ficha</a>
-    </article>
+        <h1>{{ props.nombre }}</h1>
+        <p>{{ props.animal }} | {{ props.raza }}</p>
+        <RouterLink class="" :to="{
+            name: 'Animal',
+            params: {
+                animal_id: props.id
+            }
+        }">Ver Ficha</RouterLink>
+    </ion-col>
 </template>
 <script setup lang="ts">
-const props = defineProps({
-    estadoAdopcion: {
-        type: String,
-        required: true
-    },
-    nombre: {
-        type: String,
-        required: true
-    },
-    animal: {
-        type: String,
-        required: true
-    },
-    raza: {
-        type: String,
-        required: true
-    },
-    urlImg: {
-        type: String,
-        required: true
-    }
-})
+    import {IonCol} from "@ionic/vue";
+    const props = defineProps({
+        id: {
+            type: Number,
+            required: true
+        },
+        estadoAdopcion: {
+            type: String,
+            required: true
+        },
+        nombre: {
+            type: String,
+            required: true
+        },
+        animal: {
+            type: String,
+            required: true
+        },
+        raza: {
+            type: String,
+            required: true
+        },
+        urlImg: {
+            type: String,
+            required: true
+        }
+    })
 </script>
 <style lang="scss" scoped>
-article {
+ion-col {
     color: black;
     text-align: center;
     background-color: white;
     margin: 10px;
     height: 265px;
+    padding: 0px;
+    h3 {
+        font-family: "Ubuntu",sans-serif;
+        color: white;
+    }
     .contenedorImg {
         img {
             width: 100%;
@@ -60,9 +75,11 @@ article {
         text-decoration: none;
         border-radius: 0px 0px 5px 5px;
     }
+
     h1 {
         margin-top: 10px;
     }
+
     h3 {
         margin: 0px;
         padding: 5px;
@@ -71,6 +88,7 @@ article {
         top: 0px;
         border-radius: 5px 5px 0px 0px;
     }
+
     p {
         padding: 5px;
         height: 15%;
