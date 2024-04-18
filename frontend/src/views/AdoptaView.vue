@@ -1,19 +1,7 @@
 <template>
     <ion-page>
         <ion-content>
-            <section class="subheader d-flex">
-                <div>
-                    <h1>Lorem ipsum dolor sit amet consectetur</h1>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque ullam perspiciatis consequatur
-                        est a
-                        incidunt
-                        rem ab, hic magni esse veniam ut corporis illusdfdsfsdfsdfsdfsdfsfdm maiores molestiae
-                        temporibus
-                        eveniet praesentium ad.
-                    </p>
-                    <RouterLink class="" :to="{ name: 'InfoAdopta' }">Requisitos para adoptar</RouterLink>
-                </div>
-            </section>
+            <SubHeader titulo="Lorem ipsum dolor" texto="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente blanditiis vitae consequatur mollitia quibusdam debitis necessitatibus et. Error, nisi iure repellat recusandae, atque dolorum autem fugiat provident ipsa sit ipsam?" img-url="/img/pexels-helena-lopes-1959054.jpg" infoBtn="Requisitos para adoptar"></SubHeader>
             <div class="content main-wrapper">
                 <section class="filtros">
                     <form action="">
@@ -78,6 +66,7 @@
     </ion-page>
 </template>
 <script setup lang="ts">
+import SubHeader from '@/components/SubHeader.vue'
 import AppFooter from '@/components/AppFooter.vue';
 import { IonPage, IonContent, IonCheckbox, IonRange } from '@ionic/vue';
 import AppCartaAnimal from '@/components/AppCartaAnimal.vue';
@@ -298,29 +287,7 @@ ion-checkbox::part(container) {
     margin: 5px 0px;
 }
 
-.subheader {
-    height: 40vh;
-    background-image: url(/img/pexels-helena-lopes-1959054.jpg);
-    background-size: cover;
-    background-position: center;
-    justify-content: end;
-    align-items: center;
-
-    div {
-        width: 500px;
-        margin-right: 160px;
-        a {
-            background-color: white;
-            text-decoration: none;
-            color: #ff914d;
-            padding: 5px;
-            border-radius: 5px;
-        }
-    }
-}
-
 .content {
-    color: black;
     display: flex;
 
     .listaAnimales {
