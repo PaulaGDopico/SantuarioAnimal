@@ -30,33 +30,41 @@
 										size="12"
 										size-sm="6"
 										class="contact-info">
-										<ion-row>
-											<ion-col>
+										<ion-row
+											class="ion-justify-content-center">
+											<ion-col size="auto">
 												<ion-icon
 													:icon="pin"
-													:name="pin"
-													slot="start"></ion-icon>
+													:name="pin"></ion-icon>
+											</ion-col>
+											<ion-col>
 												<ion-label
 													>Carrer portugal,
 													22</ion-label
 												>
 											</ion-col>
 										</ion-row>
-										<ion-row>
-											<ion-col>
+										<ion-row
+											class="ion-justify-content-center">
+											<ion-col size="auto">
 												<ion-icon
 													:icon="call"
 													:name="call"></ion-icon>
+											</ion-col>
+											<ion-col>
 												<ion-label
 													>+34 999 888 777</ion-label
 												>
 											</ion-col>
 										</ion-row>
-										<ion-row>
-											<ion-col>
+										<ion-row
+											class="ion-justify-content-center">
+											<ion-col size="auto">
 												<ion-icon
 													:icon="mail"
 													:name="mail"></ion-icon>
+											</ion-col>
+											<ion-col>
 												<ion-label
 													>info@santuarioAnimal.cat</ion-label
 												>
@@ -71,23 +79,35 @@
 												<ion-icon
 													:icon="calendar"
 													:name="calendar"></ion-icon>
+											</ion-col>
+											<ion-col>
 												<ion-label>
 													Horario para adoptar
 												</ion-label>
 											</ion-col>
 										</ion-row>
-										<section class="">
-											<b>Lunes - Viernes</b>
-											<p>Gatos: 10 a 15:30h</p>
-											<p>
-												Perros: 9 a 12h y de 14:30 a
-												17:30h
-											</p>
-										</section>
-										<section class="">
-											<b>Sábados, Domingos y festivos</b>
-											<p>8 a 12h y de 13:30 a 15:30h</p>
-										</section>
+										<ion-row>
+											<ion-col>
+												<section class="">
+													<b>Lunes - Viernes</b>
+													<p>Gatos: 10 a 15:30h</p>
+													<p>
+														Perros: 9 a 12h y de
+														14:30 a 17:30h
+													</p>
+												</section>
+												<section class="">
+													<b
+														>Sábados, Domingos y
+														festivos</b
+													>
+													<p>
+														8 a 12h y de 13:30 a
+														15:30h
+													</p>
+												</section>
+											</ion-col>
+										</ion-row>
 									</ion-col>
 								</ion-row>
 								<ion-row>
