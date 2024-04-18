@@ -6,42 +6,145 @@
 					<h1>Adoptar es querer</h1>
 				</div>
 			</section>
-			<div class="container">
-				<section class="info">
+			<div>
+				<section class="info container">
 					<ion-grid>
 						<ion-row>
-							<ion-col>
+							<ion-col class="ion-padding">
 								<iframe
 									src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47859.71994730065!2d2.061814069747932!3d41.43417660988949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a497f1b497f215%3A0x49d2d6b706b90165!2sCentro%20de%20Acogida%20de%20Animales%20de%20Compa%C3%B1%C3%ADa%20de%20Barcelona!5e0!3m2!1ses!2ses!4v1713364793950!5m2!1ses!2ses"
-									width="600"
-									height="450"
 									style="border: 0"
+									class="map"
 									allowfullscreen="false"
 									loading="lazy"
 									referrerpolicy="no-referrer-when-downgrade"></iframe>
 							</ion-col>
-							<ion-col>
+							<ion-col class="ion-padding">
 								<ion-row>
-									<ion-col>1</ion-col>
-									<ion-col>1</ion-col>
-									<ion-col>1</ion-col>
+									<h2>Santuario animal</h2>
 								</ion-row>
 								<ion-row>
-									<ion-col>1</ion-col>
-									<ion-col>1</ion-col>
+									<ion-col>
+										<section>
+											<ion-icon
+												:icon="pin"
+												:name="pin"></ion-icon>
+											<ion-label
+												>Carrer portugal, 22</ion-label
+											>
+										</section>
+										<section>
+											<ion-icon
+												:icon="call"
+												:name="call"></ion-icon>
+											<ion-label
+												>+34 999 888 777</ion-label
+											>
+										</section>
+										<section>
+											<ion-icon
+												:icon="mail"
+												:name="mail"></ion-icon>
+											<ion-label
+												>info@santuarioAnimal.cat</ion-label
+											>
+										</section>
+									</ion-col>
+									<ion-col>
+										<h3>Horario para adoptar</h3>
+										<section>
+											<b>Lunes - Viernes</b>
+											<p>Gatos: 10 a 15:30h</p>
+											<p>
+												Perros: 9 a 12h y de 14:30 a
+												17:30h
+											</p>
+										</section>
+										<section>
+											<b>Sábados, Domingos y festivos</b>
+											<p>8 a 12h y de 13:30 a 15:30h</p>
+										</section>
+									</ion-col>
+								</ion-row>
+								<ion-row>
+									<ion-col>
+										<p>
+											Estamos al final de la Av. Tibidabo,
+											a pocos metros de la estación del
+											Funicular del Tibidabo.
+										</p>
+										<p>
+											Podéis llegar hasta la Av. Tibidabo
+											con los trenes FGC, línea L7 (con
+											origen en Plaza Catalunya) y después
+											tomar el autobús 196 apeándoos
+											delante de la estación del funicular
+											(Plaza Dr. Andreu).
+										</p>
+									</ion-col>
 								</ion-row>
 							</ion-col>
 						</ion-row>
 					</ion-grid>
 				</section>
-				<section class="contact-form"></section>
+				<section class="contact-form container ion-padding">
+					<form action="">
+						<h2>Información de contacto</h2>
+						<ion-input
+							label="Nombre"
+							label-placement="floating"
+							fill="solid"
+							placeholder="Introduce tu nombre"></ion-input>
+						<ion-input
+							label="Apellidos"
+							label-placement="floating"
+							fill="solid"
+							placeholder="Introduce tus apellidos"></ion-input>
+						<ion-input
+							label="Teléfono"
+							label-placement="floating"
+							fill="solid"
+							placeholder="Introduce tu teléfono"></ion-input>
+						<ion-input
+							label="Correo"
+							label-placement="floating"
+							fill="solid"
+							placeholder="Introduce tu correo"></ion-input>
+						<h2>Asunto</h2>
+						<ion-input
+							label="Título"
+							label-placement="floating"
+							fill="solid"
+							placeholder="Introduce el título"></ion-input>
+						<ion-textarea
+							label="Mensaje"
+							label-placement="floating"
+							fill="solid"
+							placeholder="Introduce el mensaje"></ion-textarea>
+						<ion-input
+							label="Imágenes"
+							label-placement="start"
+							fill="solid"
+							type="file"></ion-input>
+						<ion-button type="submit">Enviar mensaje</ion-button>
+					</form>
+				</section>
 			</div>
 		</ion-content>
 	</ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonContent, IonGrid, IonCol, IonRow } from "@ionic/vue";
+import {
+	IonPage,
+	IonContent,
+	IonGrid,
+	IonCol,
+	IonRow,
+	IonIcon,
+	IonLabel,
+} from "@ionic/vue";
+import { call, mail, pin } from "ionicons/icons";
 </script>
 
 <style lang="scss" scoped>
@@ -63,5 +166,10 @@ import { IonPage, IonContent, IonGrid, IonCol, IonRow } from "@ionic/vue";
 .container {
 	margin: 10px 200px;
 	background-color: var(--ion-card-background);
+	border-bottom: 10px solid var(--ion-color-primary);
+	.map {
+		width: 100%;
+		height: 100%;
+	}
 }
 </style>
