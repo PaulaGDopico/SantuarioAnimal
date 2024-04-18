@@ -61,11 +61,13 @@
                     </IonGrid>
                 </section>
             </div>
+            <app-footer></app-footer>
         </ion-content>
     </ion-page>
 </template>
 
 <script setup lang="ts">
+import AppFooter from '@/components/AppFooter.vue';
 import { IonPage, IonContent, IonCol, IonGrid, IonRow } from "@ionic/vue";
 import AppCartaAnimal from '@/components/AppCartaAnimal.vue';
 import { ref } from "vue";
