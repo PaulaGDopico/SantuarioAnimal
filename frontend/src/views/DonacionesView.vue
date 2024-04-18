@@ -19,7 +19,22 @@
 							<ion-label>Marco Legal</ion-label>
 						</ion-item>
 						<div class="ion-padding" slot="content">
-							First Content
+							<p>
+								Nombre legal: Santuario Animal "Un Hogar para
+								Todos"<br />
+								Dirección física: Calle Principal, Ciudad,
+								País<br />
+								Número de registro: 123456789
+							</p>
+							<p>
+								La Santuario Animal "Un Hogar para Todos" es una
+								organización sin fines de lucro registrada como
+								asociación benéfica. Todos los fondos donados se
+								utilizan exclusivamente para el cuidado y el
+								bienestar de los animales en el refugio,
+								cumpliendo con todas las regulaciones legales y
+								fiscales.
+							</p>
 						</div>
 					</ion-accordion>
 					<ion-accordion value="second">
@@ -27,7 +42,37 @@
 							<ion-label>Condiciones</ion-label>
 						</ion-item>
 						<div class="ion-padding" slot="content">
-							Second Content
+							<p>
+								Política de privacidad: La Santuario Animal "Un
+								Hogar para Todos" se compromete a proteger la
+								privacidad de los datos personales
+								proporcionados durante el proceso de donación.
+								Los datos se utilizan únicamente para procesar
+								la donación y para comunicarse con el donante
+								sobre el trabajo de la organización.
+							</p>
+							<p>
+								Términos y condiciones de las donaciones: Las
+								donaciones realizadas son voluntarias y no
+								reembolsables. Los donantes pueden solicitar un
+								reembolso en caso de error en la transacción.
+								Los cargos asociados con la donación, si los
+								hay, se especifican claramente durante el
+								proceso de donación.
+							</p>
+							<p>
+								Seguridad de las transacciones: Todas las
+								transacciones se procesan de forma segura a
+								través de nuestro proveedor de servicios de
+								pago, utilizando tecnología de encriptación para
+								proteger la información financiera del donante.
+							</p>
+							<p>
+								Política de comunicación: Los donantes pueden
+								optar por recibir actualizaciones periódicas
+								sobre el trabajo de la organización, pero pueden
+								optar por no participar en cualquier momento.
+							</p>
 						</div>
 					</ion-accordion>
 					<ion-accordion value="third">
@@ -35,7 +80,52 @@
 							<ion-label>Tipos de donaciones</ion-label>
 						</ion-item>
 						<div class="ion-padding" slot="content">
-							Third Content
+							<p>Formas de donar:</p>
+							<ul>
+								<li>
+									Donaciones únicas: Se pueden hacer
+									donaciones únicas a través de nuestra página
+									web utilizando tarjetas de crédito, PayPal o
+									transferencias bancarias.
+								</li>
+								<li>
+									Donaciones recurrentes: Los donantes pueden
+									optar por hacer donaciones mensuales
+									recurrentes para proporcionar un apoyo
+									continuo a nuestra misión.
+								</li>
+								<li>
+									Donaciones en especie: Aceptamos donaciones
+									de alimentos para animales, suministros
+									médicos, etc., que pueden entregarse en
+									nuestro refugio durante horas de
+									funcionamiento.
+								</li>
+							</ul>
+							<p>
+								Beneficios de cada tipo de donación: Las
+								donaciones únicas ayudan a cubrir gastos
+								operativos inmediatos, mientras que las
+								donaciones recurrentes garantizan un flujo de
+								ingresos constante para el cuidado a largo plazo
+								de los animales.
+							</p>
+							<p>
+								Instrucciones para realizar cada tipo de
+								donación: Las donaciones en línea se pueden
+								hacer fácilmente a través de nuestra página de
+								donaciones. Las transferencias bancarias pueden
+								realizarse utilizando la información de nuestra
+								cuenta bancaria, proporcionada en la página de
+								donaciones.
+							</p>
+							<p>
+								Incentivos fiscales: Todas las donaciones son
+								elegibles para deducciones fiscales según las
+								leyes locales. Se proporcionará un recibo
+								oficial para cada donación que pueda utilizarse
+								para fines fiscales.
+							</p>
 						</div>
 					</ion-accordion>
 				</ion-accordion-group>
@@ -58,8 +148,9 @@
 									<ion-item slot="header" color="primary">
 										<ion-label>Más información</ion-label>
 									</ion-item>
-									<div class="ion-padding" slot="content">
-										<section>
+									<div slot="content">
+										<section
+											class="ion-padding light-orange">
 											<ion-icon
 												:name="logoPaypal"
 												:icon="logoPaypal"></ion-icon>
@@ -71,7 +162,7 @@
 											</p>
 											<ion-button>Ayúdanos</ion-button>
 										</section>
-										<section>
+										<section class="ion-padding orange">
 											<ion-icon
 												:name="card"
 												:icon="card"></ion-icon>
@@ -81,7 +172,8 @@
 											</h4>
 											<p>ESXX XXXX XXXX XXXX XXXX XXXX</p>
 										</section>
-										<section>
+										<section
+											class="ion-padding light-orange">
 											<ion-icon
 												:name="logoEuro"
 												:icon="logoEuro"></ion-icon>
@@ -107,8 +199,9 @@
 									<ion-item slot="header" color="primary">
 										<ion-label>Más información</ion-label>
 									</ion-item>
-									<div class="ion-padding" slot="content">
-										<section>
+									<div slot="content">
+										<section
+											class="ion-padding light-orange">
 											<ion-icon
 												:name="people"
 												:icon="people"></ion-icon>
@@ -120,7 +213,7 @@
 												animales
 											</p>
 										</section>
-										<section>
+										<section class="ion-padding orange">
 											<ion-icon
 												:name="helpBuoy"
 												:icon="helpBuoy"></ion-icon>
@@ -198,5 +291,12 @@ ion-img {
 	width: 100%;
 	height: 300px;
 	object-fit: cover;
+}
+
+.orange {
+	background-color: #ff914d30;
+}
+.light-orange {
+	background-color: #ff914d10;
 }
 </style>
