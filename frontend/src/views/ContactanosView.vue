@@ -212,11 +212,13 @@
 					</form>
 				</section>
 			</div>
+			<app-footer></app-footer>
 		</ion-content>
 	</ion-page>
 </template>
 
 <script setup lang="ts">
+import AppFooter from '@/components/AppFooter.vue';
 import {
 	IonPage,
 	IonContent,
