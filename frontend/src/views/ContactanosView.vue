@@ -193,13 +193,12 @@
 								></ion-col>
 							</ion-row>
 							<ion-row>
-								<ion-col
-									><ion-input
-										label="Imágenes"
-										label-placement="start"
-										fill="solid"
-										type="file"></ion-input
-								></ion-col>
+								<ion-col>
+									<input
+										type="file"
+										name="images"
+										id="images" />
+								</ion-col>
 							</ion-row>
 							<ion-row>
 								<ion-col>
@@ -218,7 +217,7 @@
 </template>
 
 <script setup lang="ts">
-import AppFooter from '@/components/AppFooter.vue';
+import AppFooter from "@/components/AppFooter.vue";
 import {
 	IonPage,
 	IonContent,
@@ -229,6 +228,7 @@ import {
 	IonLabel,
 	IonButton,
 	IonInput,
+	IonTextarea,
 } from "@ionic/vue";
 import { calendar, call, mail, pin } from "ionicons/icons";
 </script>
