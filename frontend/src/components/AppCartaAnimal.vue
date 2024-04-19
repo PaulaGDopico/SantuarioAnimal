@@ -45,15 +45,13 @@
 </script>
 <style lang="scss" scoped>
 ion-col {
-    color: black;
     text-align: center;
-    background-color: white;
+    background-color: var(--ion-card-background);
     margin: 10px;
     height: 265px;
     padding: 0px;
     h3 {
         font-family: "Ubuntu",sans-serif;
-        color: white;
     }
     .contenedorImg {
         img {
@@ -71,9 +69,9 @@ ion-col {
         display: flex;
         justify-content: center;
         padding: 5px;
-        color: white;
         text-decoration: none;
         border-radius: 0px 0px 5px 5px;
+        color: white;
     }
 
     h1 {
