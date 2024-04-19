@@ -1,7 +1,7 @@
 <template>
     <section class="subheader d-flex" :style="`background-image:url(${prop.imgUrl})`">
         <div>
-            <h1>{{prop.titulo}}</h1>
+            <h1>{{ prop.titulo }}</h1>
             <p>{{ prop.texto }}
             </p>
             <RouterLink class="" :to="{ name: 'InfoAdopta' }">{{ prop.infoBtn }}</RouterLink>
@@ -13,7 +13,7 @@ const prop = defineProps({
     titulo: String,
     texto: String,
     imgUrl: String,
-    infoBtn:String
+    infoBtn: String
 })
 
 </script>
@@ -24,10 +24,12 @@ const prop = defineProps({
     background-position: center;
     justify-content: end;
     align-items: center;
+
     div {
         color: white;
         width: 500px;
         margin-right: 160px;
+
         a {
             background-color: white;
             text-decoration: none;
@@ -35,6 +37,14 @@ const prop = defineProps({
             padding: 5px;
             border-radius: 5px;
         }
+    }
+}
+
+@media (max-width: 599px) {
+    div {
+        margin-right: 0px !important;
+        padding: 10px;
+
     }
 }
 </style>
