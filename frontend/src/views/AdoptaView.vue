@@ -79,7 +79,7 @@ const infoAnimal = ref([
         estado: 'adopcion-urgente',
         Nombre: 'Max',
         raza: 'Labrador Retriever',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'grande',
         sexo: 'macho',
         peso: 30
@@ -89,7 +89,7 @@ const infoAnimal = ref([
         estado: 'apadrinado',
         Nombre: 'Luna',
         raza: 'Siamés',
-        urlImg: '../../public/img/gato.jpg',
+        urlImg: '/img/gato.jpg',
         altura: 'mediano',
         sexo: 'hembra',
         peso: 5
@@ -99,7 +99,7 @@ const infoAnimal = ref([
         estado: 'casos-especiales',
         Nombre: 'Rocky',
         raza: 'Bulldog Francés',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'pequeño',
         sexo: 'macho',
         peso: 15
@@ -109,7 +109,7 @@ const infoAnimal = ref([
         estado: 'sin-estado',
         Nombre: 'Simba',
         raza: 'Maine Coon',
-        urlImg: '../../public/img/gato.jpg',
+        urlImg: '/img/gato.jpg',
         altura: 'mgrande',
         sexo: 'macho',
         peso: 20
@@ -119,7 +119,7 @@ const infoAnimal = ref([
         estado: 'casos-especiales',
         Nombre: 'Bella',
         raza: 'Poodle',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'pequeño',
         sexo: 'hembra',
         peso: 10
@@ -129,7 +129,7 @@ const infoAnimal = ref([
         estado: 'adopcion-urgente',
         Nombre: 'Milo',
         raza: 'British Shorthair',
-        urlImg: '../../public/img/gato.jpg',
+        urlImg: '/img/gato.jpg',
         altura: 'mediano',
         sexo: 'macho',
         peso: 7
@@ -139,7 +139,7 @@ const infoAnimal = ref([
         estado: 'sin-estado',
         Nombre: 'Coco',
         raza: 'Chihuahua',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'mpequeño',
         sexo: 'macho',
         peso: 3
@@ -149,7 +149,7 @@ const infoAnimal = ref([
         estado: 'apadrinado',
         Nombre: 'Nina',
         raza: 'Persa',
-        urlImg: '../../public/img/gato.jpg',
+        urlImg: '/img/gato.jpg',
         altura: 'pequeño',
         sexo: 'hembra',
         peso: 6
@@ -159,7 +159,7 @@ const infoAnimal = ref([
         estado: 'adopcion-urgente',
         Nombre: 'Duke',
         raza: 'Golden Retriever',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'grande',
         sexo: 'macho',
         peso: 35
@@ -169,7 +169,7 @@ const infoAnimal = ref([
         estado: 'sin-estado',
         Nombre: 'Mia',
         raza: 'Ragdoll',
-        urlImg: '../../public/img/gato.jpg',
+        urlImg: '/img/gato.jpg',
         altura: 'mediano',
         sexo: 'hembra',
         peso: 8
@@ -179,7 +179,7 @@ const infoAnimal = ref([
         estado: 'casos-especiales',
         Nombre: 'Lucky',
         raza: 'Border Collie',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'grande',
         sexo: 'macho',
         peso: 25
@@ -189,7 +189,7 @@ const infoAnimal = ref([
         estado: 'adopcion-urgente',
         Nombre: 'Oreo',
         raza: 'Siamese Mix',
-        urlImg: '../../public/img/gato.jpg',
+        urlImg: '/img/gato.jpg',
         altura: 'mediano',
         sexo: 'macho',
         peso: 6
@@ -199,7 +199,7 @@ const infoAnimal = ref([
         estado: 'adopcion-urgente',
         Nombre: 'Rex',
         raza: 'German Shepherd',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'grande',
         sexo: 'macho',
         peso: 40
@@ -209,7 +209,7 @@ const infoAnimal = ref([
         estado: 'sin-estado',
         Nombre: 'Whiskers',
         raza: 'Tabby',
-        urlImg: '../../public/img/gato.jpg',
+        urlImg: '/img/gato.jpg',
         altura: 'pequeño',
         sexo: 'macho',
         peso: 4
@@ -219,7 +219,7 @@ const infoAnimal = ref([
         estado: 'casos-especiales',
         Nombre: 'Bruno',
         raza: 'Boxer',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'grande',
         sexo: 'macho',
         peso: 30

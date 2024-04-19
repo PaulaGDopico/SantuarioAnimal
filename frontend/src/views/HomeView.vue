@@ -72,35 +72,35 @@ const infoAnimal = [
 		estado: 'adopcion-urgente',
 		Nombre: 'Max',
 		raza: 'Labrador Retriever',
-		urlImg: '../../public/img/perro.jpg'
+		urlImg: '/img/perro.jpg'
 	},
 	{
 		animal: 'Gato',
 		estado: 'apadrinado',
 		Nombre: 'Luna',
 		raza: 'Siamés',
-		urlImg: '../../public/img/gato.jpg'
+		urlImg: '/img/gato.jpg'
 	},
 	{
 		animal: 'Perro',
 		estado: 'casos-especiales',
 		Nombre: 'Rocky',
 		raza: 'Bulldog Francés',
-		urlImg: '../../public/img/perro.jpg'
+		urlImg: '/img/perro.jpg'
 	},
 	{
 		animal: 'Gato',
 		estado: 'sin-estado',
 		Nombre: 'Simba',
 		raza: 'Maine Coon',
-		urlImg: '../../public/img/gato.jpg'
+		urlImg: '/img/gato.jpg'
 	},
 	{
 		animal: 'Perro',
 		estado: 'casos-especiales',
 		Nombre: 'Bella',
 		raza: 'Poodle',
-		urlImg: '../../public/img/perro.jpg'
+		urlImg: '/img/perro.jpg'
 	}]
 </script>
 <style lang="scss" scoped>
