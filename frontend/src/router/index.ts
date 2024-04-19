@@ -12,10 +12,6 @@ const routes: Array<RouteRecordRaw> = [
 		component: () => import("../components/AppMenu.vue"),
 		children: [
 			{
-				path: "",
-				redirect: "/home",
-			},
-			{
 				path: "/home",
 				name: "Home",
 				component: () => import("../views/HomeView.vue"),
@@ -26,9 +22,24 @@ const routes: Array<RouteRecordRaw> = [
 				component: () => import("../views/AdoptaView.vue"),
 			},
 			{
+				path: '/animal/:animal_id',
+				name: 'Animal',
+				component: () => import('../views/InfoAnimalView.vue')
+			},
+			{
+				path: '/info-adopta',
+				name: 'InfoAdopta',
+				component: () => import('../views/InfoAnimalView.vue')
+			},
+			{
 				path: "/voluntariado",
 				name: "Voluntariado",
 				component: () => import("../views/VoluntariadoView.vue"),
+			},
+			{
+				path: "/donaciones",
+				name: "Donaciones",
+				component: () => import("../views/DonacionesView.vue"),
 			},
 			{
 				path: "/sobre-nosotros",
