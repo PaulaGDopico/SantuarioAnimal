@@ -96,6 +96,7 @@
 									label="Nombre"
 									label-placement="floating"
 									fill="solid"
+									class="orange-input"
 									placeholder="Introduce tu nombre"></ion-input
 							></ion-col>
 							<ion-col size="12" size-sm="6"
@@ -103,6 +104,7 @@
 									label="Apellidos"
 									label-placement="floating"
 									fill="solid"
+									class="orange-input"
 									placeholder="Introduce tus apellidos"></ion-input
 							></ion-col>
 						</ion-row>
@@ -112,6 +114,7 @@
 									label="Teléfono"
 									label-placement="floating"
 									fill="solid"
+									class="orange-input"
 									placeholder="Introduce tu teléfono"></ion-input
 							></ion-col>
 							<ion-col size="12" size-sm="6"
@@ -119,6 +122,7 @@
 									label="Correo"
 									label-placement="floating"
 									fill="solid"
+									class="orange-input"
 									placeholder="Introduce tu correo"></ion-input
 							></ion-col>
 							<ion-col size="12" size-sm="6"
@@ -126,6 +130,7 @@
 									label="Fecha de nacimiento"
 									label-placement="floating"
 									fill="solid"
+									class="orange-input"
 									placeholder="Introduce tu fecha de nacimiento"
 									type="date"></ion-input
 							></ion-col>
@@ -206,9 +211,9 @@ import { checkmark } from "ionicons/icons";
 	border-bottom: 10px solid var(--ion-color-primary);
 }
 .orange {
-	background-color: #ff914d30;
+	background-color: #e9900cc0;
 }
-.light-orange {
-	background-color: #ff914d10;
+.orange-input {
+	--background: #e6621040 !important;
 }
 </style>
