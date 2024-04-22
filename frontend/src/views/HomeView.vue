@@ -53,7 +53,41 @@
                <h2>Empresas solidarias</h2>
                <p>Gracias a ellas podemos seguir ejerciendo nuestra labor dia a dia</p>
                <div>
-                  ¿Curresel empresas?
+                  <div class="slider">
+                     <div class="slide-track">
+                        <div class="slide">
+                           <img src="/img/logosONG/ams_logo.jpg" alt="">
+                        </div>
+                        <div class="slide">
+                           <img src="/img/logosONG/cacma.jpeg" alt="">
+                        </div>
+                        <div class="slide">
+                           <img src="/img/logosONG/elRefugio.png" alt="">
+                        </div>
+                        <div class="slide">
+                           <img src="/img/logosONG/libera.png" alt="">
+                        </div>
+                        <div class="slide">
+                           <img src="/img/logosONG/logouprodea.png" alt="">
+                        </div>
+
+                        <div class="slide">
+                           <img src="/img/logosONG/ams_logo.jpg" alt="">
+                        </div>
+                        <div class="slide">
+                           <img src="/img/logosONG/cacma.jpeg" alt="">
+                        </div>
+                        <div class="slide">
+                           <img src="/img/logosONG/elRefugio.png" alt="">
+                        </div>
+                        <div class="slide">
+                           <img src="/img/logosONG/libera.png" alt="">
+                        </div>
+                        <div class="slide">
+                           <img src="/img/logosONG/logouprodea.png" alt="">
+                        </div>
+                     </div>
+                  </div>
                </div>
             </div>
 
@@ -168,5 +202,40 @@ const infoAnimal = [
       }
    }
 }
+// CARRUSEL
+.slider {
+   width: 55vw;
+   height: auto;
+   margin: auto;
+   overflow: hidden;
+}
 
+.slider .slide-track {
+   display: flex;
+   animation: scroll 40s linear infinite;
+   -webkit-animation: scroll 40s linear infinite;
+   width: calc(200px * 14);
+}
+
+.slider .slide {
+   width: 200px;
+}
+
+.slider .slide img {
+   width: 100%;
+   object-fit: contain;
+   height: 70px;
+}
+
+@keyframes scroll {
+   0% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+   }
+
+   100% {
+      -webkit-transform: translateX(calc(-200px * 5));
+      transform: translateX(calc(-200px * 5));
+   }
+}
 </style>
