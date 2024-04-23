@@ -2,7 +2,7 @@ import router from "@/router";
 import { ref } from "vue";
 import { API_URL } from "@/middleware/secrets";
 export interface LoginData {
-	name: string;
+	email: string;
 	password: string;
 }
 export async function Login(requestData: LoginData) {
@@ -19,7 +19,7 @@ export async function Login(requestData: LoginData) {
 		console.log(requestData);
 		if (response.ok) {
 			const data = await response.json();
-			const token: string = data.accessToken; // Suponiendo que tu API devuelve un token JWT
+			const token: string = data.token; // Suponiendo que tu API devuelve un token JWT
 			console.log(token);
 			// Almacenar la token en el almacenamiento local (localStorage)
 			localStorage.setItem("token", token);

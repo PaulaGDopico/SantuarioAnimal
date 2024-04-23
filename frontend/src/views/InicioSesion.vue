@@ -11,16 +11,16 @@
                                     <h1>Santuario Animal</h1>
                                 </ion-row>
                             </ion-grid>
-                            <form class="ion-text-align-center">
+                            <form class="ion-text-align-center" @submit.prevent="Login(user)">
                                 <ion-grid>
                                     <ion-row class="ion-justify-content-center">
                                         <div class="ion-text-center">
-                                            <ion-input label="Nombre" label-placement="floating" fill="solid"
-                                                placeholder="Introduce tu nombre" v-model="name"></ion-input>
+                                            <ion-input label="Email" label-placement="floating" fill="solid"
+                                                placeholder="Introduce tu email" v-model="email"></ion-input>
                                             <ion-input label="Contraseña" label-placement="floating" fill="solid" type="password"
                                                 placeholder="Introduce tu contraseña">
                                             </ion-input>
-                                            <ion-button type="submit" @click="Login(user)">Iniciar Sesion</ion-button>
+                                            <ion-button type="submit">Iniciar Sesion</ion-button>
                                         </div>
                                     </ion-row>
                                 </ion-grid>
@@ -39,10 +39,10 @@ import AppFooter from '@/components/AppFooter.vue';
 import {Login, LoginData} from '@/services/auth';
 import { ref } from 'vue';
 
-const name = ref();
+const email = ref();
 const password = ref();
 const user:LoginData = {
-		name: name.value,
+		email: email.value,
 		password: password.value,
 };
 
