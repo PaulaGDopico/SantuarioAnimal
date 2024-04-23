@@ -19,6 +19,7 @@
     "@capacitor/status-bar": "5.0.7",
     "@ionic/vue": "^7.0.0",
     "@ionic/vue-router": "^7.0.0",
+    "ag-grid-vue3": "^31.2.1",
     "dotenv": "^16.4.5",
     "ionicons": "^7.1.0",
     "vue": "^3.3.0",
