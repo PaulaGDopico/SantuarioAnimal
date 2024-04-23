@@ -51,9 +51,18 @@ const routes: Array<RouteRecordRaw> = [
 				name: "Contactanos",
 				component: () => import("../views/ContactanosView.vue"),
 			},
+
+			//Para borrar
+			{
+					path:"/admin",
+					name: "gestion",
+					component: () => import("../views/GestionTrabajadorView.vue")
+			}
 		],
-	},
+	}
+	
 ];
+
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
