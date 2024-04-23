@@ -52,12 +52,18 @@ const routes: Array<RouteRecordRaw> = [
 				component: () => import("../views/ContactanosView.vue"),
 			},
 
-			//Para borrar
+
 			{
-					path:"/admin",
+					path:"/gestion",
 					name: "gestion",
 					component: () => import("../views/GestionTrabajadorView.vue")
-			}
+			},
+			{
+				path: "/admin",
+				name: "InicioSesion",
+				component: () => import("../views/InicioSesion.vue"),
+			},
+
 		],
 	}
 	
