@@ -55,6 +55,7 @@ import { IonPage, IonContent } from "@ionic/vue";
 		border-right: 1px solid #FF914D;
 		border-bottom: 10px solid #FF914D;
 		margin-bottom: 50px;
+		text-align: justify;
 		h1{
 			margin-bottom: 30px;
 			margin-top: 0;
