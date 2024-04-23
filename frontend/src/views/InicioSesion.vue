@@ -34,7 +34,7 @@
     </ion-page>
 </template>
 <script setup lang="ts">
-import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonInput, IonButton } from '@ionic/vue';
+import { IonPage, IonContent, IonGrid, IonRow, IonInput, IonButton } from '@ionic/vue';
 import AppFooter from '@/components/AppFooter.vue';
 import {Login, LoginData} from '@/services/auth';
 import { ref } from 'vue';

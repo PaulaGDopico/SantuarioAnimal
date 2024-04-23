@@ -1,14 +1,14 @@
-import router from '@/router';
-import { ref } from 'vue';
-import { pageURL } from '@/middleware/secrets';
-export interface LoginData{
-    name: string,
-    password:string,
+import router from "@/router";
+import { ref } from "vue";
+import { API_URL } from "@/middleware/secrets";
+export interface LoginData {
+	name: string;
+	password: string;
 }
-export async function Login(requestData:LoginData) {
-    const errorForm = ref();
-    try {
-		const response = await fetch(pageURL, {
+export async function Login(requestData: LoginData) {
+	const errorForm = ref();
+	try {
+		const response = await fetch(API_URL, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
