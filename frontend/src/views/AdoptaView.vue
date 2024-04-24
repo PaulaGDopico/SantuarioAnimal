@@ -1,19 +1,7 @@
 <template>
     <ion-page>
         <ion-content>
-            <section class="subheader d-flex">
-                <div>
-                    <h1>Lorem ipsum dolor sit amet consectetur</h1>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque ullam perspiciatis consequatur
-                        est a
-                        incidunt
-                        rem ab, hic magni esse veniam ut corporis illusdfdsfsdfsdfsdfsdfsfdm maiores molestiae
-                        temporibus
-                        eveniet praesentium ad.
-                    </p>
-                    <RouterLink class="" :to="{ name: 'InfoAdopta' }">Requisitos para adoptar</RouterLink>
-                </div>
-            </section>
+            <SubHeader titulo="Lorem ipsum dolor" texto="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente blanditiis vitae consequatur mollitia quibusdam debitis necessitatibus et. Error, nisi iure repellat recusandae, atque dolorum autem fugiat provident ipsa sit ipsam?" img-url="/img/pexels-helena-lopes-1959054.jpg" infoBtn="Requisitos para adoptar"></SubHeader>
             <div class="content main-wrapper">
                 <section class="filtros">
                     <form action="">
@@ -78,6 +66,7 @@
     </ion-page>
 </template>
 <script setup lang="ts">
+import SubHeader from '@/components/SubHeader.vue'
 import AppFooter from '@/components/AppFooter.vue';
 import { IonPage, IonContent, IonCheckbox, IonRange } from '@ionic/vue';
 import AppCartaAnimal from '@/components/AppCartaAnimal.vue';
@@ -90,7 +79,7 @@ const infoAnimal = ref([
         estado: 'adopcion-urgente',
         Nombre: 'Max',
         raza: 'Labrador Retriever',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'grande',
         sexo: 'macho',
         peso: 30
@@ -100,7 +89,7 @@ const infoAnimal = ref([
         estado: 'apadrinado',
         Nombre: 'Luna',
         raza: 'Siamés',
-        urlImg: '../../public/img/gato.jpg',
+        urlImg: '/img/gato.jpg',
         altura: 'mediano',
         sexo: 'hembra',
         peso: 5
@@ -110,7 +99,7 @@ const infoAnimal = ref([
         estado: 'casos-especiales',
         Nombre: 'Rocky',
         raza: 'Bulldog Francés',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'pequeño',
         sexo: 'macho',
         peso: 15
@@ -120,7 +109,7 @@ const infoAnimal = ref([
         estado: 'sin-estado',
         Nombre: 'Simba',
         raza: 'Maine Coon',
-        urlImg: '../../public/img/gato.jpg',
+        urlImg: '/img/gato.jpg',
         altura: 'mgrande',
         sexo: 'macho',
         peso: 20
@@ -130,7 +119,7 @@ const infoAnimal = ref([
         estado: 'casos-especiales',
         Nombre: 'Bella',
         raza: 'Poodle',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'pequeño',
         sexo: 'hembra',
         peso: 10
@@ -140,7 +129,7 @@ const infoAnimal = ref([
         estado: 'adopcion-urgente',
         Nombre: 'Milo',
         raza: 'British Shorthair',
-        urlImg: '../../public/img/gato.jpg',
+        urlImg: '/img/gato.jpg',
         altura: 'mediano',
         sexo: 'macho',
         peso: 7
@@ -150,7 +139,7 @@ const infoAnimal = ref([
         estado: 'sin-estado',
         Nombre: 'Coco',
         raza: 'Chihuahua',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'mpequeño',
         sexo: 'macho',
         peso: 3
@@ -160,7 +149,7 @@ const infoAnimal = ref([
         estado: 'apadrinado',
         Nombre: 'Nina',
         raza: 'Persa',
-        urlImg: '../../public/img/gato.jpg',
+        urlImg: '/img/gato.jpg',
         altura: 'pequeño',
         sexo: 'hembra',
         peso: 6
@@ -170,7 +159,7 @@ const infoAnimal = ref([
         estado: 'adopcion-urgente',
         Nombre: 'Duke',
         raza: 'Golden Retriever',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'grande',
         sexo: 'macho',
         peso: 35
@@ -180,7 +169,7 @@ const infoAnimal = ref([
         estado: 'sin-estado',
         Nombre: 'Mia',
         raza: 'Ragdoll',
-        urlImg: '../../public/img/gato.jpg',
+        urlImg: '/img/gato.jpg',
         altura: 'mediano',
         sexo: 'hembra',
         peso: 8
@@ -190,7 +179,7 @@ const infoAnimal = ref([
         estado: 'casos-especiales',
         Nombre: 'Lucky',
         raza: 'Border Collie',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'grande',
         sexo: 'macho',
         peso: 25
@@ -200,7 +189,7 @@ const infoAnimal = ref([
         estado: 'adopcion-urgente',
         Nombre: 'Oreo',
         raza: 'Siamese Mix',
-        urlImg: '../../public/img/gato.jpg',
+        urlImg: '/img/gato.jpg',
         altura: 'mediano',
         sexo: 'macho',
         peso: 6
@@ -210,7 +199,7 @@ const infoAnimal = ref([
         estado: 'adopcion-urgente',
         Nombre: 'Rex',
         raza: 'German Shepherd',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'grande',
         sexo: 'macho',
         peso: 40
@@ -220,7 +209,7 @@ const infoAnimal = ref([
         estado: 'sin-estado',
         Nombre: 'Whiskers',
         raza: 'Tabby',
-        urlImg: '../../public/img/gato.jpg',
+        urlImg: '/img/gato.jpg',
         altura: 'pequeño',
         sexo: 'macho',
         peso: 4
@@ -230,7 +219,7 @@ const infoAnimal = ref([
         estado: 'casos-especiales',
         Nombre: 'Bruno',
         raza: 'Boxer',
-        urlImg: '../../public/img/perro.jpg',
+        urlImg: '/img/perro.jpg',
         altura: 'grande',
         sexo: 'macho',
         peso: 30
@@ -298,29 +287,7 @@ ion-checkbox::part(container) {
     margin: 5px 0px;
 }
 
-.subheader {
-    height: 40vh;
-    background-image: url(/img/pexels-helena-lopes-1959054.jpg);
-    background-size: cover;
-    background-position: center;
-    justify-content: end;
-    align-items: center;
-
-    div {
-        width: 500px;
-        margin-right: 160px;
-        a {
-            background-color: white;
-            text-decoration: none;
-            color: #ff914d;
-            padding: 5px;
-            border-radius: 5px;
-        }
-    }
-}
-
 .content {
-    color: black;
     display: flex;
 
     .listaAnimales {

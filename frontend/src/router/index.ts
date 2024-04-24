@@ -51,6 +51,11 @@ const routes: Array<RouteRecordRaw> = [
 				name: "Contactanos",
 				component: () => import("../views/ContactanosView.vue"),
 			},
+			{
+				path: "/admin",
+				name: "InicioSesion",
+				component: () => import("../views/InicioSesion.vue"),
+			},
 		],
 	},
 ];

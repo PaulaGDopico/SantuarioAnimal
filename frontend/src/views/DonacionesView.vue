@@ -6,7 +6,7 @@
 					<h1>Un donativo para una buena causa</h1>
 				</div>
 			</section>
-			<section class="donativos container">
+			<section class="donativos container ion-padding">
 				<h2>Donativos</h2>
 				<p>
 					Puedes ayudarnos realizando una aportación económica, ya que
