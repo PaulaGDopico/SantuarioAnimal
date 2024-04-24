@@ -12,6 +12,7 @@ router.post("/signup", async (req, res) => {
 			nombre,
 			telefono,
 		});
+
 		res.status(201).json(newAdministrador);
 	} catch (error) {
 		console.error("Error creating user:", error);
@@ -26,8 +27,12 @@ router.post("/login", async (req, res) => {
 		//retorna {{user},token}
 		let administradorExists = await authService.login({
 			email,
-			password
+			password,
 		});
+
+		if (administradorExists.errors.length > 0) {
+			return res.status(400).json({ errors: administradorExists.errors });
+		}
 		res.status(201).json(administradorExists);
 	} catch (error) {
 		console.error("Error logging in:", error);
