@@ -51,18 +51,21 @@ const routes: Array<RouteRecordRaw> = [
 				name: "Contactanos",
 				component: () => import("../views/ContactanosView.vue"),
 			},
-
-
 			{
-					path:"/gestion",
-					name: "gestion",
-					component: () => import("../views/GestionTrabajadorView.vue")
+				path:"/gestion",
+				name: "gestion",
+				component: () => import("../views/GestionTrabajadorView.vue")
 			},
 			{
 				path: "/admin",
 				name: "InicioSesion",
 				component: () => import("../views/InicioSesion.vue"),
 			},
+			{
+				path:"/gestionNotificaciones",
+				name:"gestionNotificaciones",
+				component: () => import("../views/GestionNotificacionesView.vue")
+			}
 
 		],
 	}
