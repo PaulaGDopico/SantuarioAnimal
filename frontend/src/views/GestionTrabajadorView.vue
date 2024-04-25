@@ -11,12 +11,12 @@
                                 <p>Administrar animales</p>
                             </div>
                         </div>
-                        <div class="gestionNotificaciones">
+                        <router-link :to="{name:'gestionNotificaciones'}"><div class="gestionNotificaciones">
                             <img src="../../img/Rectangle 53.png" alt="gestionNotificacines">
                             <div class="letreroNotificaciones">
                                 <p>Gestione las notificaciones</p>
                             </div>
-                        </div>
+                        </div></router-link>
                         <div class="gestionDonaciones">
                             <img src="../../img/Rectangle 54.png" alt="gestionDonativos">
                             <div class="letreroDonaciones">
