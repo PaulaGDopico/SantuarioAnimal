@@ -25,12 +25,23 @@ export async function Login(requestData: LoginData) {
 			localStorage.setItem("token", token);
 			console.log("Se ha iniciado sesion correctamente");
 			// Redirigir al usuario a una página protegida o realizar otras acciones
-			router.push({ name: "home" });
+			router.push({ name: "Home" });
 		} else {
 			const dataErr = await response.json();
 			errorForm.value = dataErr.error;
 		}
 	} catch (error) {
 		errorForm.value = "Error de red: " + error;
+	}
+}
+
+export async function logout(): Promise<void> {
+	try {
+		localStorage.removeItem("token");
+		console.log("Sesión cerrada exisosamente");
+
+		router.push({ name: "InicioSesion" });
+	} catch (error) {
+		console.error("Error cerrando sesión:", error);
 	}
 }
