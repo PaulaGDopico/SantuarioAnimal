@@ -5,10 +5,6 @@
                 <nav class="menuLateral">
                     <ul>
                         <router-link :to="{name:'gestion'}"><button class="atras">Volver atrás</button></router-link>
-                        <!-- <li class="enviados">Enviados</li>
-                        <li class="recibidos">Recibidos</li>
-                        <li class="destacados">Destacados</li>
-                        <li class="borrados">Borrados</li> -->
                     </ul>
                 </nav>
                 <div class="notificacion">
