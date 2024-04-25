@@ -135,18 +135,8 @@
                 margin-left: 10px;
                 margin-bottom: 20px;
             }
-            svg{
-                width: 15px;
-                position: relative;
-                top: 40px;
-                z-index: 1;
-                right: -96%;
-            }
             form{
                 width: 70%;
-                .email{
-                    margin-bottom: 0;
-                }
                 .textarea{
                     min-height: 200px;
                 }
