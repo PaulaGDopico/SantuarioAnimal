@@ -26,16 +26,14 @@ export const signup = async (user: Prisma.AdministradorCreateInput) => {
 
 export const login = async (user: { email: string; password: string }) => {
 	const { email, password } = user;
+	let errors: Array<string> = [];
 	let userExists = await prisma.administrador.findFirst({
 		where: { email },
 	});
 
-	if (!userExists) {
-		throw Error("Ese administrador no existe");
-	}
-
-	if (!compareSync(password, userExists.password)) {
-		throw Error("Contraseña incorrecta");
+	if (!userExists || !compareSync(password, userExists.password)) {
+		errors.push("Correo electrónico o contraseña incorrectos");
+		return { errors };
 	}
 
 	const token = jwt.sign(
@@ -45,5 +43,5 @@ export const login = async (user: { email: string; password: string }) => {
 		JWT_SECRET
 	);
 
-	return { email, token };
+	return { email, token, errors };
 };
