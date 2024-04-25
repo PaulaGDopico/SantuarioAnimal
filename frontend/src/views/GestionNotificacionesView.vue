@@ -19,7 +19,7 @@
 								<ion-col>
                                     <ion-list>
                                         <ion-item>
-                                            <ion-select aria-label="Correo" placeholder="Selecciona los correos a los que quieres enviar la notificación" :multiple="true">
+                                            <ion-select v-model="emails" aria-label="Correo" placeholder="Selecciona los correos a los que quieres enviar la notificación" :multiple="true">
                                                 <ion-select-option value="correo1">arnau@arnau.com</ion-select-option>
                                                 <ion-select-option value="correo2">paula@paula.com</ion-select-option>
                                                 <ion-select-option value="correo3">jose@jose.com</ion-select-option>
@@ -34,7 +34,8 @@
 										label="Asunto"
 										label-placement="floating"
 										fill="solid"
-										placeholder="Introduce el asunto del mensaje"></ion-input
+										placeholder="Introduce el asunto del mensaje"
+                                        v-model="issue"></ion-input
 								></ion-col>
 							</ion-row>
 							<ion-row>
@@ -45,6 +46,7 @@
 										fill="solid"
 										placeholder="Introduce el mensaje"
                                         class="textarea"
+                                        v-model="description"
                                         ></ion-textarea
 								></ion-col>
 							</ion-row>
@@ -58,9 +60,9 @@
 							</ion-row>
 							<ion-row>
 								<ion-col>
-									<ion-button type="submit"
-										>Enviar mensaje</ion-button
-									>
+									<ion-button type="submit" @click="handleNotification">
+                                        Enviar mensaje
+                                    </ion-button>
 								</ion-col>
 							</ion-row>
 						</ion-grid>
@@ -86,6 +88,28 @@
         IonSelect, 
         IonSelectOption 
     } from "@ionic/vue";
+    import {sendNotification} from "@/services/auth";
+    import {ref, Ref} from "vue";
+
+    const emails: Ref<Array<string>> = ref([]);
+    const issue: Ref<string> = ref("");
+    const description:Ref<string> = ref("")
+    const errors = ref(); 
+    
+    const notification = {
+        emails:emails.value,
+        issue:issue.value,
+        description:description.value
+    }
+
+    const handleNotification = async () => {
+	    const  notificationResult = await sendNotification(notification);
+
+	if (notificationResult) {
+		errors.value = notificationResult;
+	}
+};
+
 
 </script>
 

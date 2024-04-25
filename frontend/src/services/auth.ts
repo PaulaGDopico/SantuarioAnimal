@@ -44,3 +44,39 @@ export async function Login(
 		return errorForm.value;
 	}
 }
+
+export interface Notification{
+	emails: Array<string>,
+	issue: string,
+	description: string
+}
+
+export async function sendNotification(
+	notification:Notification
+):Promise<Array<String> | void>{
+
+	const errorForm: Ref<Array<string>> = ref([]);
+
+	try{
+		const response = await fetch(API_URL+"/notificacion",{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Accept: "application/json",
+			},
+			body: JSON.stringify(notification),
+		});
+		console.log(notification);
+		if (response.ok) {
+			const data = await response.json();
+			console.info('Notificacion exitosa:', data);
+		}else{
+			const dataErr = await response.json();
+			errorForm.value = dataErr.errors;
+			return errorForm.value;
+		}
+	}catch (error) {
+		errorForm.value.push("Error de red: " + error);
+		return errorForm.value;
+	}
+}
