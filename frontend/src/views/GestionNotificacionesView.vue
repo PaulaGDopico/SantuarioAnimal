@@ -52,14 +52,6 @@
 							</ion-row>
 							<ion-row>
 								<ion-col>
-									<input
-										type="file"
-										name="images"
-										id="images" />
-								</ion-col>
-							</ion-row>
-							<ion-row>
-								<ion-col>
 									<ion-button type="submit" @click="handleNotification">
                                         Enviar mensaje
                                     </ion-button>
