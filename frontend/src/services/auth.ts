@@ -32,7 +32,7 @@ export async function Login(
 			localStorage.setItem("token", token);
 			console.log("Se ha iniciado sesion correctamente");
 			// Redirigir al usuario a una página protegida o realizar otras acciones
-			router.push({ name: "Home" });
+			await router.push({ name: "gestion" });
 			location.reload();
 		} else {
 			const dataErr = await response.json();
