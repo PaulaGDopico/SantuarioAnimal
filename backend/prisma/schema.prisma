@@ -62,7 +62,6 @@ model Afiliado {
   nombre                String
   email                 String
   telefono              String
-  donacion              String
   Donaciones_realizadas Donacion[]
 }
 
