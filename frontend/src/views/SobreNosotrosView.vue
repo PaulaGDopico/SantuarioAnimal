@@ -2,6 +2,9 @@
 	<ion-page>
 		<ion-content>
 			<div class="main">
+				<div class="cabecera">
+					<img src="../../img/subheader.png">
+				</div>
 				<section class="informacion">
 					<h1>Sobre Nosotros</h1>
 					<p>¡Bienvenido a Santuario Animal!</p>
@@ -42,6 +45,12 @@ import { IonPage, IonContent } from "@ionic/vue";
 		display: flex;
 		flex-direction: column;
 		align-items: center;	
+	}
+	.cabecera{
+		width: 100%;
+		img{
+			width: 100%;
+		};
 	}
 	.informacion{
 		background-color: white;
