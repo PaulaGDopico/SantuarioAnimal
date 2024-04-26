@@ -53,7 +53,7 @@ export interface Notification{
 
 export async function sendNotification(
 	notification:Notification
-):Promise<Array<String> | void>{
+):Promise<Array<string> | void>{
 
 	const errorForm: Ref<Array<string>> = ref([]);
 
