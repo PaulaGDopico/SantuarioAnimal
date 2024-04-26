@@ -1,3 +1,4 @@
+import { isAuthenticated } from "@/middleware/checkLogin";
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { RouteRecordRaw } from "vue-router";
 
@@ -22,14 +23,14 @@ const routes: Array<RouteRecordRaw> = [
 				component: () => import("../views/AdoptaView.vue"),
 			},
 			{
-				path: '/animal/:animal_id',
-				name: 'Animal',
-				component: () => import('../views/InfoAnimalView.vue')
+				path: "/animal/:animal_id",
+				name: "Animal",
+				component: () => import("../views/InfoAnimalView.vue"),
 			},
 			{
-				path: '/info-adopta',
-				name: 'InfoAdopta',
-				component: () => import('../views/InfoAnimalView.vue')
+				path: "/info-adopta",
+				name: "InfoAdopta",
+				component: () => import("../views/InfoAnimalView.vue"),
 			},
 			{
 				path: "/voluntariado",
@@ -52,9 +53,10 @@ const routes: Array<RouteRecordRaw> = [
 				component: () => import("../views/ContactanosView.vue"),
 			},
 			{
-				path:"/gestion",
+				path: "/gestion",
 				name: "gestion",
-				component: () => import("../views/GestionTrabajadorView.vue")
+				meta: { requiresAuth: true },
+				component: () => import("../views/GestionTrabajadorView.vue"),
 			},
 			{
 				path: "/admin",
@@ -62,20 +64,27 @@ const routes: Array<RouteRecordRaw> = [
 				component: () => import("../views/InicioSesion.vue"),
 			},
 			{
-				path:"/gestionNotificaciones",
-				name:"gestionNotificaciones",
-				component: () => import("../views/GestionNotificacionesView.vue")
-			}
-
+				path: "/gestionNotificaciones",
+				name: "gestionNotificaciones",
+				meta: { requiresAuth: true },
+				component: () =>
+					import("../views/GestionNotificacionesView.vue"),
+			},
 		],
-	}
-	
+	},
 ];
-
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes,
+});
+
+router.beforeEach((to, from, next) => {
+	if (to.meta.requiresAuth && !isAuthenticated()) {
+		next("/admin");
+	} else {
+		next();
+	}
 });
 
 export default router;
