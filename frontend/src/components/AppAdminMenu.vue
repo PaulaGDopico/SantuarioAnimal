@@ -12,14 +12,14 @@
 						</div>
 					</ion-header>
 					<ion-tab-bar slot="top" color="primary">
-						<ion-tab-button tab="home" href="/gestion">
+						<ion-tab-button tab="gestion" href="/gestion">
 							<ion-icon :name="homeOutline" :icon="homeOutline" />
-							<ion-label>Home</ion-label>
+							<ion-label>Gestión</ion-label>
 						</ion-tab-button>
 
 						<ion-tab-button
-							tab="adopta"
-							href="/gestionNotificaciones">
+							tab="gestion-animales"
+							href="/gestionAnimales">
 							<ion-icon
 								:name="heartOutline"
 								:icon="heartOutline" />
@@ -27,8 +27,8 @@
 						</ion-tab-button>
 
 						<ion-tab-button
-							tab="voluntario"
-							id="voluntario-popover">
+							tab="donaciones"
+							href="/gestionDonaciones">
 							<ion-icon
 								:name="thumbsUpOutline"
 								:icon="thumbsUpOutline" />
@@ -42,8 +42,10 @@
 							<ion-label>Notificaciones</ion-label>
 						</ion-tab-button>
 
-						<ion-tab-button tab="sobre-nosotros" @click="logout">
-							<ion-icon :name="pawOutline" :icon="pawOutline" />
+						<ion-tab-button tab="cerrar-sesion" @click="logout">
+							<ion-icon
+								:name="closeCircleOutline"
+								:icon="closeCircleOutline" />
 							<ion-label>Cerrar sesión</ion-label>
 						</ion-tab-button>
 					</ion-tab-bar>
@@ -59,34 +61,41 @@
 						</ion-toolbar>
 					</ion-header>
 					<ion-content class="ion-padding menu-buttons">
-						<ion-item router-link="/">
+						<ion-item router-link="/gestion">
 							<ion-icon
 								slot="start"
 								:name="homeOutline"
 								:icon="homeOutline" />
-							<ion-label> Inicio </ion-label>
+							<ion-label> Gestión </ion-label>
 						</ion-item>
-						<ion-item router-link="/adopta">
-							<ion-icon
-								slot="start"
-								:name="heartOutline"
-								:icon="heartOutline" />
-							<ion-label> Animales</ion-label>
-						</ion-item>
-
-						<ion-item router-link="/sobre-nosotros">
+						<ion-item router-link="/gestionAnimales">
 							<ion-icon
 								slot="start"
 								:name="pawOutline"
 								:icon="pawOutline" />
-							<ion-label> Donaciones</ion-label>
+							<ion-label> Animales</ion-label>
 						</ion-item>
-						<ion-item router-link="/contactanos">
+
+						<ion-item router-link="/gestionDonaciones">
 							<ion-icon
 								slot="start"
-								:name="chatbubblesOutline"
-								:icon="chatbubblesOutline" />
-							<ion-label> Notificaciones</ion-label>
+								:name="heartOutline"
+								:icon="heartOutline" />
+							<ion-label> Donaciones</ion-label>
+						</ion-item>
+						<ion-item router-link="/gestionNotificaciones">
+							<ion-icon
+								slot="start"
+								:name="heartOutline"
+								:icon="heartOutline" />
+							<ion-label> Gestión notificaciones</ion-label>
+						</ion-item>
+						<ion-item @click="logout">
+							<ion-icon
+								slot="start"
+								:name="closeCircleOutline"
+								:icon="closeCircleOutline" />
+							<ion-label>Cerrar sesión</ion-label>
 						</ion-item>
 					</ion-content>
 				</ion-menu>
@@ -138,6 +147,7 @@ import {
 	pawOutline,
 	chatbubblesOutline,
 	thumbsUpOutline,
+	closeCircleOutline,
 } from "ionicons/icons";
 
 import { logout } from "@/services/auth";
