@@ -2,6 +2,9 @@
 	<ion-page>
 		<ion-content>
 			<div class="main">
+				<div class="cabecera">
+					<img src="../../img/subheader.png">
+				</div>
 				<section class="informacion">
 					<h1>Sobre Nosotros</h1>
 					<p>¡Bienvenido a Santuario Animal!</p>
@@ -12,7 +15,7 @@
 					<p>Te invitamos a explorar nuestro sitio web para conocer más sobre nuestro trabajo, aprender sobre nuestras mascotas disponibles para adopción y descubrir cómo puedes ayudar. Ya sea que estés interesado en adoptar, donar o ser voluntario, ¡toda ayuda es bienvenida y apreciada!</p>
 					<p>¡Gracias por visitar Santuario Animal y por unirte a nosotros en nuestra misión de salvar vidas y difundir el amor hacia los animales!</p>
 				</section>
-				<setion class="fotografias">
+				<section class="fotografias">
 					<div class="primera">
 						<img src="../../img/buneaPersona 1.png">
 					</div>
@@ -25,7 +28,7 @@
 					<div class="cuarta">
 						<img src="../../img/rejas 1.png">
 					</div>
-				</setion>
+				</section>
 			</div>
 		 <app-footer></app-footer>
       </ion-content>
@@ -42,6 +45,12 @@ import { IonPage, IonContent } from "@ionic/vue";
 		display: flex;
 		flex-direction: column;
 		align-items: center;	
+	}
+	.cabecera{
+		width: 100%;
+		img{
+			width: 100%;
+		};
 	}
 	.informacion{
 		background-color: white;
