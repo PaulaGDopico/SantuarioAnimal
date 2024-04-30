@@ -12,16 +12,18 @@
 						</div>
 					</ion-header>
 					<ion-tab-bar slot="top" color="primary">
-						<ion-tab-button tab="home" href="/home">
+						<ion-tab-button tab="home" href="/gestion">
 							<ion-icon :name="homeOutline" :icon="homeOutline" />
 							<ion-label>Home</ion-label>
 						</ion-tab-button>
 
-						<ion-tab-button tab="adopta" href="/adopta">
+						<ion-tab-button
+							tab="adopta"
+							href="/gestionNotificaciones">
 							<ion-icon
 								:name="heartOutline"
 								:icon="heartOutline" />
-							<ion-label>Adopta</ion-label>
+							<ion-label>Animales</ion-label>
 						</ion-tab-button>
 
 						<ion-tab-button
@@ -30,44 +32,19 @@
 							<ion-icon
 								:name="thumbsUpOutline"
 								:icon="thumbsUpOutline" />
-							<ion-label>Voluntarios</ion-label>
+							<ion-label>Donaciones</ion-label>
 						</ion-tab-button>
-						<ion-popover
-							trigger="voluntario-popover"
-							triggerAction="click">
-							<ion-content class="">
-								<ion-tab-bar color="primary">
-									<ion-tab-button
-										tab="voluntariado"
-										href="/voluntariado">
-										<ion-icon
-											:name="handLeftOutline"
-											:icon="handLeftOutline" />
-										<ion-label>Voluntario</ion-label>
-									</ion-tab-button>
-									<ion-tab-button
-										tab="donaciones"
-										href="/donaciones">
-										<ion-icon
-											:name="heartCircleOutline"
-											:icon="heartCircleOutline" />
-										<ion-label>Donaciones</ion-label>
-									</ion-tab-button>
-								</ion-tab-bar>
-							</ion-content>
-						</ion-popover>
 
 						<ion-tab-button
-							tab="sobre-nosotros"
-							href="/sobre-nosotros">
+							tab="gestion-notificaciones"
+							href="/gestionNotificaciones">
 							<ion-icon :name="pawOutline" :icon="pawOutline" />
-							<ion-label>Sobre nosotros</ion-label>
+							<ion-label>Notificaciones</ion-label>
 						</ion-tab-button>
-						<ion-tab-button tab="contactanos" href="/contactanos">
-							<ion-icon
-								:name="chatbubblesOutline"
-								:icon="chatbubblesOutline" />
-							<ion-label>Contactanos</ion-label>
+
+						<ion-tab-button tab="sobre-nosotros" href="/admin">
+							<ion-icon :name="pawOutline" :icon="pawOutline" />
+							<ion-label>Cerrar sesión</ion-label>
 						</ion-tab-button>
 					</ion-tab-bar>
 					<ion-router-outlet></ion-router-outlet>
@@ -94,24 +71,22 @@
 								slot="start"
 								:name="heartOutline"
 								:icon="heartOutline" />
-							<ion-label> Adopta</ion-label>
+							<ion-label> Animales</ion-label>
 						</ion-item>
-
-						<menu-dropdown-item></menu-dropdown-item>
 
 						<ion-item router-link="/sobre-nosotros">
 							<ion-icon
 								slot="start"
 								:name="pawOutline"
 								:icon="pawOutline" />
-							<ion-label> Sobre nosotros</ion-label>
+							<ion-label> Donaciones</ion-label>
 						</ion-item>
 						<ion-item router-link="/contactanos">
 							<ion-icon
 								slot="start"
 								:name="chatbubblesOutline"
 								:icon="chatbubblesOutline" />
-							<ion-label> Contactanos</ion-label>
+							<ion-label> Notificaciones</ion-label>
 						</ion-item>
 					</ion-content>
 				</ion-menu>
@@ -155,7 +130,7 @@ import {
 	IonContent,
 	IonIcon,
 	IonItem,
-	IonPopover} from "@ionic/vue";
+} from "@ionic/vue";
 
 import {
 	homeOutline,
@@ -163,11 +138,7 @@ import {
 	pawOutline,
 	chatbubblesOutline,
 	thumbsUpOutline,
-	handLeftOutline,
-	heartCircleOutline,
 } from "ionicons/icons";
-
-import MenuDropdownItem from "./MenuDropdownItem.vue";
 </script>
 
 <style lang="scss">
