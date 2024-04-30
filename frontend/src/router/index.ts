@@ -53,15 +53,23 @@ const routes: Array<RouteRecordRaw> = [
 				component: () => import("../views/ContactanosView.vue"),
 			},
 			{
+				path: "/iniciosesion",
+				name: "InicioSesion",
+				component: () => import("../views/InicioSesion.vue"),
+			},
+		],
+	},
+
+	{
+		path: "/admin",
+		name: "AppAdminMenu",
+		component: () => import("../components/AppAdminMenu.vue"),
+		children: [
+			{
 				path: "/gestion",
 				name: "gestion",
 				meta: { requiresAuth: true },
 				component: () => import("../views/GestionTrabajadorView.vue"),
-			},
-			{
-				path: "/admin",
-				name: "InicioSesion",
-				component: () => import("../views/InicioSesion.vue"),
 			},
 			{
 				path: "/gestionNotificaciones",
@@ -79,9 +87,10 @@ const router = createRouter({
 	routes,
 });
 
+//Comprovar autentificación en páginas que lo requieran
 router.beforeEach((to, from, next) => {
 	if (to.meta.requiresAuth && !isAuthenticated()) {
-		next("/admin");
+		next("/iniciosesion");
 	} else {
 		next();
 	}
