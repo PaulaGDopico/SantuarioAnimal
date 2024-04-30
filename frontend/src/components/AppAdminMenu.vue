@@ -42,7 +42,7 @@
 							<ion-label>Notificaciones</ion-label>
 						</ion-tab-button>
 
-						<ion-tab-button tab="sobre-nosotros" href="/admin">
+						<ion-tab-button tab="sobre-nosotros" @click="logout">
 							<ion-icon :name="pawOutline" :icon="pawOutline" />
 							<ion-label>Cerrar sesión</ion-label>
 						</ion-tab-button>
@@ -139,6 +139,8 @@ import {
 	chatbubblesOutline,
 	thumbsUpOutline,
 } from "ionicons/icons";
+
+import { logout } from "@/services/auth";
 </script>
 
 <style lang="scss">

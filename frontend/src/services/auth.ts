@@ -50,7 +50,7 @@ export async function logout(): Promise<void> {
 		localStorage.removeItem("token");
 		console.log("Sesión cerrada exisosamente");
 
-		router.push({ name: "InicioSesion" });
+		await router.push({ name: "InicioSesion" });
 	} catch (error) {
 		console.error("Error cerrando sesión:", error);
 	}
