@@ -60,7 +60,7 @@ const routes: Array<RouteRecordRaw> = [
 		component: () => import("../components/AppAdminMenu.vue"),
 		children: [
 			{
-				path: "/",
+				path: "/iniciosesion",
 				name: "InicioSesion",
 				component: () => import("../views/InicioSesion.vue"),
 			},
