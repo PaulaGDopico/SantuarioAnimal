@@ -3,7 +3,7 @@
 		<ion-content>
 			<div class="content main-wrapper">
 				<ion-grid class="justify-content-center infoAnimal">
-					<ion-row>
+					<ion-row v-if="animal">
 						<ion-col
 							size="12"
 							size-sm="12"
@@ -19,13 +19,13 @@
 										>Animal</ion-col
 									>
 									<ion-col size="6" size-sm="3">{{
-										animal.animal
+										animal?.raza
 									}}</ion-col>
 									<ion-col size="6" size-sm="3" class="key"
 										>Estado</ion-col
 									>
 									<ion-col size="6" size-sm="3">{{
-										animal.estado
+										animal?.estado_adopcion
 									}}</ion-col>
 								</ion-row>
 								<ion-row>
@@ -33,13 +33,13 @@
 										>Sexo</ion-col
 									>
 									<ion-col size="6" size-sm="3">{{
-										animal.sexo
+										animal?.sexo
 									}}</ion-col>
 									<ion-col size="6" size-sm="3" class="key"
 										>Raza</ion-col
 									>
 									<ion-col size="6" size-sm="3">{{
-										animal.raza
+										animal?.raza
 									}}</ion-col>
 								</ion-row>
 								<ion-row>
@@ -47,13 +47,13 @@
 										>Peso</ion-col
 									>
 									<ion-col size="6" size-sm="3">{{
-										animal.peso
+										animal?.peso
 									}}</ion-col>
 									<ion-col size="6" size-sm="3" class="key"
 										>Altura</ion-col
 									>
 									<ion-col size="6" size-sm="3">{{
-										animal.altura
+										animal?.peso
 									}}</ion-col>
 								</ion-row>
 								<ion-row>
@@ -61,13 +61,13 @@
 										>Nacimiento</ion-col
 									>
 									<ion-col size="6" size-sm="3">{{
-										animal.nacimiento
+										animal?.fecha_nacimiento
 									}}</ion-col>
 									<ion-col size="6" size-sm="3" class="key"
 										>Entrada</ion-col
 									>
 									<ion-col size="6" size-sm="3">{{
-										animal.entrada
+										animal?.fecha_ingreso
 									}}</ion-col>
 								</ion-row>
 							</ion-grid>
@@ -77,14 +77,14 @@
 							size-md="12"
 							size-lg="7"
 							class="w60 adoptaBotones">
-							<h1>{{ animal.Nombre }}</h1>
-							<p>{{ animal.descripcion }}</p>
+							<h1>{{ animal?.nombre }}</h1>
+							<p>{{ animal?.descripcion }}</p>
 							<div class="d-flex justify-content-center">
 								<button class="btn btn-primary">
-									Adopta a {{ animal.Nombre }}
+									Adopta a {{ animal?.nombre }}
 								</button>
 								<button class="btn btn-primary">
-									Apadrina a {{ animal.Nombre }}
+									Apadrina a {{ animal?.nombre }}
 								</button>
 								<RouterLink
 									class="btn btn-secondary"
@@ -94,6 +94,9 @@
 							</div>
 						</ion-col>
 					</ion-row>
+					<div v-else>
+						<h1>No existe ese animal</h1>
+					</div>
 				</ion-grid>
 				<section class="otrosAnimales">
 					<div class="d-flex align-items-center">
@@ -126,7 +129,20 @@
 import AppFooter from "@/components/AppFooter.vue";
 import { IonPage, IonContent, IonCol, IonGrid, IonRow } from "@ionic/vue";
 import AppCartaAnimal from "@/components/AppCartaAnimal.vue";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+
+import { useRoute } from "vue-router";
+import { getAnimal } from "@/services/animal";
+import { Animal } from "@/types/Animal";
+
+const animal = ref<Animal | undefined>(undefined);
+
+onMounted(async () => {
+	const route = useRoute();
+	const animalId = route.params.animal_id;
+	animal.value = await getAnimal(animalId as string);
+});
+
 const infoAnimal = ref([
 	{
 		animal: "Perro",
@@ -179,21 +195,21 @@ const infoAnimal = ref([
 		peso: 10,
 	},
 ]);
-const animal = ref({
-	animal: "Perro",
-	descripcion: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur quibusdam magni sequi deserunt dolore voluptas delectus adipisci suscipit officia odit. Facere magnam consectetur nesciunt labore nostrum, aspernatur et perspiciatis esse.
+// const animal = ref({
+// 	animal: "Perro",
+// 	descripcion: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur quibusdam magni sequi deserunt dolore voluptas delectus adipisci suscipit officia odit. Facere magnam consectetur nesciunt labore nostrum, aspernatur et perspiciatis esse.
 
-Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi voluptatibus esse mollitia consequatur magni, laboriosam, cumque, quis minima explicabo tempora quidem molestias nihil aperiam id ab ea exercitationem minus tempore! Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel excepturi voluptatibus sapiente? Quae ut fugit sapiente saepe rem esse porro natus odit nisi fugiat reprehenderit eum non atque, provident repudiandae.`,
-	estado: "adopcion-urgente",
-	Nombre: "Max",
-	raza: "Labrador Retriever",
-	urlImg: "../../public/img/perro.jpg",
-	altura: "grande",
-	sexo: "macho",
-	peso: 30,
-	entrada: new Date(Date.now()).toLocaleString().split(",")[0],
-	nacimiento: new Date(Date.now()).toLocaleString().split(",")[0],
-});
+// Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi voluptatibus esse mollitia consequatur magni, laboriosam, cumque, quis minima explicabo tempora quidem molestias nihil aperiam id ab ea exercitationem minus tempore! Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel excepturi voluptatibus sapiente? Quae ut fugit sapiente saepe rem esse porro natus odit nisi fugiat reprehenderit eum non atque, provident repudiandae.`,
+// 	estado: "adopcion-urgente",
+// 	Nombre: "Max",
+// 	raza: "Labrador Retriever",
+// 	urlImg: "../../public/img/perro.jpg",
+// 	altura: "grande",
+// 	sexo: "macho",
+// 	peso: 30,
+// 	entrada: new Date(Date.now()).toLocaleString().split(",")[0],
+// 	nacimiento: new Date(Date.now()).toLocaleString().split(",")[0],
+// });
 </script>
 
 <style lang="scss" scoped>
