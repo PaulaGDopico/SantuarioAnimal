@@ -2,6 +2,7 @@ import express from "express";
 import habitacionRoutes from "./routes/habitacionRoutes";
 import animalRoutes from "./routes/animalRoutes";
 import authRoutes from "./routes/authRoutes";
+import mailRoutes from "./routes/mailRoutes";
 var cors = require("cors");
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(cors());
 app.use("/habitaciones", habitacionRoutes);
 app.use("/animales", animalRoutes);
 app.use("/user", authRoutes);
+app.use("/mail", mailRoutes);
 
 //External commands
 app.listen(PORT, () => {
