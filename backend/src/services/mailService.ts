@@ -7,7 +7,7 @@ export const enviarMail = async (
 ) => {
 	mailgunClient.messages
 		.create(MAIL_DOMAIN, {
-			from: "4bvives@gmail.com",
+			from: "notificacionessantuarioanimal@gmail.com",
 			to: [`${destinatario}`],
 			subject: asunto,
 			text: mensaje,
