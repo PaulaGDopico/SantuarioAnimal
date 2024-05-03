@@ -13,10 +13,10 @@ app.use(express.static("public"));
 app.use(cors());
 
 //All routes
-app.use("/habitaciones", habitacionRoutes);
-app.use("/animales", animalRoutes);
-app.use("/user", authRoutes);
-app.use("/mail", mailRoutes);
+app.use("/api/habitaciones", habitacionRoutes);
+app.use("/api/animales", animalRoutes);
+app.use("/api/user", authRoutes);
+app.use("/api/mail", mailRoutes);
 
 //External commands
 app.listen(PORT, () => {

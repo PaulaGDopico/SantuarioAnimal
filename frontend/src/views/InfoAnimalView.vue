@@ -10,7 +10,7 @@
 							size-lg="4"
 							class="datosTecnicos">
 							<img
-								:src="'/img/perro.jpg'"
+								:src="animal.img"
 								alt="Foto de perro"
 								class="w100" />
 							<ion-grid>
@@ -80,10 +80,16 @@
 							<h1>{{ animal?.nombre }}</h1>
 							<p>{{ animal?.descripcion }}</p>
 							<div class="d-flex justify-content-center">
-								<button class="btn btn-primary">
+								<button
+									class="btn btn-primary"
+									id="open-adopta-modal"
+									@click="openAdoptaModal">
 									Adopta a {{ animal?.nombre }}
 								</button>
-								<button class="btn btn-primary">
+								<button
+									class="btn btn-primary"
+									id="open-apadrina-modal"
+									@click="openApadrinaModal">
 									Apadrina a {{ animal?.nombre }}
 								</button>
 								<RouterLink
@@ -126,14 +132,55 @@
 </template>
 
 <script setup lang="ts">
+import InfoAnimalAdoptaModal from "@/components/InfoAnimalAdoptaModal.vue";
+import InfoAnimalApadrinaModal from "@/components/InfoAnimalApadrinaModal.vue";
 import AppFooter from "@/components/AppFooter.vue";
-import { IonPage, IonContent, IonCol, IonGrid, IonRow } from "@ionic/vue";
+
+import {
+	IonPage,
+	IonContent,
+	IonCol,
+	IonGrid,
+	IonRow,
+	modalController,
+} from "@ionic/vue";
 import AppCartaAnimal from "@/components/AppCartaAnimal.vue";
 import { onMounted, ref } from "vue";
 
 import { useRoute } from "vue-router";
 import { getAnimal } from "@/services/animal";
 import { Animal } from "@/types/Animal";
+//import InfoAnimalAdoptaModal from "@/components/InfoAnimalAdoptaModal.vue";
+
+const message = ref(
+	"This modal example uses the modalController to present and dismiss modals."
+);
+
+const openAdoptaModal = async () => {
+	const adoptaModal = await modalController.create({
+		component: InfoAnimalAdoptaModal,
+	});
+	adoptaModal.present();
+
+	const { data, role } = await adoptaModal.onWillDismiss();
+
+	if (role === "confirm") {
+		message.value = `Hello, ${data}!`;
+	}
+};
+
+const openApadrinaModal = async () => {
+	const apadrinaModal = await modalController.create({
+		component: InfoAnimalApadrinaModal,
+	});
+	apadrinaModal.present();
+
+	const { data, role } = await apadrinaModal.onWillDismiss();
+
+	if (role === "confirm") {
+		message.value = `Hello, ${data}!`;
+	}
+};
 
 const animal = ref<Animal | undefined>(undefined);
 
@@ -143,6 +190,7 @@ onMounted(async () => {
 	animal.value = await getAnimal(animalId as string);
 });
 
+//TODO hacer fetch de 5 animales relacionados
 const infoAnimal = ref([
 	{
 		animal: "Perro",
@@ -195,21 +243,6 @@ const infoAnimal = ref([
 		peso: 10,
 	},
 ]);
-// const animal = ref({
-// 	animal: "Perro",
-// 	descripcion: `Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur quibusdam magni sequi deserunt dolore voluptas delectus adipisci suscipit officia odit. Facere magnam consectetur nesciunt labore nostrum, aspernatur et perspiciatis esse.
-
-// Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi voluptatibus esse mollitia consequatur magni, laboriosam, cumque, quis minima explicabo tempora quidem molestias nihil aperiam id ab ea exercitationem minus tempore! Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel excepturi voluptatibus sapiente? Quae ut fugit sapiente saepe rem esse porro natus odit nisi fugiat reprehenderit eum non atque, provident repudiandae.`,
-// 	estado: "adopcion-urgente",
-// 	Nombre: "Max",
-// 	raza: "Labrador Retriever",
-// 	urlImg: "../../public/img/perro.jpg",
-// 	altura: "grande",
-// 	sexo: "macho",
-// 	peso: 30,
-// 	entrada: new Date(Date.now()).toLocaleString().split(",")[0],
-// 	nacimiento: new Date(Date.now()).toLocaleString().split(",")[0],
-// });
 </script>
 
 <style lang="scss" scoped>

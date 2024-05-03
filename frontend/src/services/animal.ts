@@ -8,9 +8,10 @@ import {
 
 export const getAnimal = async (animalId: string) => {
 	try {
+		console.log(API_URL + "/animales/animal/" + animalId);
 		const response = await fetch(API_URL + "/animales/animal/" + animalId);
 		const animal: Animal = await response.json();
-
+		console.log(animal);
 		// Formatear fechas
 		animal.createdAt = new Date(animal.createdAt).toLocaleDateString();
 		animal.updatedAt = new Date(animal.updatedAt).toLocaleDateString();
