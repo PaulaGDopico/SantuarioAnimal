@@ -33,3 +33,15 @@ export const getAnimal = async (animalId: string) => {
 		console.log(error);
 	}
 };
+
+export const getAnimales = async (numeroPagina: number) => {
+	try {
+		const response = await fetch(API_URL + "/animales/" + numeroPagina);
+		const animales: Array<Animal> = await response.json();
+		return animales;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+
