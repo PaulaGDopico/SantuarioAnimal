@@ -261,7 +261,7 @@ const infoAnimal = ref([
 
 			ion-row {
 				border-bottom: 1px solid gray;
-				color: black;
+				
 
 				.key {
 					font-weight: bold;
@@ -283,7 +283,7 @@ const infoAnimal = ref([
 		p {
 			text-align: justify;
 			white-space: pre-wrap;
-			color: black;
+			
 		}
 	}
 
