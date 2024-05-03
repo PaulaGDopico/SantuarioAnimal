@@ -70,8 +70,8 @@ model Donacion {
   titulo           String
   contexto         String
   img              String   @unique
-  dinero_necesario Float
-  dinero_alcanzado Float
+  dinero_necesario String
+  dinero_alcanzado String
   fecha_inicio     DateTime
 
   animal     Animal   @relation(fields: [animalId], references: [id])
