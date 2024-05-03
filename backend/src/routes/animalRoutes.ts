@@ -6,15 +6,15 @@ const router = express.Router();
 
 //Multiples animales
 // ex: http://localhost:3000/animales?page=1
-router.get("/", async (req, res) => {
+router.get("/:page", async (req, res) => {
 	try {
-		const pageNum = parseInt(req.query.page as string);
+		const pageNum = parseInt(req.params.page as string);
 		const offset = 5; //Numero de items por pagina
 
 		if (isNaN(pageNum) || isNaN(offset)) {
 			throw new Error("Invalid parameters");
 		}
-
+		console.log(pageNum, offset);
 		const animales = await animalService.getAllAnimals(pageNum, offset);
 		res.json(animales);
 	} catch (error) {
@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
 });
 
 //Animal individual
-router.get("/:animalId", async (req, res) => {
+router.get("/animal/:animalId", async (req, res) => {
 	try {
 		const animalId = parseInt(req.params.animalId as string);
 
