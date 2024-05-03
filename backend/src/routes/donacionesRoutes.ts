@@ -55,4 +55,27 @@ router.post("/",upload.single("image"),async(req, res)=>{
     }
 })
 
+router.put("/:donacionId", upload.single("image"), async (req, res) => {
+	try {
+		const donacionId = parseInt(req.params.donacionId);
+
+		let imagePath = req.body.img; // Preserve the existing image path if not updating the image
+
+		// If a new image is uploaded, update the image path
+		if (req.file) {
+			imagePath = req.file.path;
+		}
+
+		const updateDonacion = await donacionesService.updateDonacion(
+			donacionId,
+			req.body
+		);
+
+		res.json(updateDonacion);
+	} catch (error) {
+		console.error("Error updating donacion:", error);
+		res.status(500).json({ error: "Internal server error" });
+	}
+});
+
 export default router

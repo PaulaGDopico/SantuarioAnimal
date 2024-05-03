@@ -19,3 +19,13 @@ export const createDonacion = async (donacion: Prisma.DonacionCreateInput)=>{
 		data: donacion,
 	});
 }
+
+export const updateDonacion = async (
+	donacionId: number,
+	newData: Prisma.DonacionUpdateInput
+) => {
+	return prisma.donacion.update({
+		where: { id: donacionId },
+		data: newData,
+	});
+};
