@@ -6,7 +6,7 @@
           <ion-row class="ion-justify-content-between ion-align-items-center">
             <ion-col>
               <ion-button>
-                <RouterLink :to="{ name: 'InicioSesion'}">Volver Atras</RouterLink>
+                <RouterLink :to="{ name: 'InicioSesion' }">Volver Atras</RouterLink>
               </ion-button>
             </ion-col>
             <ion-col>
@@ -17,7 +17,8 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <ag-grid-vue :rowData="rowData" :columnDefs="columnDefs" style="height: 500px" class="ag-theme-quartz">
+        <ag-grid-vue style="height: 500px" class="ag-theme-quartz" :rowData="rowData" :columnDefs="columnDefs"
+          :editType="'fullRow'" :animateRows="true" :suppressClickEdit="true">
         </ag-grid-vue>
         <!-- MODAL CREAR -->
         <ion-modal :is-open="isOpen">
@@ -31,14 +32,10 @@
           </ion-header>
           <ion-content class="ion-padding">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum quidem recusandae ducimus quos
-              reprehenderit. Veniam, molestias quos, dolorum consequuntur nisi deserunt omnis id illo sit cum qui.
-              Eaque,
-              dicta.
+              Formulari per afegir nou animal
             </p>
           </ion-content>
         </ion-modal>
-        
       </div>
       <app-footer></app-footer>
     </ion-content>
@@ -63,7 +60,7 @@ import {
 import { ref } from 'vue';
 import { AgGridVue } from "ag-grid-vue3"; // AG Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
-import "ag-grid-community/styles/ag-theme-quartz.css"; 
+import "ag-grid-community/styles/ag-theme-quartz.css";
 import AppFooter from '@/components/AppFooter.vue';
 import GestionarAnimalesEditButton from "@/components/GestionarAnimalesEditButton.vue";
 
@@ -78,14 +75,20 @@ const columnDefs = ref([
   { headerName: 'Raza', field: 'raza', sortable: true, filter: true },
   { headerName: 'Estado', field: 'estado', sortable: true, filter: true },
   { headerName: 'Imagen', cellRenderer: imageRenderer },
-  { headerName: 'Acción', field: 'edit',cellRenderer: GestionarAnimalesEditButton }
+  {
+    headerName: 'Acción',
+    cellRenderer: GestionarAnimalesEditButton,
+    cellRendererParams: (params: any) => ({
+      datosFila: params.data
+    })
+  },
 ]);
 
 const rowData = ref([
-  { nombre: 'Roy', tipo: 'Perro', sexo: 'Macho', raza: 'Bulldog', estado: 'casos-especiales', imagen: 'pexels-snapwire-46024.jpg'},
-  // { nombre: 'Marin', tipo: 'Gato', sexo: 'Hembra', raza: 'Persa', estado: 'sin-estado', imagen: 'pexels-snapwire-46024.jpg' },
-  // { nombre: 'Gafe', tipo: 'Gato', sexo: 'Macho', raza: 'Europeo', estado: 'adopcion-urgente', imagen: 'pexels-snapwire-46024.jpg' },
-  // { nombre: 'Tristepin', tipo: 'Perro', sexo: 'Hembra', raza: 'Chihuahua', estado: 'apadrinado', imagen: 'pexels-snapwire-46024.jpg'}
+  { nombre: 'Roy', tipo: 'Perro', sexo: 'Macho', raza: 'Bulldog', estado: 'casos-especiales', imagen: 'pexels-snapwire-46024.jpg' },
+  { nombre: 'Marin', tipo: 'Gato', sexo: 'Hembra', raza: 'Persa', estado: 'sin-estado', imagen: 'pexels-snapwire-46024.jpg' },
+  { nombre: 'Gafe', tipo: 'Gato', sexo: 'Macho', raza: 'Europeo', estado: 'adopcion-urgente', imagen: 'pexels-snapwire-46024.jpg' },
+  { nombre: 'Tristepin', tipo: 'Perro', sexo: 'Hembra', raza: 'Chihuahua', estado: 'apadrinado', imagen: 'perro.jpg'}
 ]);
 
 function actionRenderer(params: any) {
