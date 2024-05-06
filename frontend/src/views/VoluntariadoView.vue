@@ -83,7 +83,7 @@
 				</ion-grid>
 			</section>
 			<section class="container orange ion-padding">
-				<form action="">
+				<form action="" @submit.prevent="enviarFormulario">
 					<ion-grid>
 						<ion-row>
 							<ion-col>
@@ -97,7 +97,8 @@
 									label-placement="floating"
 									fill="solid"
 									class="orange-input"
-									placeholder="Introduce tu nombre"></ion-input
+									placeholder="Introduce tu nombre"
+									v-model="nombre"></ion-input
 							></ion-col>
 							<ion-col size="12" size-sm="6"
 								><ion-input
@@ -105,7 +106,8 @@
 									label-placement="floating"
 									fill="solid"
 									class="orange-input"
-									placeholder="Introduce tus apellidos"></ion-input
+									placeholder="Introduce tus apellidos"
+									v-model="apellidos"></ion-input
 							></ion-col>
 						</ion-row>
 						<ion-row>
@@ -115,7 +117,8 @@
 									label-placement="floating"
 									fill="solid"
 									class="orange-input"
-									placeholder="Introduce tu teléfono"></ion-input
+									placeholder="Introduce tu teléfono"
+									v-model="telefono"></ion-input
 							></ion-col>
 							<ion-col size="12" size-sm="6"
 								><ion-input
@@ -123,7 +126,8 @@
 									label-placement="floating"
 									fill="solid"
 									class="orange-input"
-									placeholder="Introduce tu correo"></ion-input
+									placeholder="Introduce tu correo"
+									v-model="correo"></ion-input
 							></ion-col>
 							<ion-col size="12" size-sm="6"
 								><ion-input
@@ -132,18 +136,23 @@
 									fill="solid"
 									class="orange-input"
 									placeholder="Introduce tu fecha de nacimiento"
-									type="date"></ion-input
+									type="date"
+									v-model="fecha_nacimiento"></ion-input
 							></ion-col>
 						</ion-row>
 						<ion-row>
 							<ion-col size="12">
-								<ion-checkbox labelPlacement="end"
+								<ion-checkbox
+									labelPlacement="end"
+									v-model="mayorDe18"
 									>Declaro que soy mayor de 18
 									años</ion-checkbox
 								>
 							</ion-col>
 							<ion-col size="12">
-								<ion-checkbox labelPlacement="end">
+								<ion-checkbox
+									labelPlacement="end"
+									v-model="politicaAceptada">
 									<span class="ion-text-wrap"
 										>He leído y acepto la política de
 										privacidad. La finalidad de la recogida
@@ -175,6 +184,7 @@
 
 <script setup lang="ts">
 import AppFooter from "@/components/AppFooter.vue";
+import { enviarMail } from "@/services/mail";
 import {
 	IonPage,
 	IonContent,
@@ -188,6 +198,34 @@ import {
 	IonCheckbox,
 } from "@ionic/vue";
 import { checkmark } from "ionicons/icons";
+import { ref } from "vue";
+
+const nombre = ref();
+const apellidos = ref();
+const telefono = ref();
+const correo = ref();
+const fecha_nacimiento = ref();
+
+const mayorDe18 = ref();
+const politicaAceptada = ref();
+
+function enviarFormulario() {
+	if (!mayorDe18.value) {
+		console.log("El usuario no es mayor de 18");
+	}
+	if (!politicaAceptada.value) {
+		console.log("El usuario no ha aceptado la politica");
+	}
+	const mensaje = `
+	UN USUARIO QUIERE SER VOLUNTARIO: 
+	Nombre y apellidos: ${nombre.value} ${apellidos.value} 
+	Telefono: ${telefono.value}
+	Correo: ${correo.value}
+	Fecha de nacimiento: ${fecha_nacimiento.value}
+	`;
+	//console.log(mensaje);
+	enviarMail(mensaje, "Voluntariado", "arnau.badenas.7e6@itb.cat");
+}
 </script>
 
 <style lang="scss">
