@@ -173,8 +173,8 @@ const result = computed(() => {
 		return (
 			//Filtrar por tipo de animal
 			((!filtros.value.tipoPerro && !filtros.value.tipoGato) ||
-				(filtros.value.tipoPerro && animal.tipo === "Perro") ||
-				(filtros.value.tipoGato && animal.tipo === "Gato")) && //Filtrar por estado
+				(filtros.value.tipoPerro && animal.tipo === "PERRO") ||
+				(filtros.value.tipoGato && animal.tipo === "GATO")) && //Filtrar por estado
 			((!filtros.value.urgente &&
 				!filtros.value.especial &&
 				!filtros.value.apadrinando &&
