@@ -76,31 +76,30 @@ const columnDefs = ref([
   { headerName: 'Estado', field: 'estado', sortable: true, filter: true },
   { headerName: 'Imagen', cellRenderer: imageRenderer },
   {
-    headerName: 'Acción',
+    headerName: 'Editar',
     cellRenderer: GestionarAnimalesEditButton,
     cellRendererParams: (params: any) => ({
       datosFila: params.data
     })
   },
+  {
+    headerName: 'Eliminar',
+    cellRenderer: deleteAnimal,
+  }
 ]);
 
 const rowData = ref([
-  { nombre: 'Roy', tipo: 'Perro', sexo: 'Macho', raza: 'Bulldog', estado: 'casos-especiales', imagen: 'pexels-snapwire-46024.jpg' },
+  { id: 0, nombre: 'Roy', tipo: 'Perro', sexo: 'Macho', raza: 'Bulldog', estado: 'casos-especiales', peso: 5,altura: "muy-pequeño",donativo: 0, afiliado: "",habitacion:3, fechaNacimiento:'2024-03-05',fechaIngreso:'2020-05-03', imagen: 'pexels-snapwire-46024.jpg' },
   { nombre: 'Marin', tipo: 'Gato', sexo: 'Hembra', raza: 'Persa', estado: 'sin-estado', imagen: 'pexels-snapwire-46024.jpg' },
   { nombre: 'Gafe', tipo: 'Gato', sexo: 'Macho', raza: 'Europeo', estado: 'adopcion-urgente', imagen: 'pexels-snapwire-46024.jpg' },
   { nombre: 'Tristepin', tipo: 'Perro', sexo: 'Hembra', raza: 'Chihuahua', estado: 'apadrinado', imagen: 'perro.jpg'}
 ]);
 
-function actionRenderer(params: any) {
+function deleteAnimal(params: any) {
   const wrapper = document.createElement('div');
-
-  const button1 = document.createElement('button');
-  button1.setAttribute("onclick", "setOpenSecond(false)")
-  button1.innerHTML = 'Edit';
-  wrapper.appendChild(button1);
-
   const button2 = document.createElement('ion-button');
-  button2.innerHTML = 'Del';
+  button2.classList.add('buttonDelete')
+  button2.innerHTML = 'Eliminar';
   button2.addEventListener('click', () => {
     const confirmation = window.confirm(`¿Estás seguro de que deseas eliminar a ${params.data.nombre}?`);
     console.log(params.data.nombre)
@@ -111,7 +110,6 @@ function actionRenderer(params: any) {
     }
   });
   wrapper.appendChild(button2);
-
   return wrapper;
 }
 
@@ -136,5 +134,9 @@ h1 {
 a {
   color: white;
   text-decoration: none;
+}
+.buttonDelete {
+  background-color: rgb(145, 30, 30);
+  color: white;
 }
 </style>
