@@ -10,7 +10,7 @@ const router = express.Router();
 router.get("/:page", async (req, res) => {
 	try {
 		const pageNum = parseInt(req.params.page as string);
-		const offset = 5; //Numero de items por pagina
+		const offset = 10; //Numero de items por pagina
 
 		if (isNaN(pageNum) || isNaN(offset)) {
 			throw new Error("Invalid parameters");
@@ -55,7 +55,7 @@ router.post("/", upload.single("image"), async (req, res) => {
 			descripcion,
 			habitacionId,
 		} = req.body;
-		const imageName = req.file ? API_FILE_URL + req.file.filename : "";
+		const imageName = req.file ? "/uploads/" + req.file.filename : "";
 		const newAnimal = await animalService.createAnimal({
 			nombre,
 			tipo,

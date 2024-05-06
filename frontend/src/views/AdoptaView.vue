@@ -107,7 +107,7 @@
 							:estado-adopcion="animal.estado_adopcion"
 							:nombre="animal.nombre"
 							:raza="animal.raza"
-							:urlImg="animal.img" />
+							:urlImg="API_FILE_URL + animal.img" />
 					</div>
 					<div class="d-flex justify-content-center paginacion">
 						<a
@@ -135,6 +135,7 @@
 	</ion-page>
 </template>
 <script setup lang="ts">
+import { API_FILE_URL } from "@/middleware/secrets";
 import SubHeader from "@/components/SubHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
 import { IonPage, IonContent, IonCheckbox, IonRange } from "@ionic/vue";
