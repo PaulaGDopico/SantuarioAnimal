@@ -10,7 +10,7 @@
 							size-lg="4"
 							class="datosTecnicos">
 							<img
-								:src="animal.img"
+								:src="API_FILE_URL + animal.img"
 								alt="Foto de perro"
 								class="w100" />
 							<ion-grid>
@@ -132,6 +132,7 @@
 </template>
 
 <script setup lang="ts">
+import { API_FILE_URL } from "@/middleware/secrets";
 import InfoAnimalAdoptaModal from "@/components/InfoAnimalAdoptaModal.vue";
 import InfoAnimalApadrinaModal from "@/components/InfoAnimalApadrinaModal.vue";
 import AppFooter from "@/components/AppFooter.vue";
@@ -261,7 +262,6 @@ const infoAnimal = ref([
 
 			ion-row {
 				border-bottom: 1px solid gray;
-				
 
 				.key {
 					font-weight: bold;
@@ -283,7 +283,6 @@ const infoAnimal = ref([
 		p {
 			text-align: justify;
 			white-space: pre-wrap;
-			
 		}
 	}
 

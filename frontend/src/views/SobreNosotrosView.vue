@@ -3,7 +3,7 @@
 		<ion-content>
 			<div class="main">
 				<div class="cabecera">
-					<img src="../../img/subheader.png" />
+					<img src="/img/subheader.png" />
 				</div>
 				<section class="informacion">
 					<h1>Sobre Nosotros</h1>
@@ -58,17 +58,16 @@
 				</section>
 				<section class="fotografias">
 					<div class="primera">
-						<img src="../../img/buneaPersona 1.png" />
+						<img src="/img/buneaPersona 1.png" />
 					</div>
 					<div class="segunda">
-						<img src="../../img/pataPerro 1.png" />
+						<img src="/img/pataPerro 1.png" />
 					</div>
 					<div class="tercera">
-						<img
-							src="../../img/pexels-goochie-poochie-19145897 1.png" />
+						<img src="/img/pexels-goochie-poochie-19145897 1.png" />
 					</div>
 					<div class="cuarta">
-						<img src="../../img/rejas 1.png" />
+						<img src="/img/rejas 1.png" />
 					</div>
 				</section>
 			</div>
