@@ -6,19 +6,19 @@
                     <h1>Que desea hacer?</h1>
                     <section class="gestion">
                         <div class="administrarAnimales">
-                            <img src="../../img/Rectangle 52.png" alt="administrarAnimales">
+                            <img src="/img/Rectangle 52.png" alt="administrarAnimales">
                             <div class="letreroAnimales">
                                 <p>Administrar animales</p>
                             </div>
                         </div>
                         <router-link :to="{name:'gestionNotificaciones'}"><div class="gestionNotificaciones">
-                            <img src="../../img/Rectangle 53.png" alt="gestionNotificacines">
+                            <img src="/img/Rectangle 53.png" alt="gestionNotificacines">
                             <div class="letreroNotificaciones">
                                 <p>Gestione las notificaciones</p>
                             </div>
                         </div></router-link>
                         <div class="gestionDonaciones">
-                            <img src="../../img/Rectangle 54.png" alt="gestionDonativos">
+                            <img src="/img/Rectangle 54.png" alt="gestionDonativos">
                             <div class="letreroDonaciones">
                                 <p>Gestione las donaciones</p>
                             </div>
