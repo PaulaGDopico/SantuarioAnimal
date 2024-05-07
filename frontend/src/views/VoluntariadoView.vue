@@ -261,6 +261,8 @@ function validarFormulario() {
 
     if (!politicaAceptada.value) {
         politicaAceptadaError.value = "Debes aceptar la política de privacidad";
+    } else {
+        politicaAceptadaError.value = "";
     }
 
     if (
@@ -353,6 +355,6 @@ watch(fecha_nacimiento, (newValue) => {
     border-bottom: 10px solid var(--ion-color-primary);
 }
 .orange {
-	background-color: var(--ion-color-primary);
+    background-color: var(--ion-color-primary);
 }
 </style>
