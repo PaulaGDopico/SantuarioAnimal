@@ -1,20 +1,21 @@
 import express from "express";
 import upload from "../middleware/multerMiddleware";
 import * as animalService from "../services/animalService";
+import { API_FILE_URL } from "../middleware/secrets";
 
 const router = express.Router();
 
 //Multiples animales
 // ex: http://localhost:3000/animales?page=1
-router.get("/", async (req, res) => {
+router.get("/:page", async (req, res) => {
 	try {
-		const pageNum = parseInt(req.query.page as string);
+		const pageNum = parseInt(req.params.page as string);
 		const offset = 5; //Numero de items por pagina
 
 		if (isNaN(pageNum) || isNaN(offset)) {
 			throw new Error("Invalid parameters");
 		}
-
+		console.log(pageNum, offset);
 		const animales = await animalService.getAllAnimals(pageNum, offset);
 		res.json(animales);
 	} catch (error) {
@@ -24,7 +25,7 @@ router.get("/", async (req, res) => {
 });
 
 //Animal individual
-router.get("/:animalId", async (req, res) => {
+router.get("/animal/:animalId", async (req, res) => {
 	try {
 		const animalId = parseInt(req.params.animalId as string);
 
@@ -54,7 +55,7 @@ router.post("/", upload.single("image"), async (req, res) => {
 			descripcion,
 			habitacionId,
 		} = req.body;
-		const imageName = req.file ? req.file.path : "";
+		const imageName = req.file ? "/uploads/" + req.file.filename : "";
 		const newAnimal = await animalService.createAnimal({
 			nombre,
 			tipo,

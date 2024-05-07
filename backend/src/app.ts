@@ -4,6 +4,7 @@ import animalRoutes from "./routes/animalRoutes";
 import authRoutes from "./routes/authRoutes";
 import afiliadoRoutes from "./routes/afiliadoRoutes"
 import donacionesRoutes from "./routes/donacionesRoutes"
+import mailRoutes from "./routes/mailRoutes";
 
 var cors = require("cors");
 
@@ -15,11 +16,14 @@ app.use(express.static("public"));
 app.use(cors());
 
 //All routes
+
 app.use("/habitaciones", habitacionRoutes);
 app.use("/animales", animalRoutes);
 app.use("/user", authRoutes);
-app.use("/afiliado",afiliadoRoutes)
-app.use("/donaciones",donacionesRoutes)
+app.use("/afiliado",afiliadoRoutes);
+app.use("/donaciones",donacionesRoutes);
+app.use("/api/mail", mailRoutes);
+
 
 //External commands
 app.listen(PORT, () => {

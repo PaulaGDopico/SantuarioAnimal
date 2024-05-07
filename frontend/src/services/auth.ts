@@ -45,20 +45,30 @@ export async function Login(
 	}
 }
 
-export interface Notification{
-	emails: Array<string>,
-	issue: string,
-	description: string
+export async function logout(): Promise<void> {
+	try {
+		localStorage.removeItem("token");
+		console.log("Sesión cerrada exisosamente");
+
+		await router.push({ name: "InicioSesion" });
+	} catch (error) {
+		console.error("Error cerrando sesión:", error);
+	}
+}
+
+export interface Notification {
+	emails: Array<string>;
+	issue: string;
+	description: string;
 }
 
 export async function sendNotification(
-	notification:Notification
-):Promise<Array<string> | void>{
-
+	notification: Notification
+): Promise<Array<string> | void> {
 	const errorForm: Ref<Array<string>> = ref([]);
 
-	try{
-		const response = await fetch(API_URL+"/notificacion",{
+	try {
+		const response = await fetch(API_URL + "/notificacion", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -69,13 +79,13 @@ export async function sendNotification(
 		console.log(notification);
 		if (response.ok) {
 			const data = await response.json();
-			console.info('Notificacion exitosa:', data);
-		}else{
+			console.info("Notificacion exitosa:", data);
+		} else {
 			const dataErr = await response.json();
 			errorForm.value = dataErr.errors;
 			return errorForm.value;
 		}
-	}catch (error) {
+	} catch (error) {
 		errorForm.value.push("Error de red: " + error);
 		return errorForm.value;
 	}
