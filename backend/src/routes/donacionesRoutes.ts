@@ -17,8 +17,9 @@ router.get("/",async(req, res)=>{
 router.get("/:id",async(req,res)=>{
     try{
         const donacionId = parseInt(req.params.id)
-        const donacion = await donacionesService.getDonacion(donacionId) 
-        res.json(donacion)
+        const donacion = await donacionesService.getDonacion(donacionId)
+
+        res.json(donacion);
     }catch(error){
         console.error("Error recibiendo la donacion",error)
         res.status(400).json({error:"Parámetros invalidos"})
@@ -74,6 +75,19 @@ router.put("/:donacionId", upload.single("image"), async (req, res) => {
 		res.json(updateDonacion);
 	} catch (error) {
 		console.error("Error updating donacion:", error);
+		res.status(500).json({ error: "Internal server error" });
+	}
+});
+
+router.delete("/:donacionId", async (req, res) => {
+	try {
+		const donacionId = parseInt(req.params.donacionId);
+		await donacionesService.deleteDonacion(donacionId);
+		res.status(200).json({
+			message: `Donation with ID ${donacionId} was deleted successfully`,
+		});
+	} catch (error) {
+		console.error("Error deleting donation:", error);
 		res.status(500).json({ error: "Internal server error" });
 	}
 });
