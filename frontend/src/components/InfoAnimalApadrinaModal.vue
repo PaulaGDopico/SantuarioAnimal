@@ -21,6 +21,7 @@
 				error-text="Nombre requerido"
 				placeholder="Tu nombre"></ion-input>
 		</ion-item>
+		<p>{{ nameError }}</p>
 		<ion-item>
 			<ion-input
 				label="Teléfono"
@@ -29,7 +30,7 @@
 				error-text="Teléfono requerido"
 				placeholder="Tu teléfono"></ion-input>
 		</ion-item>
-
+		<p>{{ phoneError }}</p>
 		<ion-item>
 			<ion-input
 				label="Dirección"
@@ -38,7 +39,7 @@
 				error-text="Dirección requerida"
 				placeholder="Tu dirección"></ion-input>
 		</ion-item>
-
+		<p>{{ addressError }}</p>
 		<ion-item>
 			<ion-input
 				label="Código Postal"
@@ -47,7 +48,7 @@
 				error-text="Código postal requerido"
 				placeholder="Tu código postal"></ion-input>
 		</ion-item>
-
+		<p>{{ postalCodeError }}</p>
 		<ion-item>
 			<ion-input
 				label="País"
@@ -56,7 +57,7 @@
 				error-text="País requerido"
 				placeholder="Tu país"></ion-input>
 		</ion-item>
-
+		<p>{{ countryError }}</p>
 		<ion-item>
 			<ion-input
 				label="Edad"
@@ -65,7 +66,7 @@
 				error-text="Edad requerida"
 				placeholder="Tu edad"></ion-input>
 		</ion-item>
-
+		<p>{{ ageError }}</p>
 		<ion-item>
 			<ion-input
 				label="Ocupación"
@@ -74,9 +75,8 @@
 				error-text="Ocupación requerida"
 				placeholder="Tu ocupación"></ion-input>
 		</ion-item>
-
+		<p>{{ occupationError }}</p>
 		<ion-item>
-			<ion-label position="stacked">Experiencia con mascotas</ion-label>
 			<ion-textarea
 				label="Experiencia"
 				label-placement="stacked"
@@ -84,9 +84,8 @@
 				error-text="Experiencia requerida"
 				placeholder="Tu experiencia con mascotas"></ion-textarea>
 		</ion-item>
-
+		<p>{{ experienceError }}</p>
 		<ion-item>
-			<ion-label position="stacked">Motivo de adopción</ion-label>
 			<ion-textarea
 				label="Motivo"
 				label-placement="stacked"
@@ -94,6 +93,7 @@
 				error-text="Motivo de adopción requerido"
 				placeholder="Tu motivo para adoptar"></ion-textarea>
 		</ion-item>
+		<p>{{ adoptionReasonError }}</p>
 	</ion-content>
 </template>
 
@@ -123,6 +123,47 @@ const experience = ref("");
 const adoptionReason = ref("");
 const message = ref("");
 
+const nameError = ref("");
+const phoneError = ref("");
+const addressError = ref("");
+const postalCodeError = ref("");
+const countryError = ref("");
+const ageError = ref("");
+const occupationError = ref("");
+const experienceError = ref("");
+const adoptionReasonError = ref("");
+
+function validateForm() {
+	nameError.value = name.value.trim() === "" ? "Nombre requerido" : "";
+	phoneError.value = phone.value.trim() === "" ? "Teléfono requerido" : "";
+	addressError.value =
+		address.value.trim() === "" ? "Dirección requerida" : "";
+	postalCodeError.value =
+		postalCode.value.trim() === "" ? "Código postal requerido" : "";
+	countryError.value = country.value.trim() === "" ? "País requerido" : "";
+	ageError.value = age.value.trim() === "" ? "Edad requerida" : "";
+	occupationError.value =
+		occupation.value.trim() === "" ? "Ocupación requerida" : "";
+	experienceError.value =
+		experience.value.trim() === "" ? "Experiencia requerida" : "";
+	adoptionReasonError.value =
+		adoptionReason.value.trim() === ""
+			? "Motivo de adopción requerido"
+			: "";
+
+	return (
+		nameError.value === "" &&
+		phoneError.value === "" &&
+		addressError.value === "" &&
+		postalCodeError.value === "" &&
+		countryError.value === "" &&
+		ageError.value === "" &&
+		occupationError.value === "" &&
+		experienceError.value === "" &&
+		adoptionReasonError.value === ""
+	);
+}
+
 function buildMessage() {
 	message.value = `
     INFORMACIÓN DE INTERESADO EN APADRINAR
@@ -141,8 +182,10 @@ function buildMessage() {
 const cancel = () => modalController.dismiss(null, "cancel");
 
 const confirm = () => {
-	buildMessage();
-	modalController.dismiss(message.value, "confirm");
+	if (validateForm()) {
+		buildMessage();
+		modalController.dismiss(message.value, "confirm");
+	}
 };
 </script>
 
