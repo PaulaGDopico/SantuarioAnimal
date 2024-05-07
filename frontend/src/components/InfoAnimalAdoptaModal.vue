@@ -200,7 +200,7 @@ function validateForm() {
 }
 function buildMessage() {
     message.value = `
-    INFORMACIÓN DE INTERESADO EN APADRINAR
+    INFORMACIÓN DE INTERESADO EN ADOPTAR
     Nombre: ${name.value}
     Teléfono: ${phone.value}
     Dirección: ${address.value}
@@ -221,6 +221,8 @@ const confirm = () => {
         modalController.dismiss(message.value, "confirm");
     }
 };
+
+//TODO añadir watchers a los campos
 </script>
 
 <style scoped lang="scss">

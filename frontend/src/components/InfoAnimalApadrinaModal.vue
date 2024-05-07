@@ -222,6 +222,8 @@ const confirm = () => {
         modalController.dismiss(message.value, "confirm");
     }
 };
+//TODO añadir watchers a los campos
+
 </script>
 
 <style scoped lang="scss">
