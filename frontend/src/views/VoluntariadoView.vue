@@ -100,7 +100,7 @@
                                         class="orange-input"
                                         placeholder="Introduce tu nombre"
                                         v-model="nombre"></ion-input>
-                                    <p>{{ nombreError }}</p>
+                                    <p>{{ errors.nombre.value }}</p>
                                 </ion-col>
                             </ion-col>
                             <ion-col size="12" size-sm="6">
@@ -112,7 +112,7 @@
                                         class="orange-input"
                                         placeholder="Introduce tus apellidos"
                                         v-model="apellidos"></ion-input>
-                                    <p>{{ apellidosError }}</p>
+                                    <p>{{ errors.apellidos.value }}</p>
                                 </ion-col>
                             </ion-col>
                         </ion-row>
@@ -126,7 +126,7 @@
                                         class="orange-input"
                                         placeholder="Introduce tu teléfono"
                                         v-model="telefono"></ion-input>
-                                    <p>{{ telefonoError }}</p>
+                                    <p>{{ errors.telefono.value }}</p>
                                 </ion-col>
                             </ion-col>
 
@@ -139,7 +139,7 @@
                                         class="orange-input"
                                         placeholder="Introduce tu correo"
                                         v-model="correo"></ion-input>
-                                    <p>{{ correoError }}</p>
+                                    <p>{{ errors.correo.value }}</p>
                                 </ion-col>
                             </ion-col>
                             <ion-col size="12" size-sm="6">
@@ -152,7 +152,9 @@
                                         placeholder="Introduce tu fecha de nacimiento"
                                         type="date"
                                         v-model="fecha_nacimiento"></ion-input>
-                                    <p>{{ fecha_nacimientoError }}</p></ion-col
+                                    <p>
+                                        {{ errors.fecha_nacimiento.value }}
+                                    </p></ion-col
                                 ></ion-col
                             >
                         </ion-row>
@@ -209,7 +211,7 @@ import {
     IonCheckbox,
 } from "@ionic/vue";
 import { checkmark } from "ionicons/icons";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 const nombre = ref("");
 const apellidos = ref("");
@@ -217,23 +219,26 @@ const telefono = ref("");
 const correo = ref("");
 const fecha_nacimiento = ref("");
 
-const nombreError = ref("");
-const apellidosError = ref("");
-const telefonoError = ref("");
-const correoError = ref("");
-const fecha_nacimientoError = ref("");
+const errors = {
+    nombre: ref(""),
+    apellidos: ref(""),
+    telefono: ref(""),
+    correo: ref(""),
+    fecha_nacimiento: ref(""),
+    politicaAceptada: ref(""),
+};
 
 const politicaAceptada = ref();
 
 const politicaAceptadaError = ref();
-function validarTelefono() {
+function validarTelefono(newTelefono: string) {
     const telefonoRegex = /^\d{9}$/; // Ajusta esta expresión regular según tus requisitos
-    return telefonoRegex.test(telefono.value.trim());
+    return telefonoRegex.test(newTelefono.trim());
 }
 
-function validarCorreo() {
+function validarCorreo(newCorreo: string) {
     const correoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expresión regular básica para validar correo electrónico
-    return correoRegex.test(correo.value.trim());
+    return correoRegex.test(newCorreo.trim());
 }
 
 function validarFechaNacimiento() {
@@ -241,12 +246,16 @@ function validarFechaNacimiento() {
     const edad = new Date().getFullYear() - fechaNacimiento.getFullYear();
     return edad >= 18;
 }
-function enviarFormulario() {
-    nombreError.value = nombre.value.trim() ? "" : "Nombre requerido";
-    apellidosError.value = apellidos.value.trim() ? "" : "Apellidos requeridos";
-    telefonoError.value = validarTelefono() ? "" : "Teléfono inválido";
-    correoError.value = validarCorreo() ? "" : "Correo inválido";
-    fecha_nacimientoError.value = validarFechaNacimiento()
+function validarFormulario() {
+    errors.nombre.value = nombre.value.trim() ? "" : "Nombre requerido";
+    errors.apellidos.value = apellidos.value.trim()
+        ? ""
+        : "Apellidos requeridos";
+    errors.telefono.value = validarTelefono(telefono.value)
+        ? ""
+        : "Teléfono inválido";
+    errors.correo.value = validarCorreo(correo.value) ? "" : "Correo inválido";
+    errors.fecha_nacimiento.value = validarFechaNacimiento()
         ? ""
         : "Debes ser mayor de edad";
 
@@ -255,14 +264,22 @@ function enviarFormulario() {
     }
 
     if (
-        nombreError.value ||
-        apellidosError.value ||
-        telefonoError.value ||
-        correoError.value ||
-        fecha_nacimientoError.value ||
+        errors.nombre.value ||
+        errors.apellidos.value ||
+        errors.telefono.value ||
+        errors.correo.value ||
+        errors.fecha_nacimiento.value ||
         politicaAceptadaError.value
     ) {
         // Manejar el caso en que haya errores de validación
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function enviarFormulario() {
+    if (!validarFormulario()) {
         return;
     }
     const mensaje = `
@@ -279,6 +296,40 @@ function enviarFormulario() {
         "notificacionessantuarioanimal@gmail.com"
     );
 }
+
+//Watchers para revisar los cambios en cada  campo
+
+// Watcher para el campo 'nombre'
+watch(nombre, (newValue) => {
+    errors.nombre.value = newValue.trim() ? "" : "Nombre requerido";
+});
+
+// Watcher para el campo 'apellidos'
+watch(apellidos, (newValue) => {
+    errors.apellidos.value = newValue.trim() ? "" : "Apellidos requeridos";
+});
+
+// Watcher para el campo 'telefono'
+watch(telefono, (newValue) => {
+    errors.telefono.value = validarTelefono(newValue)
+        ? ""
+        : "Teléfono inválido";
+});
+
+// Watcher para el campo 'correo'
+watch(correo, (newValue) => {
+    errors.correo.value = validarCorreo(newValue) ? "" : "Correo inválido";
+});
+
+// Watcher para el campo 'fecha_nacimiento'
+watch(fecha_nacimiento, (newValue) => {
+    errors.fecha_nacimiento.value = newValue
+        ? ""
+        : "Fecha de nacimiento requerida";
+    errors.fecha_nacimiento.value = validarFechaNacimiento()
+        ? ""
+        : "Debes ser mayor de edad";
+});
 </script>
 
 <style lang="scss">
@@ -302,9 +353,6 @@ function enviarFormulario() {
     border-bottom: 10px solid var(--ion-color-primary);
 }
 .orange {
-    background-color: #e9900cc0;
-}
-.orange-input {
-    --background: #e6621040 !important;
+	background-color: var(--ion-color-primary);
 }
 </style>
