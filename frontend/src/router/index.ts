@@ -57,6 +57,11 @@ const routes: Array<RouteRecordRaw> = [
 				name: "InicioSesion",
 				component: () => import("../views/InicioSesion.vue"),
 			},
+			{
+				path: "/gestionar-animales",
+				name: "GestionarAnimales",
+				component: () => import("../views/GestionarAnimales.vue"),
+			},
 		],
 	},
 
