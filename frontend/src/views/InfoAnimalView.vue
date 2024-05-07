@@ -153,10 +153,6 @@ import { getAnimal } from "@/services/animal";
 import { Animal } from "@/types/Animal";
 //import InfoAnimalAdoptaModal from "@/components/InfoAnimalAdoptaModal.vue";
 
-const message = ref(
-	"This modal example uses the modalController to present and dismiss modals."
-);
-
 const openAdoptaModal = async () => {
 	const adoptaModal = await modalController.create({
 		component: InfoAnimalAdoptaModal,
@@ -166,7 +162,7 @@ const openAdoptaModal = async () => {
 	const { data, role } = await adoptaModal.onWillDismiss();
 
 	if (role === "confirm") {
-		message.value = `Hello, ${data}!`;
+		console.log(data);
 	}
 };
 
@@ -179,7 +175,7 @@ const openApadrinaModal = async () => {
 	const { data, role } = await apadrinaModal.onWillDismiss();
 
 	if (role === "confirm") {
-		message.value = `Hello, ${data}!`;
+		console.log(data);
 	}
 };
 

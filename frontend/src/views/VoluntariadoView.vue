@@ -224,7 +224,11 @@ function enviarFormulario() {
 	Fecha de nacimiento: ${fecha_nacimiento.value}
 	`;
 	//console.log(mensaje);
-	enviarMail(mensaje, "Voluntariado", "arnau.badenas.7e6@itb.cat");
+	enviarMail(
+		mensaje,
+		"Voluntariado",
+		"notificacionessantuarioanimal@gmail.com"
+	);
 }
 </script>
 
