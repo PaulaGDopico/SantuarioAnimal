@@ -53,3 +53,4 @@ export const getAnimales = async (numeroPagina: number) => {
 		console.log(error);
 	}
 };
+
