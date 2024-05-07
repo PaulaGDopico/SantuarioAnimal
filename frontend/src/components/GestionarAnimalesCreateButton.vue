@@ -1,6 +1,6 @@
 <template>
     <ion-content>
-        <ion-button @click="setOpen(true)"><ion-icon :icon="createOutline" :name="createOutline"></ion-icon></ion-button>
+        <ion-button @click="setOpen(true)"></ion-button>
 
         <ion-modal :is-open="isOpen" :onDidDismiss="() => setOpen(false)">
             <ion-header>
@@ -12,17 +12,17 @@
                 </ion-toolbar>
             </ion-header>
             <ion-content class="ion-padding">
-                <div v-if="props.params.datosFila">
+                <div>
                     <ion-grid>
                         <ion-row>
                             <ion-col>
                                 <ion-input label="Nombre Animal" label-placement="floating" fill="solid"
-                                    placeholder="Introduce nombre" :value=props.params.datosFila.nombre>
+                                    placeholder="Introduce nombre">
                                 </ion-input>
                             </ion-col>
                             <ion-col>
                                 <ion-input label="Nombre Afiliado" label-placement="floating" fill="solid"
-                                    placeholder="Introduce nombre" :value=props.params.datosFila.afiliado>
+                                    placeholder="Introduce nombre">
                                 </ion-input>
                             </ion-col>
 
@@ -32,13 +32,13 @@
                         <ion-row>
                             <ion-col>
                                 <ion-input label="Raza" label-placement="floating" fill="solid"
-                                    placeholder="Introduce la raza" :value=props.params.datosFila.raza>
+                                    placeholder="Introduce la raza">
                                 </ion-input>
                             </ion-col>
                             <ion-col>
                                 <ion-list>
                                     <ion-item>
-                                        <ion-select aria-label="Sexo" :value="props.params.datosFila.tipo">
+                                        <ion-select aria-label="Sexo">
                                             <ion-select-option value="Perro">Perro</ion-select-option>
                                             <ion-select-option value="Gato">Gato</ion-select-option>
                                         </ion-select>
@@ -48,7 +48,7 @@
                             <ion-col>
                                 <ion-list>
                                     <ion-item>
-                                        <ion-select aria-label="Sexo" :value="props.params.datosFila.sexo">
+                                        <ion-select aria-label="Sexo">
                                             <ion-select-option value="Macho">Macho</ion-select-option>
                                             <ion-select-option value="Hembra">Hembra</ion-select-option>
                                         </ion-select>
@@ -71,16 +71,16 @@
                         <ion-row>
                             <ion-col>
                                 <ion-input type="number" label="Habitación" label-placement="floating" fill="solid"
-                                    max="20" min="1" :value=props.params.datosFila.habitacion></ion-input>
+                                    max="20" min="1"></ion-input>
                             </ion-col>
                             <ion-col>
-                                <ion-input type="number" label="Peso" label-placement="floating" fill="solid"
-                                    :value=props.params.datosFila.peso></ion-input>
+                                <ion-input type="number" label="Peso" label-placement="floating"
+                                    fill="solid"></ion-input>
                             </ion-col>
                             <ion-col>
                                 <ion-list>
                                     <ion-item>
-                                        <ion-select aria-label="Altura" :value="props.params.datosFila.altura">
+                                        <ion-select aria-label="Altura">
                                             <ion-select-option value="muy-grande">Muy Grande</ion-select-option>
                                             <ion-select-option value="grande">Grande</ion-select-option>
                                             <ion-select-option value="mediano">Mediano</ion-select-option>
@@ -97,7 +97,7 @@
                             <ion-col>
                                 <ion-list>
                                     <ion-item>
-                                        <ion-select aria-label="Estado Animal" :value="props.params.datosFila.estado">
+                                        <ion-select aria-label="Estado Animal">
                                             <ion-select-option value="sin-estado">Sin estado</ion-select-option>
                                             <ion-select-option value="casos-especiales">Casos
                                                 Especiales</ion-select-option>
@@ -110,19 +110,17 @@
                             </ion-col>
                             <ion-col>
                                 <ion-input type="number" label="Donativos Necesarios" label-placement="floating"
-                                    fill="solid" :value=props.params.datosFila.donativo min="1"></ion-input>
+                                    fill="solid" min="1"></ion-input>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
                     <ion-grid>
                         <ion-row>
                             <ion-col>
-                                <input type="date" name="fechaNacimiento" id="fechaNacimiento" class="inputDate"
-                                    :value="props.params.datosFila.fechaNacimiento">
+                                <input type="date" name="fechaNacimiento" id="fechaNacimiento" class="inputDate">
                             </ion-col>
                             <ion-col>
-                                <input type="date" name="fechaIngreso" id="fechaIngreso" class="inputDate"
-                                    :value="props.params.datosFila.fechaIngreso">
+                                <input type="date" name="fechaIngreso" id="fechaIngreso" class="inputDate">
                             </ion-col>
                         </ion-row>
                     </ion-grid>
@@ -134,19 +132,6 @@
                             </ion-col>
                         </ion-row>
                     </ion-grid>
-                    <ion-grid>
-                        <ion-row class="ion-justify-content-end">
-                            <ion-col size="3" >
-                                <ion-button @click="setOpen(false)">Cancelar</ion-button>
-                            </ion-col>  
-                            <ion-col size="3">
-                                <ion-button @click="">Enviar</ion-button>
-                            </ion-col>  
-                        </ion-row>
-                    </ion-grid>
-                </div>
-                <div v-else>
-                    <p>Error al cargar los datos del Animal.</p>
                 </div>
             </ion-content>
         </ion-modal>
@@ -172,16 +157,8 @@ import {
     IonRow,
     IonCol,
     IonTextarea,
-    IonIcon
 } from '@ionic/vue';
-import { createOutline } from "ionicons/icons";
 import { ref } from 'vue';
-// Definimos las props para recibir los datos de la fila
-const props = defineProps<{
-    params: {
-        datosFila: any;
-    };
-}>();
 
 const isOpen = ref(false);
 
