@@ -8,6 +8,10 @@ export const getAllAnimals = async (page_num: number, offset: number) => {
 	});
 };
 
+export const getAllAnimalsWithoutPagination = async()=>{
+    return prisma.animal.findMany({})
+}
+
 export const getAnimal = async (animalId: number) => {
 	return prisma.animal.findUnique({
 		where: { id: animalId },

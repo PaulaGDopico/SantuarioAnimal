@@ -24,6 +24,17 @@ router.get("/:page", async (req, res) => {
 	}
 });
 
+//Devuelve todos los animales sin paginación
+router.get("/",async(req, res)=>{
+    try{
+        const animales = await animalService.getAllAnimalsWithoutPagination()
+        res.json(animales)
+    }catch(error){
+        console.error("Error recibiendo los animales",error)
+        res.status(400).json({error:"Parámetros invalidos"})
+    }
+})
+
 //Animal individual
 router.get("/animal/:animalId", async (req, res) => {
 	try {
