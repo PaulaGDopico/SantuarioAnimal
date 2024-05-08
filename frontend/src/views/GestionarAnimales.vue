@@ -29,7 +29,7 @@
   <ion-modal :is-open="isOpen" :onDidDismiss="() => setOpen(false)">
     <ion-header>
       <ion-toolbar>
-        <ion-title>FORMULARI MODIFICAR ANIMAL</ion-title>
+        <ion-title>FORMULARI AÑADIR ANIMAL</ion-title>
         <ion-buttons slot="end">
           <ion-button @click="setOpen(false)">Close</ion-button>
         </ion-buttons>
@@ -40,20 +40,20 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              <ion-input label="Nombre Animal" label-placement="floating" fill="solid" placeholder="Introduce nombre">
+              <ion-input v-model="animalData.nombre" label="Nombre Animal" label-placement="floating" fill="solid" placeholder="Introduce nombre">
               </ion-input>
             </ion-col>
-            <ion-col>
-              <ion-input label="Nombre Afiliado" label-placement="floating" fill="solid" placeholder="Introduce nombre">
+            <!-- <ion-col>
+              <ion-input v-model="animalData.nombreAfiliado" label="Nombre Afiliado" label-placement="floating" fill="solid" placeholder="Introduce nombre">
               </ion-input>
-            </ion-col>
+            </ion-col> -->
 
           </ion-row>
         </ion-grid>
         <ion-grid>
           <ion-row>
             <ion-col>
-              <ion-input label="Raza" label-placement="floating" fill="solid" placeholder="Introduce la raza">
+              <ion-input v-model="animalData.raza" label="Raza" label-placement="floating" fill="solid" placeholder="Introduce la raza">
               </ion-input>
             </ion-col>
             <ion-col>
@@ -69,7 +69,7 @@
             <ion-col>
               <ion-list>
                 <ion-item>
-                  <ion-select aria-label="Sexo">
+                  <ion-select v-model="animalData.genero"aria-label="Sexo">
                     <ion-select-option value="Macho">Macho</ion-select-option>
                     <ion-select-option value="Hembra">Hembra</ion-select-option>
                   </ion-select>
@@ -91,16 +91,16 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              <ion-input type="number" label="Habitación" label-placement="floating" fill="solid" max="20"
+              <ion-input v-model="animalData.habitacion" type="number" label="Habitación" label-placement="floating" fill="solid" max="20"
                 min="1"></ion-input>
             </ion-col>
             <ion-col>
-              <ion-input type="number" label="Peso" label-placement="floating" fill="solid"></ion-input>
+              <ion-input v-model="animalData.peso" type="number" label="Peso" label-placement="floating" fill="solid"></ion-input>
             </ion-col>
             <ion-col>
               <ion-list>
                 <ion-item>
-                  <ion-select aria-label="Altura">
+                  <ion-select v-model="animalData.tamaño" aria-label="Altura">
                     <ion-select-option value="muy-grande">Muy Grande</ion-select-option>
                     <ion-select-option value="grande">Grande</ion-select-option>
                     <ion-select-option value="mediano">Mediano</ion-select-option>
@@ -117,7 +117,7 @@
             <ion-col>
               <ion-list>
                 <ion-item>
-                  <ion-select aria-label="Estado Animal">
+                  <ion-select v-model="animalData.estado" aria-label="Estado Animal">
                     <ion-select-option value="sin-estado">Sin estado</ion-select-option>
                     <ion-select-option value="casos-especiales">Casos
                       Especiales</ion-select-option>
@@ -128,27 +128,32 @@
                 </ion-item>
               </ion-list>
             </ion-col>
-            <ion-col>
-              <ion-input type="number" label="Donativos Necesarios" label-placement="floating" fill="solid"
+            <!-- <ion-col>
+              <ion-input v-model="animalData.donativosNecesarios" type="number" label="Donativos Necesarios" label-placement="floating" fill="solid"
                 min="1"></ion-input>
+            </ion-col> -->
+          </ion-row>
+        </ion-grid>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <input v-model="animalData.fechaNacimiento" type="date" name="fechaNacimiento" id="fechaNacimiento" class="inputDate">
+            </ion-col>
+            <ion-col>
+              <input v-model="animalData.fechaIngreso" type="date" name="fechaIngreso" id="fechaIngreso" class="inputDate">
             </ion-col>
           </ion-row>
         </ion-grid>
         <ion-grid>
           <ion-row>
             <ion-col>
-              <input type="date" name="fechaNacimiento" id="fechaNacimiento" class="inputDate">
-            </ion-col>
-            <ion-col>
-              <input type="date" name="fechaIngreso" id="fechaIngreso" class="inputDate">
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <ion-textarea label="Descripción" label-placement="floating" fill="solid"
+              <ion-textarea v-model="animalData.descripcion" label="Descripción" label-placement="floating" fill="solid"
                 placeholder="Introduce la descripción del animal"></ion-textarea>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+                <ion-input v-model="animalData.image" type="file" @change="onFileChange" accept="image/*"></ion-input>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -254,6 +259,37 @@ function imageRenderer(params: any) {
 
   return wrapper;
 }
+
+let animalData:Animal = {
+      //nombre: '',
+      nombreAfiliado: '',
+      //raza: '',
+      //genero: '',
+      //habitacion: null,
+      //peso: null,
+      //tamaño: '',
+      //estado: '',
+      donativosNecesarios: null,
+      //fechaNacimiento: '',
+      //fechaIngreso: '',
+      //descripcion: '',
+      //foto: null
+
+      
+      nombre: '',
+      tipo: '',
+      estado_adopcion: '',
+      peso:null,
+      tamaño: '',
+      raza: '',
+      fecha_nacimiento: '',
+      fecha_ingreso: '',
+      sexo: '',
+      img: null,
+      descripcion: '',
+      habitacionId: null,
+  }
+
 </script>
 <style scoped lang="scss">
 h1 {

@@ -67,6 +67,29 @@ export const getAllAnimalsWithoutPagination = async () =>{
 	}
 }
 
+export const pushAnimal = async (animalData:Animal) => {
+	try{
+		const response = await fetch(
+			'http://localhost:3000/animales',
+			{
+				method: 'POST',
+				headers:{
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(animalData)
+			}
+		)
+		if (!response.ok) {
+            throw new Error('Error al intentar subir el animal.');
+        }
+		return true
+	}catch(error){
+		console.error('Error al subir el animal:', error);
+        return false;
+	}
+}
+
+
 export const deleteAnimal = async (id:number) =>{
 	try{
 		const response = await fetch(
@@ -78,7 +101,6 @@ export const deleteAnimal = async (id:number) =>{
                 }
             }
 		)
-
 		if (!response.ok) {
             throw new Error('Error al intentar eliminar el animal.');
         }
