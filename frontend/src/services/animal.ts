@@ -54,3 +54,37 @@ export const getAnimales = async (numeroPagina: number) => {
 	}
 };
 
+export const getAllAnimalsWithoutPagination = async () =>{
+	try{
+		const response = await fetch(
+			"http://localhost:3000/animales",
+			options
+		);
+		const animales: Array<Animal> = await response.json();
+		return animales;
+	}catch(error){
+		console.log(error);
+	}
+}
+
+export const deleteAnimal = async (id:number) =>{
+	try{
+		const response = await fetch(
+			`http://localhost:3000/animales/${id}`,
+			{
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+		)
+
+		if (!response.ok) {
+            throw new Error('Error al intentar eliminar el animal.');
+        }
+		return true;
+	}catch(error){
+		console.error('Error al eliminar el animal:', error);
+        return false;
+	}
+}

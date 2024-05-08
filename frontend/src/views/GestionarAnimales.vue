@@ -182,7 +182,7 @@ import {
   IonRow,
   IonCol
 } from "@ionic/vue";
-import { ref } from 'vue';
+import { ref, Ref, onMounted } from 'vue';
 import { AgGridVue } from "ag-grid-vue3"; // AG Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
@@ -190,6 +190,12 @@ import AppFooter from '@/components/AppFooter.vue';
 import GestionarAnimalesEditButton from "@/components/GestionarAnimalesEditButton.vue";
 import GestionarAnimalesCreateButton from "@/components/GestionarAnimalesCreateButton.vue";
 import GestionarAnimalesDeleteButton from "@/components/GestionarAnimalesDeleteButton.vue";
+import { getAllAnimalsWithoutPagination } from "@/services/animal";
+
+
+
+
+
 
 // BOTONES MODAL
 const isOpen = ref(false);
@@ -200,7 +206,7 @@ const columnDefs = ref([
   { headerName: 'Tipo', field: 'tipo', sortable: true, filter: true },
   { headerName: 'Sexo', field: 'sexo', sortable: true, filter: true },
   { headerName: 'Raza', field: 'raza', sortable: true, filter: true },
-  { headerName: 'Estado', field: 'estado', sortable: true, filter: true },
+  { headerName: 'Estado', field: 'estado_adopcion', sortable: true, filter: true },
   { headerName: 'Imagen', cellRenderer: imageRenderer },
   {
     headerName: 'Editar',
@@ -218,18 +224,30 @@ const columnDefs = ref([
   }
 ]);
 
-const rowData = ref([
-  { id: 0, nombre: 'Roy', tipo: 'Perro', sexo: 'Macho', raza: 'Bulldog', estado: 'casos-especiales', peso: 5, altura: "muy-pequeño", donativo: 0, afiliado: "", habitacion: 3, fechaNacimiento: '2024-03-05', fechaIngreso: '2020-05-03', imagen: 'pexels-snapwire-46024.jpg' },
-  { nombre: 'Marin', tipo: 'Gato', sexo: 'Hembra', raza: 'Persa', estado: 'sin-estado', imagen: 'pexels-snapwire-46024.jpg' },
-  { nombre: 'Gafe', tipo: 'Gato', sexo: 'Macho', raza: 'Europeo', estado: 'adopcion-urgente', imagen: 'pexels-snapwire-46024.jpg' },
-  { nombre: 'Tristepin', tipo: 'Perro', sexo: 'Hembra', raza: 'Chihuahua', estado: 'apadrinado', imagen: 'perro.jpg' }
-]);
+const rowData:any = ref([]);
+
+onMounted(async ()=>{
+  try {
+        const animales = await getAllAnimalsWithoutPagination();
+        console.log(animales)
+        rowData.value = animales; // Asigna los datos recuperados al rowData
+      } catch (error) {
+        console.error("Error al obtener los animales:", error);
+      }
+})
+
+// const rowData = ref([
+//   { id: 0, nombre: 'Roy', tipo: 'Perro', sexo: 'Macho', raza: 'Bulldog', estado: 'casos-especiales', peso: 5, altura: "muy-pequeño", donativo: 0, afiliado: "", habitacion: 3, fechaNacimiento: '2024-03-05', fechaIngreso: '2020-05-03', imagen: 'pexels-snapwire-46024.jpg' },
+//   { nombre: 'Marin', tipo: 'Gato', sexo: 'Hembra', raza: 'Persa', estado: 'sin-estado', imagen: 'pexels-snapwire-46024.jpg' },
+//   { nombre: 'Gafe', tipo: 'Gato', sexo: 'Macho', raza: 'Europeo', estado: 'adopcion-urgente', imagen: 'pexels-snapwire-46024.jpg' },
+//   { nombre: 'Tristepin', tipo: 'Perro', sexo: 'Hembra', raza: 'Chihuahua', estado: 'apadrinado', imagen: 'perro.jpg' }
+// ]);
 
 function imageRenderer(params: any) {
   const wrapper = document.createElement('div');
 
   const image = document.createElement('img');
-  image.src += '/img/' + params.data.imagen;
+  image.src +=  'http://localhost:3000/' + params.data.img;
   image.style.width = '100px';
   image.style.height = '100px';
   wrapper.appendChild(image);

@@ -36,7 +36,22 @@ export const updateAnimal = async (
 };
 
 export const deleteAnimal = async (animalId: number) => {
-	return prisma.animal.delete({
-		where: { id: animalId },
-	});
-};
+	try {
+       
+        await prisma.$transaction(async (tx) => {
+           
+            await tx.donacion.deleteMany({
+                where: { animalId: animalId },
+            });
+
+            await tx.animal.delete({
+                where: { id: animalId },
+            });
+        });
+        
+        return true; 
+    } catch (error) {
+        console.error("Error al eliminar el animal y sus donaciones:", error);
+        return false; 
+    }
+}	

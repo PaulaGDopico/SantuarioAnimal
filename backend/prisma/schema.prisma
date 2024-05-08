@@ -74,7 +74,7 @@ model Donacion {
   dinero_alcanzado String
   fecha_inicio     DateTime
 
-  animal     Animal   @relation(fields: [animalId], references: [id])
+  animal     Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
   animalId   Int
   afiliado   Afiliado @relation(fields: [afiliadoId], references: [id])
   afiliadoId Int
