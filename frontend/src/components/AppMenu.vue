@@ -139,7 +139,6 @@
 </template>
 
 <script setup lang="ts">
-import AppFooter from "./AppFooter.vue";
 import {
 	IonPage,
 	IonTabs,
@@ -156,9 +155,7 @@ import {
 	IonContent,
 	IonIcon,
 	IonItem,
-	IonPopover,
-	IonFooter
-} from "@ionic/vue";
+	IonPopover} from "@ionic/vue";
 
 import {
 	homeOutline,

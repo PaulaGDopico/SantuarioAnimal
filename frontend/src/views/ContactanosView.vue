@@ -202,9 +202,9 @@
 							</ion-row>
 							<ion-row>
 								<ion-col>
-									<ion-button type="submit"
-										>Enviar mensaje</ion-button
-									>
+									<ion-button type="submit">
+										Enviar mensaje
+									</ion-button>
 								</ion-col>
 							</ion-row>
 						</ion-grid>
