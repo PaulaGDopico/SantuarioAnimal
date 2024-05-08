@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes";
 import afiliadoRoutes from "./routes/afiliadoRoutes";
 import donacionesRoutes from "./routes/donacionesRoutes";
 import mailRoutes from "./routes/mailRoutes";
+import path from "node:path";
 
 var cors = require("cors");
 
@@ -16,7 +17,7 @@ const corsOptions = {
 };
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(cors(corsOptions));
 
 //All routes
