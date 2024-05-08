@@ -12,8 +12,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const corsOptions = {
-	origin: 'https://santuario-animal-frontend.vercel.app',
- };
+    origin: "https://santuario-animal-frontend.vercel.app",
+};
 
 app.use(express.json());
 app.use(express.static("public"));
@@ -26,7 +26,7 @@ app.use("/animales", animalRoutes);
 app.use("/user", authRoutes);
 app.use("/afiliado", afiliadoRoutes);
 app.use("/donaciones", donacionesRoutes);
-app.use("/api/mail", mailRoutes);
+app.use("/mail", mailRoutes);
 
 //External commands
 app.listen(PORT, () => {
