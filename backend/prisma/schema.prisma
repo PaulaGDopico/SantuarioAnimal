@@ -62,7 +62,6 @@ model Afiliado {
   nombre                String
   email                 String
   telefono              String
-  donacion              String
   Donaciones_realizadas Donacion[]
 }
 
@@ -71,11 +70,11 @@ model Donacion {
   titulo           String
   contexto         String
   img              String   @unique
-  dinero_necesario Float
-  dinero_alcanzado Float
+  dinero_necesario String
+  dinero_alcanzado String
   fecha_inicio     DateTime
 
-  animal     Animal   @relation(fields: [animalId], references: [id])
+  animal     Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
   animalId   Int
   afiliado   Afiliado @relation(fields: [afiliadoId], references: [id])
   afiliadoId Int
