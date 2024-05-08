@@ -8,6 +8,10 @@ export const getAllAnimals = async (page_num: number, offset: number) => {
 	});
 };
 
+export const getAllAnimalsWithoutPagination = async()=>{
+    return prisma.animal.findMany({})
+}
+
 export const getAnimal = async (animalId: number) => {
 	return prisma.animal.findUnique({
 		where: { id: animalId },
@@ -32,7 +36,22 @@ export const updateAnimal = async (
 };
 
 export const deleteAnimal = async (animalId: number) => {
-	return prisma.animal.delete({
-		where: { id: animalId },
-	});
-};
+	try {
+       
+        await prisma.$transaction(async (tx) => {
+           
+            await tx.donacion.deleteMany({
+                where: { animalId: animalId },
+            });
+
+            await tx.animal.delete({
+                where: { id: animalId },
+            });
+        });
+        
+        return true; 
+    } catch (error) {
+        console.error("Error al eliminar el animal y sus donaciones:", error);
+        return false; 
+    }
+}	
