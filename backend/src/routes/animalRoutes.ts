@@ -10,7 +10,7 @@ const router = express.Router();
 router.get("/:page", async (req, res) => {
 	try {
 		const pageNum = parseInt(req.params.page as string);
-		const offset = 5; //Numero de items por pagina
+		const offset = 20; //Numero de items por pagina
 
 		if (isNaN(pageNum) || isNaN(offset)) {
 			throw new Error("Invalid parameters");

@@ -17,11 +17,11 @@ app.use(cors());
 
 //All routes
 
-app.use("/habitaciones", habitacionRoutes);
-app.use("/animales", animalRoutes);
-app.use("/user", authRoutes);
-app.use("/afiliado",afiliadoRoutes);
-app.use("/donaciones",donacionesRoutes);
+app.use("/api/habitaciones", habitacionRoutes);
+app.use("/api/animales", animalRoutes);
+app.use("/api/user", authRoutes);
+app.use("/api/afiliado",afiliadoRoutes);
+app.use("/api/donaciones",donacionesRoutes);
 app.use("/api/mail", mailRoutes);
 
 

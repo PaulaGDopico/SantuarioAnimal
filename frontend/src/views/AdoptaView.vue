@@ -1,81 +1,36 @@
 <template>
 	<ion-page>
 		<ion-content>
-			<SubHeader
-				titulo="Lorem ipsum dolor"
+			<SubHeader titulo="Lorem ipsum dolor"
 				texto="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente blanditiis vitae consequatur mollitia quibusdam debitis necessitatibus et. Error, nisi iure repellat recusandae, atque dolorum autem fugiat provident ipsa sit ipsam?"
-				img-url="/img/pexels-helena-lopes-1959054.jpg"
-				infoBtn="Requisitos para adoptar"></SubHeader>
+				img-url="/img/pexels-helena-lopes-1959054.jpg" infoBtn="Requisitos para adoptar"></SubHeader>
 			<div class="content main-wrapper">
 				<section class="filtros">
 					<form action="">
 						<h2>Tipo Animal</h2>
-						<ion-checkbox
-							v-model="filtros.tipoPerro"
-							label-placement="end"
-							name="perro"
-							id="perro"
-							>Perro</ion-checkbox
-						>
+						<ion-checkbox v-model="filtros.tipoPerro" label-placement="end" name="perro"
+							id="perro">Perro</ion-checkbox>
 						<br />
-						<ion-checkbox
-							v-model="filtros.tipoGato"
-							label-placement="end"
-							name="gato"
-							id="gato"
-							>Gato</ion-checkbox
-						>
+						<ion-checkbox v-model="filtros.tipoGato" label-placement="end" name="gato"
+							id="gato">Gato</ion-checkbox>
 						<h2>Estado</h2>
-						<ion-checkbox
-							v-model="filtros.urgente"
-							label-placement="end"
-							name="urgente"
-							id="urgente"
-							>Adopción urgente</ion-checkbox
-						>
+						<ion-checkbox v-model="filtros.urgente" label-placement="end" name="urgente"
+							id="urgente">Adopción urgente</ion-checkbox>
 						<br />
-						<ion-checkbox
-							v-model="filtros.especial"
-							label-placement="end"
-							name="especial"
-							id="especial"
-							>Casos especiales</ion-checkbox
-						>
-						<ion-checkbox
-							v-model="filtros.apadrinando"
-							label-placement="end"
-							name="apadrinando"
-							id="apadrinando"
-							>Apadrinando</ion-checkbox
-						>
+						<ion-checkbox v-model="filtros.especial" label-placement="end" name="especial"
+							id="especial">Casos especiales</ion-checkbox>
+						<ion-checkbox v-model="filtros.apadrinando" label-placement="end" name="apadrinando"
+							id="apadrinando">Apadrinando</ion-checkbox>
 						<br />
-						<ion-checkbox
-							v-model="filtros.sinEstado"
-							label-placement="end"
-							name="sinEstado"
-							id="sinEstado"
-							>Sin clasificación</ion-checkbox
-						>
+						<ion-checkbox v-model="filtros.sinEstado" label-placement="end" name="sinEstado"
+							id="sinEstado">Sin clasificación</ion-checkbox>
 						<h2>Sexo</h2>
-						<ion-checkbox
-							v-model="filtros.hembra"
-							label-placement="end"
-							name="hembra"
-							id="hembra"
-							>Hembra</ion-checkbox
-						><br />
-						<ion-checkbox
-							v-model="filtros.macho"
-							label-placement="end"
-							name="macho"
-							id="macho"
-							>Macho</ion-checkbox
-						>
+						<ion-checkbox v-model="filtros.hembra" label-placement="end" name="hembra"
+							id="hembra">Hembra</ion-checkbox><br />
+						<ion-checkbox v-model="filtros.macho" label-placement="end" name="macho"
+							id="macho">Macho</ion-checkbox>
 						<h2>Altura</h2>
-						<select
-							name="altura"
-							id="altura"
-							v-model="filtros.altura">
+						<select name="altura" id="altura" v-model="filtros.altura">
 							<option value="todos" selected>Todos</option>
 							<option value="mgrande">Muy grande</option>
 							<option value="grande">Grande</option>
@@ -86,47 +41,25 @@
 						<h2>Peso</h2>
 						<div class="d-flex align-peso">
 							<label for="peso" class="peso">0</label>
-							<ion-range
-								aria-label="Range with pin"
-								:pin="true"
-								:pin-formatter="pinFormatter"
-								name="peso"
-								id="peso"
-								v-model="filtros.peso"></ion-range>
+							<ion-range aria-label="Range with pin" :pin="true" :pin-formatter="pinFormatter" name="peso"
+								id="peso" v-model="filtros.peso"></ion-range>
 							<label for="peso" class="peso">100</label>
 						</div>
 					</form>
 				</section>
 				<section class="listaAnimales">
 					<div class="cartasAnimal d-flex justify-content-center">
-						<AppCartaAnimal
-							v-for="animal in result"
-							:key="animal.id"
-							:id="animal.id"
-							:animal="animal.tipo"
-							:estado-adopcion="animal.estado_adopcion"
-							:nombre="animal.nombre"
-							:raza="animal.raza"
+						<AppCartaAnimal v-for="animal in result" :key="animal.id" :id="animal.id" :animal="animal.tipo"
+							:estado-adopcion="animal.estado_adopcion" :nombre="animal.nombre" :raza="animal.raza"
 							:urlImg="API_FILE_URL + animal.img" />
 					</div>
 					<div class="d-flex justify-content-center paginacion">
-						<a
-							:href="`http://localhost:8100/adopta/`"
-							class="buttonPag"
-							>Anterior</a
-						>
-						<a
-							v-for="(numero, index) in paginas"
-							:key="index"
-							class="numberPag"
-							:href="`http://localhost:8100/adopta/${numero}`">
+						<button @click="anteriorPag()" class="buttonPag">Anterior</button>
+						<button v-for="(numero, index) in paginacion" :key="index" class="numberPag"
+							@click="clickPage(numero)">
 							{{ index + 1 }}
-						</a>
-						<a
-							:href="`http://localhost:8100/adopta/`"
-							class="buttonPag"
-							>Siguiente</a
-						>
+						</button>
+						<button @click="siguientePag()" class="buttonPag">Siguiente</button>
 					</div>
 				</section>
 			</div>
@@ -141,19 +74,30 @@ import AppFooter from "@/components/AppFooter.vue";
 import { IonPage, IonContent, IonCheckbox, IonRange } from "@ionic/vue";
 import AppCartaAnimal from "@/components/AppCartaAnimal.vue";
 import { computed, onMounted, ref } from "vue";
-import { getAnimales } from "@/services/animal";
+import { getAnimales, getAllAnimales } from "@/services/animal";
 import { Animal } from "@/types/Animal";
+import { useRoute } from "vue-router";
 
 const pinFormatter = (value: any) => `${value}kg`;
-
 const infoAnimal = ref<Animal[] | null>(null);
+const paginacion = ref() //cantidad de paginas
+const paginaActual = ref(1) //pagina actual
 onMounted(async () => {
-	const animals = await getAnimales(2);
+	const animals = await getAnimales(paginaActual.value);
 	if (Array.isArray(animals)) {
 		infoAnimal.value = animals;
+		console.log("hola")
 	} else {
 		console.error("Error: Array de animales vacio");
 	}
+	const response = await getAllAnimales()
+	if (response) {
+		paginacion.value = Math.ceil(response.length / 20); // Suponiendo que hay 20 animales por página
+	} else {
+		// Manejar el caso en que response es undefined
+		console.error("Error: La respuesta de getAllAnimales es undefined");
+	}
+	console.log(paginacion.value)
 });
 const filtros = ref({
 	tipoPerro: false,
@@ -197,7 +141,42 @@ const result = computed(() => {
 		);
 	});
 });
-const paginas = ref(10);
+async function siguientePag() {
+	paginaActual.value++
+	if (paginaActual < paginacion) {
+		const animals = await getAnimales(paginaActual.value);
+		if (Array.isArray(animals)) {
+			infoAnimal.value = animals;
+			console.log("hola")
+		} else {
+			console.error("Error: Array de animales vacio");
+		}
+	}
+}
+async function anteriorPag() {
+	if (paginaActual.value >= 1) {
+		paginaActual.value--
+		if (paginaActual < paginacion) {
+		const animals = await getAnimales(paginaActual.value);
+		if (Array.isArray(animals)) {
+			infoAnimal.value = animals;
+			console.log("hola")
+		} else {
+			console.error("Error: Array de animales vacio");
+		}
+	}
+	}
+}
+async function clickPage(pagina: number) {
+	paginaActual.value = pagina
+	const animals = await getAnimales(paginaActual.value);
+	if (Array.isArray(animals)) {
+		infoAnimal.value = animals;
+		console.log("hola")
+	} else {
+		console.error("Error: Array de animales vacio");
+	}
+}
 </script>
 <style lang="scss">
 .align-peso {

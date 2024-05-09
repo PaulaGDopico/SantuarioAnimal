@@ -5,17 +5,13 @@ import {
 	EstadoAdopcionAnimal,
 	estadoAdopcionLabels,
 } from "@/types/AnimalEstadoAdopcion";
-const options = {
-	headers: new Headers({
-		"ngrok-skip-browser-warning": "true",
-	}),
-};
+import { Ref } from "vue";
+
 export const getAnimal = async (animalId: string) => {
 	try {
 		console.log(API_URL + "/animales/animal/" + animalId);
 		const response = await fetch(
 			API_URL + "/animales/animal/" + animalId,
-			options
 		);
 		const animal: Animal = await response.json();
 		console.log(animal);
@@ -45,12 +41,23 @@ export const getAnimales = async (numeroPagina: number) => {
 	try {
 		const response = await fetch(
 			API_URL + "/animales/" + numeroPagina,
-			options
 		);
 		const animales: Array<Animal> = await response.json();
+		console.log(response)
 		return animales;
 	} catch (error) {
 		console.log(error);
 	}
 };
-
+export const getAllAnimales = async () => {
+	try {
+		const response = await fetch(
+			API_URL + "/animales/",
+		);
+		const animales: Array<Animal> = await response.json();
+		console.log(response)
+		return animales;
+	} catch (error) {
+		console.log(error);
+	}
+};
