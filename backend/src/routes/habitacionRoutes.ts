@@ -2,7 +2,7 @@ import express from "express";
 const router = express.Router();
 
 //Routes functions
-import * as habitacionService from "../services/habitacionService";
+import * as habitacionService from "../services/habitacionService.js";
 
 //This works from /habitaciones
 router.get("/", async (req, res) => {

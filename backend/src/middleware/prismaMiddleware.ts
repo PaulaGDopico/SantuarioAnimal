@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import prisma from "../prismaClient";
+import prisma from "../prismaClient.js";
 
 export const prismaMiddleware = async (
 	req: Request,

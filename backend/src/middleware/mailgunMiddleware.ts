@@ -1,6 +1,6 @@
 import Mailgun from "mailgun.js";
 import formData from "form-data";
-import { MAIL_API_KEY } from "./secrets";
+import { MAIL_API_KEY } from "./secrets.js";
 
 
 const mailgun = new Mailgun(formData);

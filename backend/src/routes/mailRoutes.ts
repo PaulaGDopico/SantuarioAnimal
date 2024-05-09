@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import * as mailService from "../services/mailService";
+import * as mailService from "../services/mailService.js";
 
 router.post("/", async (req, res) => {
     try {

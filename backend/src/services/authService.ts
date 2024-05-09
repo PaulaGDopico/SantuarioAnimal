@@ -1,8 +1,8 @@
 import { Prisma } from "@prisma/client";
-import prisma from "../prismaClient";
+import prisma from "../prismaClient.js";
 import { compareSync, hashSync } from "bcrypt";
 import * as jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../middleware/secrets";
+import { JWT_SECRET } from "../middleware/secrets.js";
 
 export const signup = async (user: Prisma.AdministradorCreateInput) => {
 	const { email, password, nombre, telefono } = user;

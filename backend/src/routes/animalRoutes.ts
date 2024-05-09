@@ -1,7 +1,7 @@
 import express from "express";
-import upload from "../middleware/multerMiddleware";
-import * as animalService from "../services/animalService";
-import { API_FILE_URL } from "../middleware/secrets";
+import upload from "../middleware/multerMiddleware.js";
+import * as animalService from "../services/animalService.js";
+import { API_FILE_URL } from "../middleware/secrets.js";
 
 const router = express.Router();
 

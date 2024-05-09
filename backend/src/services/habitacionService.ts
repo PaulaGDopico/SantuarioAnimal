@@ -1,4 +1,4 @@
-import prisma from "../prismaClient";
+import prisma from "../prismaClient.js";
 
 export const getAllHabitaciones = async () => {
 	return prisma.habitacion.findMany();

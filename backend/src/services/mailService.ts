@@ -1,6 +1,6 @@
-import { MAIL_DOMAIN } from "../middleware/secrets";
-import { mailgunClient } from "../middleware/mailgunMiddleware";
-import { transporter } from "../middleware/nodemailerMiddleware";
+import { MAIL_DOMAIN } from "../middleware/secrets.js";
+import { mailgunClient } from "../middleware/mailgunMiddleware.js";
+import { transporter } from "../middleware/nodemailerMiddleware.js";
 
 export const enviarMail = async (
 	mensaje: string,

@@ -1,6 +1,6 @@
 import express, { response } from "express";
-import * as donacionesService from "../services/donacionesService";
-import upload from "../middleware/multerMiddleware";
+import * as donacionesService from "../services/donacionesService.js";
+import upload from "../middleware/multerMiddleware.js";
 
 const router = express.Router();
 
