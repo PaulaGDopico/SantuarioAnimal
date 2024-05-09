@@ -6,6 +6,7 @@ import {
 	estadoAdopcionLabels,
 } from "@/types/AnimalEstadoAdopcion";
 import { Ref } from "vue";
+import { Filtros } from "@/types/Filtros";
 
 export const getAnimal = async (animalId: string) => {
 	try {
@@ -37,14 +38,27 @@ export const getAnimal = async (animalId: string) => {
 	}
 };
 
-export const getAnimales = async (numeroPagina: number) => {
+export const getAnimales = async (numeroPagina: number,filtros:Filtros) => {
 	try {
-		const response = await fetch(
-			API_URL + "/animales/" + numeroPagina,
-		);
-		const animales: Array<Animal> = await response.json();
-		console.log(response)
-		return animales;
+        // Construir la URL de la solicitud con parámetros de consulta para los filtros
+        let url = API_URL + "/animales/" + numeroPagina;
+        if (filtros) {
+            const queryParams = new URLSearchParams();
+            Object.entries(filtros).forEach(([key, value]) => {
+                if (typeof value === 'boolean') {
+                    queryParams.append(key, value.toString());
+                } else if (typeof value === 'string' || typeof value === 'number') {
+                    queryParams.append(key, value.toString());
+                }
+            });
+			console.log(queryParams)
+            url += `?${queryParams.toString()}`;
+        }
+
+        const response = await fetch(url);
+        const animales: Array<Animal> = await response.json();
+        console.log(response);
+        return animales;
 	} catch (error) {
 		console.log(error);
 	}

@@ -29,8 +29,8 @@
 							id="hembra">Hembra</ion-checkbox><br />
 						<ion-checkbox v-model="filtros.macho" label-placement="end" name="macho"
 							id="macho">Macho</ion-checkbox>
-						<h2>Altura</h2>
-						<select name="altura" id="altura" v-model="filtros.altura">
+						<h2>tamanyo</h2>
+						<select name="tamanyo" id="tamanyo" v-model="filtros.tamanyo">
 							<option value="todos" selected>Todos</option>
 							<option value="mgrande">Muy grande</option>
 							<option value="grande">Grande</option>
@@ -49,7 +49,7 @@
 				</section>
 				<section class="listaAnimales">
 					<div class="cartasAnimal d-flex justify-content-center">
-						<AppCartaAnimal v-for="animal in result" :key="animal.id" :id="animal.id" :animal="animal.tipo"
+						<AppCartaAnimal v-for="animal in infoAnimal" :key="animal.id" :id="animal.id" :animal="animal.tipo"
 							:estado-adopcion="animal.estado_adopcion" :nombre="animal.nombre" :raza="animal.raza"
 							:urlImg="API_FILE_URL + animal.img" />
 					</div>
@@ -73,7 +73,7 @@ import SubHeader from "@/components/SubHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
 import { IonPage, IonContent, IonCheckbox, IonRange } from "@ionic/vue";
 import AppCartaAnimal from "@/components/AppCartaAnimal.vue";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { getAnimales, getAllAnimales } from "@/services/animal";
 import { Animal } from "@/types/Animal";
 import { useRoute } from "vue-router";
@@ -82,23 +82,6 @@ const pinFormatter = (value: any) => `${value}kg`;
 const infoAnimal = ref<Animal[] | null>(null);
 const paginacion = ref() //cantidad de paginas
 const paginaActual = ref(1) //pagina actual
-onMounted(async () => {
-	const animals = await getAnimales(paginaActual.value);
-	if (Array.isArray(animals)) {
-		infoAnimal.value = animals;
-		console.log("hola")
-	} else {
-		console.error("Error: Array de animales vacio");
-	}
-	const response = await getAllAnimales()
-	if (response) {
-		paginacion.value = Math.ceil(response.length / 20); // Suponiendo que hay 20 animales por página
-	} else {
-		// Manejar el caso en que response es undefined
-		console.error("Error: La respuesta de getAllAnimales es undefined");
-	}
-	console.log(paginacion.value)
-});
 const filtros = ref({
 	tipoPerro: false,
 	tipoGato: false,
@@ -108,48 +91,44 @@ const filtros = ref({
 	sinEstado: false,
 	hembra: false,
 	macho: false,
-	altura: "todos",
+	tamanyo: "todos",
 	peso: 0,
 });
-const result = computed(() => {
-	if (!infoAnimal.value) return null;
-	return infoAnimal.value.filter((animal: Animal) => {
-		return (
-			//Filtrar por tipo de animal
-			((!filtros.value.tipoPerro && !filtros.value.tipoGato) ||
-				(filtros.value.tipoPerro && animal.tipo === "PERRO") ||
-				(filtros.value.tipoGato && animal.tipo === "GATO")) && //Filtrar por estado
-			((!filtros.value.urgente &&
-				!filtros.value.especial &&
-				!filtros.value.apadrinando &&
-				!filtros.value.sinEstado) ||
-				(filtros.value.urgente &&
-					animal.estado_adopcion === "adopcion-urgente") ||
-				(filtros.value.especial &&
-					animal.estado_adopcion === "casos-especiales") ||
-				(filtros.value.apadrinando &&
-					animal.estado_adopcion === "apadrinado") ||
-				(filtros.value.sinEstado &&
-					animal.estado_adopcion === "sin-estado")) && //Filtrar por genero
-			((!filtros.value.hembra && !filtros.value.macho) ||
-				(filtros.value.hembra && animal.sexo === "hembra") ||
-				(filtros.value.macho && animal.sexo === "macho")) && //Filtrar por peso
-			(filtros.value.peso === 0 ||
-				filtros.value.peso == parseInt(animal.peso)) /*&&*/ //filtrar por alura
-			// (filtros.value.altura === "todos" ||
-			// 	filtros.value.altura == animal.altura)
-		);
-	});
+watch(filtros, async () => {
+	console.log(filtros.value.tamanyo)
+	const animals = await getAnimales(paginaActual.value, filtros.value);
+	if (Array.isArray(animals)) {
+		infoAnimal.value = animals;
+	} else {
+		console.error("Error: Array de animales vacio");
+		infoAnimal.value = null;
+	}
+}, { deep: true }); 
+onMounted(async () => {
+	const animals = await getAnimales(paginaActual.value, filtros.value);
+	if (Array.isArray(animals)) {
+		infoAnimal.value = animals;
+	} else {
+		console.error("Error: Array de animales vacio");
+		infoAnimal.value = null;
+	}
+	const response = await getAllAnimales()
+	if (response) {
+		paginacion.value = Math.ceil(response.length / 20); // Suponiendo que hay 20 animales por página
+	} else {
+		// Manejar el caso en que response es undefined
+		console.error("Error: La respuesta de getAllAnimales es undefined");
+	}
 });
 async function siguientePag() {
 	paginaActual.value++
 	if (paginaActual < paginacion) {
-		const animals = await getAnimales(paginaActual.value);
+		const animals = await getAnimales(paginaActual.value,filtros.value);
 		if (Array.isArray(animals)) {
 			infoAnimal.value = animals;
-			console.log("hola")
 		} else {
 			console.error("Error: Array de animales vacio");
+			infoAnimal.value = null;
 		}
 	}
 }
@@ -157,24 +136,24 @@ async function anteriorPag() {
 	if (paginaActual.value >= 1) {
 		paginaActual.value--
 		if (paginaActual < paginacion) {
-		const animals = await getAnimales(paginaActual.value);
+		const animals = await getAnimales(paginaActual.value,filtros.value);
 		if (Array.isArray(animals)) {
 			infoAnimal.value = animals;
-			console.log("hola")
 		} else {
 			console.error("Error: Array de animales vacio");
+			infoAnimal.value = null;
 		}
 	}
 	}
 }
 async function clickPage(pagina: number) {
 	paginaActual.value = pagina
-	const animals = await getAnimales(paginaActual.value);
+	const animals = await getAnimales(paginaActual.value,filtros.value);
 	if (Array.isArray(animals)) {
 		infoAnimal.value = animals;
-		console.log("hola")
 	} else {
 		console.error("Error: Array de animales vacio");
+		infoAnimal.value = null;
 	}
 }
 </script>
