@@ -1,6 +1,7 @@
 //import router from "@/router";
 import { API_URL } from "@/middleware/secrets";
 import { Animal } from "@/types/Animal";
+
 import {
 	EstadoAdopcionAnimal,
 	estadoAdopcionLabels,

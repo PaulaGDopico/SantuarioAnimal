@@ -43,11 +43,10 @@
               <ion-input v-model="animalData.nombre" label="Nombre Animal" label-placement="floating" fill="solid" placeholder="Introduce nombre">
               </ion-input>
             </ion-col>
-            <!-- <ion-col>
-              <ion-input v-model="animalData.nombreAfiliado" label="Nombre Afiliado" label-placement="floating" fill="solid" placeholder="Introduce nombre">
+            <ion-col>
+              <ion-input v-model="animalData.afiliadoId" label="Nombre Afiliado" label-placement="floating" fill="solid" placeholder="Introduce nombre">
               </ion-input>
-            </ion-col> -->
-
+            </ion-col>
           </ion-row>
         </ion-grid>
         <ion-grid>
@@ -59,9 +58,9 @@
             <ion-col>
               <ion-list>
                 <ion-item>
-                  <ion-select aria-label="Sexo">
-                    <ion-select-option value="Perro">Perro</ion-select-option>
-                    <ion-select-option value="Gato">Gato</ion-select-option>
+                  <ion-select v-model="animalData.tipo" aria-label="Sexo">
+                    <ion-select-option value="PERRO">Perro</ion-select-option>
+                    <ion-select-option value="GATO">Gato</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-list>
@@ -69,7 +68,7 @@
             <ion-col>
               <ion-list>
                 <ion-item>
-                  <ion-select v-model="animalData.genero"aria-label="Sexo">
+                  <ion-select v-model="animalData.sexo" aria-label="Sexo">
                     <ion-select-option value="Macho">Macho</ion-select-option>
                     <ion-select-option value="Hembra">Hembra</ion-select-option>
                   </ion-select>
@@ -91,7 +90,7 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              <ion-input v-model="animalData.habitacion" type="number" label="Habitación" label-placement="floating" fill="solid" max="20"
+              <ion-input v-model="animalData.habitacionId" type="number" label="Habitación" label-placement="floating" fill="solid" max="20"
                 min="1"></ion-input>
             </ion-col>
             <ion-col>
@@ -100,8 +99,8 @@
             <ion-col>
               <ion-list>
                 <ion-item>
-                  <ion-select v-model="animalData.tamaño" aria-label="Altura">
-                    <ion-select-option value="muy-grande">Muy Grande</ion-select-option>
+                  <ion-select v-model="animalData.tamanyo" aria-label="Altura">
+                    <ion-select-option value="muy_grande">Muy Grande</ion-select-option>
                     <ion-select-option value="grande">Grande</ion-select-option>
                     <ion-select-option value="mediano">Mediano</ion-select-option>
                     <ion-select-option value="pequeño">Pequeño</ion-select-option>
@@ -117,13 +116,13 @@
             <ion-col>
               <ion-list>
                 <ion-item>
-                  <ion-select v-model="animalData.estado" aria-label="Estado Animal">
-                    <ion-select-option value="sin-estado">Sin estado</ion-select-option>
-                    <ion-select-option value="casos-especiales">Casos
+                  <ion-select v-model="animalData.estado_adopcion" aria-label="Estado Animal">
+                    <ion-select-option value="SIN_ESTADO">Sin estado</ion-select-option>
+                    <ion-select-option value="CASOS_ESPECIALES">Casos
                       Especiales</ion-select-option>
-                    <ion-select-option value="adopcion-urgente">Adopción
+                    <ion-select-option value="ADOPCION_URGENTE">Adopción
                       Urgente</ion-select-option>
-                    <ion-select-option value="apadrinado">Apadrinado</ion-select-option>
+                    <ion-select-option value="APADRINADO">Apadrinado</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-list>
@@ -137,10 +136,10 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              <input v-model="animalData.fechaNacimiento" type="date" name="fechaNacimiento" id="fechaNacimiento" class="inputDate">
+              <ion-input v-model="animalData.fecha_nacimiento" type="date" name="fechaNacimiento" id="fechaNacimiento" class="inputDate"></ion-input>
             </ion-col>
             <ion-col>
-              <input v-model="animalData.fechaIngreso" type="date" name="fechaIngreso" id="fechaIngreso" class="inputDate">
+              <ion-input v-model="animalData.fecha_ingreso" type="date" name="fechaIngreso" id="fechaIngreso" class="inputDate"></ion-input>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -153,7 +152,11 @@
           </ion-row>
           <ion-row>
             <ion-col>
-                <ion-input v-model="animalData.image" type="file" @change="onFileChange" accept="image/*"></ion-input>
+              <input
+                type="file"
+                name="images"
+                id="images"
+                @change="onFileChange"> />
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -163,7 +166,7 @@
               <ion-button @click="setOpen(false)">Cancelar</ion-button>
             </ion-col>
             <ion-col size="3">
-              <ion-button @click="">Enviar</ion-button>
+              <ion-button @click="subirAnimal(animalData)">Enviar</ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -185,7 +188,10 @@ import {
   IonPage,
   IonGrid,
   IonRow,
-  IonCol
+  IonCol,
+  IonSelect,
+  IonSelectOption,
+  IonTextarea
 } from "@ionic/vue";
 import { ref, Ref, onMounted } from 'vue';
 import { AgGridVue } from "ag-grid-vue3"; // AG Grid Component
@@ -196,7 +202,8 @@ import GestionarAnimalesEditButton from "@/components/GestionarAnimalesEditButto
 import GestionarAnimalesCreateButton from "@/components/GestionarAnimalesCreateButton.vue";
 import GestionarAnimalesDeleteButton from "@/components/GestionarAnimalesDeleteButton.vue";
 import { getAllAnimalsWithoutPagination } from "@/services/animal";
-
+import { pushAnimal } from "@/services/animal";
+import { Animal } from "@/types/Animal";
 
 
 
@@ -231,6 +238,35 @@ const columnDefs = ref([
 
 const rowData:any = ref([]);
 
+let animalData:Ref<Animal> = ref({
+      createdAt: new Date().toISOString(),
+	    updatedAt: new Date().toISOString(),
+      nombre: '',
+      tipo: '',
+      estado_adopcion: '',
+      peso:'',
+      tamanyo:'',
+      raza: '',
+      fecha_nacimiento: new Date().toISOString(),
+      fecha_ingreso: new Date().toISOString(),
+      sexo: '',
+      img: '',
+      descripcion: '',
+      habitacionId: 0,
+      donaciones_recibidas: [],
+      afiliadoId:0   
+  })
+
+  const subirAnimal = async (animalData:Animal) => {
+    console.log(animalData)
+    try {
+      const animal = pushAnimal(animalData);
+    }  
+    catch(error){
+        console.error("Error al subir el animal:",error)
+    }  
+  }
+
 onMounted(async ()=>{
   try {
         const animales = await getAllAnimalsWithoutPagination();
@@ -238,8 +274,29 @@ onMounted(async ()=>{
         rowData.value = animales; // Asigna los datos recuperados al rowData
       } catch (error) {
         console.error("Error al obtener los animales:", error);
-      }
+    }
+
+  await subirAnimal({
+    createdAt: animalData.value.createdAt,
+    updatedAt: animalData.value.updatedAt,
+    nombre: animalData.value.nombre,
+    tipo: animalData.value.tipo,
+    estado_adopcion: animalData.value.estado_adopcion,
+    peso: animalData.value.peso,
+    tamanyo: animalData.value.tamanyo,
+    raza: animalData.value.raza,
+    fecha_nacimiento: animalData.value.fecha_nacimiento,
+    fecha_ingreso: animalData.value.fecha_ingreso,
+    sexo: animalData.value.sexo,
+    img: animalData.value.img,
+    descripcion: animalData.value.descripcion,
+    habitacionId: animalData.value.habitacionId,
+    donaciones_recibidas: animalData.value.donaciones_recibidas,
+    afiliadoId: animalData.value.afiliadoId  
+  })
 })
+
+
 
 // const rowData = ref([
 //   { id: 0, nombre: 'Roy', tipo: 'Perro', sexo: 'Macho', raza: 'Bulldog', estado: 'casos-especiales', peso: 5, altura: "muy-pequeño", donativo: 0, afiliado: "", habitacion: 3, fechaNacimiento: '2024-03-05', fechaIngreso: '2020-05-03', imagen: 'pexels-snapwire-46024.jpg' },
@@ -260,34 +317,13 @@ function imageRenderer(params: any) {
   return wrapper;
 }
 
-let animalData:Animal = {
-      //nombre: '',
-      nombreAfiliado: '',
-      //raza: '',
-      //genero: '',
-      //habitacion: null,
-      //peso: null,
-      //tamaño: '',
-      //estado: '',
-      donativosNecesarios: null,
-      //fechaNacimiento: '',
-      //fechaIngreso: '',
-      //descripcion: '',
-      //foto: null
 
-      
-      nombre: '',
-      tipo: '',
-      estado_adopcion: '',
-      peso:null,
-      tamaño: '',
-      raza: '',
-      fecha_nacimiento: '',
-      fecha_ingreso: '',
-      sexo: '',
-      img: null,
-      descripcion: '',
-      habitacionId: null,
+
+  const onFileChange = (event:any) => {
+        const file = event.target.files[0];
+        if (file) {
+            animalData.value.img = URL.createObjectURL(file);
+        }
   }
 
 </script>
