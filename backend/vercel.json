@@ -5,7 +5,7 @@
     ],
     "builds": [
         {
-            "src": "dist/app.js",
+            "src": "package.json",
             "use": "@vercel/node"
         },
         {
