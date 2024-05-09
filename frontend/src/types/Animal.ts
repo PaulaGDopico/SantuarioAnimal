@@ -9,8 +9,8 @@ export interface Animal {
 	peso: string;
 	tamanyo: string,
 	raza: string;
-	fecha_nacimiento: Date;
-	fecha_ingreso: Date;
+	fecha_nacimiento: string;
+	fecha_ingreso: string;
 	sexo: string;
 	img: string;
 	descripcion: string | null;

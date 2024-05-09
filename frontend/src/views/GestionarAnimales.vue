@@ -136,11 +136,14 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              <ion-input v-model="animalData.fecha_nacimiento" type="date" name="fechaNacimiento" id="fechaNacimiento" class="inputDate"></ion-input>
+              <ion-input v-model="fechaNacimiento" type="date" name="fechaNacimiento" id="fechaNacimiento" class="inputDate"></ion-input>
             </ion-col>
+            {{ animalData.fecha_nacimiento }}
+            
             <ion-col>
-              <ion-input v-model="animalData.fecha_ingreso" type="date" name="fechaIngreso" id="fechaIngreso" class="inputDate"></ion-input>
+              <ion-input v-model="fechaIngreso" type="date" name="fechaIngreso" id="fechaIngreso" class="inputDate"></ion-input>
             </ion-col>
+            {{ animalData.fecha_ingreso }}
           </ion-row>
         </ion-grid>
         <ion-grid>
@@ -149,6 +152,7 @@
               <ion-textarea v-model="animalData.descripcion" label="Descripción" label-placement="floating" fill="solid"
                 placeholder="Introduce la descripción del animal"></ion-textarea>
             </ion-col>
+            {{ fechasConvertidas.value}}
           </ion-row>
           <ion-row>
             <ion-col>
@@ -193,7 +197,7 @@ import {
   IonSelectOption,
   IonTextarea
 } from "@ionic/vue";
-import { ref, Ref, onMounted } from 'vue';
+import { ref, Ref, onMounted, watch, computed} from 'vue';
 import { AgGridVue } from "ag-grid-vue3"; // AG Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
@@ -204,6 +208,7 @@ import GestionarAnimalesDeleteButton from "@/components/GestionarAnimalesDeleteB
 import { getAllAnimalsWithoutPagination } from "@/services/animal";
 import { pushAnimal } from "@/services/animal";
 import { Animal } from "@/types/Animal";
+
 
 
 
@@ -238,7 +243,18 @@ const columnDefs = ref([
 
 const rowData:any = ref([]);
 
-let animalData:Ref<Animal> = ref({
+let fechaNacimiento = ref('');
+let fechaIngreso = ref('')
+
+let fechasConvertidas = computed(()=>{
+    let fechaNacimiento_new = `${fechaNacimiento}T00:00:00Z`
+    let fechaIngreso_new = `${fechaIngreso}T00:00:00Z`
+
+    return { fechaNacimiento: fechaNacimiento_new, fechaIngreso: fechaIngreso_new };
+});
+
+
+let animalData = ref({
       createdAt: new Date().toISOString(),
 	    updatedAt: new Date().toISOString(),
       nombre: '',
@@ -247,17 +263,18 @@ let animalData:Ref<Animal> = ref({
       peso:'',
       tamanyo:'',
       raza: '',
-      fecha_nacimiento: new Date().toISOString(),
-      fecha_ingreso: new Date().toISOString(),
+      fecha_nacimiento: '',
+      fecha_ingreso: '',
       sexo: '',
       img: '',
-      descripcion: '',
+      descripcion: "",
       habitacionId: 0,
       donaciones_recibidas: [],
       afiliadoId:0   
   })
 
-  const subirAnimal = async (animalData:Animal) => {
+
+  const subirAnimal = async (animalData:any) => {
     console.log(animalData)
     try {
       const animal = pushAnimal(animalData);
@@ -276,25 +293,27 @@ onMounted(async ()=>{
         console.error("Error al obtener los animales:", error);
     }
 
-  await subirAnimal({
-    createdAt: animalData.value.createdAt,
-    updatedAt: animalData.value.updatedAt,
-    nombre: animalData.value.nombre,
-    tipo: animalData.value.tipo,
-    estado_adopcion: animalData.value.estado_adopcion,
-    peso: animalData.value.peso,
-    tamanyo: animalData.value.tamanyo,
-    raza: animalData.value.raza,
-    fecha_nacimiento: animalData.value.fecha_nacimiento,
-    fecha_ingreso: animalData.value.fecha_ingreso,
-    sexo: animalData.value.sexo,
-    img: animalData.value.img,
-    descripcion: animalData.value.descripcion,
-    habitacionId: animalData.value.habitacionId,
-    donaciones_recibidas: animalData.value.donaciones_recibidas,
-    afiliadoId: animalData.value.afiliadoId  
-  })
-})
+    await subirAnimal(animalData.value)
+
+//   await subirAnimal({
+//     createdAt: animalData.value.createdAt,
+//     updatedAt: animalData.value.updatedAt,
+//     nombre: animalData.value.nombre,
+//     tipo: animalData.value.tipo,
+//     estado_adopcion: animalData.value.estado_adopcion,
+//     peso: animalData.value.peso,
+//     tamanyo: animalData.value.tamanyo,
+//     raza: animalData.value.raza,
+//     fecha_nacimiento: animalData.value.fecha_nacimiento,
+//     fecha_ingreso: animalData.value.fecha_ingreso,
+//     sexo: animalData.value.sexo,
+//     img: animalData.value.img,
+//     descripcion: animalData.value.descripcion,
+//     habitacionId: animalData.value.habitacionId,
+//     donaciones_recibidas: animalData.value.donaciones_recibidas,
+//     afiliadoId: animalData.value.afiliadoId  
+//   })
+ })
 
 
 
