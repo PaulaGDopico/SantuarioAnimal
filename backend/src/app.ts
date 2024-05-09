@@ -16,7 +16,7 @@ const corsOptions = {
 };
 
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static("public/uploads"));
 app.use(cors(corsOptions));
 
 //All routes
