@@ -3,7 +3,7 @@
         { "source": "/(.*)", "destination": "/api" },
         { "source": "/", "destination": "public" },
         {
-            "src": "/(.+)",
+            "source": "/(.+)",
             "destination": "public/$1"
         }
     ],
