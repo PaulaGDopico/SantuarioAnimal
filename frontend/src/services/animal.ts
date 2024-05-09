@@ -10,6 +10,7 @@ const options = {
 		"ngrok-skip-browser-warning": "true",
 	}),
 };
+
 export const getAnimal = async (animalId: string) => {
 	try {
 		console.log(API_URL + "/animales/animal/" + animalId);

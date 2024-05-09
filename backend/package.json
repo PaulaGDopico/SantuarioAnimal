@@ -1,11 +1,12 @@
 {
   "name": "backend",
+  "type": "module",
   "version": "1.0.0",
   "description": "Node backend for Santuario Animal",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/app.ts",
+    "dev": "npx tsx src/app.ts",
     "start": "node dist/app.js",
     "build": "prisma generate && tsc",
     "postinstall": "prisma generate"
@@ -29,13 +30,14 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/multer": "^1.4.11",
     "@types/node": "^20.12.7",
     "@types/nodemailer": "^6.4.15",
     "nodemon": "^3.1.0",
     "prisma": "^5.12.1",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.9.3",
     "typescript": "^5.4.5"
   }
 }
