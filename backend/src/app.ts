@@ -5,10 +5,9 @@ import authRoutes from "./routes/authRoutes";
 import afiliadoRoutes from "./routes/afiliadoRoutes";
 import donacionesRoutes from "./routes/donacionesRoutes";
 import mailRoutes from "./routes/mailRoutes";
-import path from "path";
-import { fileURLToPath } from "url";
 
-import cors from "cors"
+var cors = require("cors");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -17,10 +16,7 @@ const corsOptions = {
 };
 
 app.use(express.json());
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-app.use("/public", express.static(path.join(__dirname, "public")));
-
+app.use(express.static("public/uploads"));
 app.use(cors(corsOptions));
 
 //All routes

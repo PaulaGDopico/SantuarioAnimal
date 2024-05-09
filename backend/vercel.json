@@ -1,5 +1,5 @@
 {
-   "rewrites": [{ "source": "/(.*)", "destination": "/api" }, {"source":"/","destination":"/api"}],
+   "rewrites": [{ "source": "/(.*)", "destination": "/api" }, {"source":"/","destination":"/api"},{"source":"/public/uploads/(.*)","destination":"/public/uploads/$1"}],
    "headers": [
       {
         "source": "/api/(.*)",
