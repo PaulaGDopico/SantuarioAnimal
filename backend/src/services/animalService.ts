@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import prisma from "../prismaClient.js";
+import prisma from "../prismaClient";
 
 export const getAllAnimals = async (page_num: number, offset: number) => {
 	return prisma.animal.findMany({

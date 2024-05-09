@@ -1,5 +1,5 @@
 import express, { response } from "express";
-import * as afiliadoService from "../services/afiliadoService.js";
+import * as afiliadoService from "../services/afiliadoService";
 
 const router = express.Router();
 

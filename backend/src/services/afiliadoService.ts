@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import prisma from "../prismaClient.js";
+import prisma from "../prismaClient";
 
 export const getAllAfiliados = async()=>{
     return prisma.afiliado.findMany({})

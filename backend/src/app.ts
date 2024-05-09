@@ -1,14 +1,14 @@
 import express from "express";
-import habitacionRoutes from "./routes/habitacionRoutes.js";
-import animalRoutes from "./routes/animalRoutes.js";
-import authRoutes from "./routes/authRoutes.js";
-import afiliadoRoutes from "./routes/afiliadoRoutes.js";
-import donacionesRoutes from "./routes/donacionesRoutes.js";
-import mailRoutes from "./routes/mailRoutes.js";
+import habitacionRoutes from "./routes/habitacionRoutes";
+import animalRoutes from "./routes/animalRoutes";
+import authRoutes from "./routes/authRoutes";
+import afiliadoRoutes from "./routes/afiliadoRoutes";
+import donacionesRoutes from "./routes/donacionesRoutes";
+import mailRoutes from "./routes/mailRoutes";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import cors from "cors";
+import cors from "cors"
 const app = express();
 const PORT = process.env.PORT || 3000;
 
