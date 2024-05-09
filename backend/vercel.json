@@ -1,9 +1,8 @@
 {
     "rewrites": [
         { "source": "/(.*)", "destination": "/api" },
-        { "source": "/uploads/(.*)", "destination": "/public/uploads" },
         {
-            "source": "/public/uploads/(.*)",
+            "source": "/uploads/(.*)",
             "destination": "/public/uploads/$1"
         }
     ],
