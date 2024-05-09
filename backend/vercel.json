@@ -1,11 +1,7 @@
 {
     "rewrites": [
         { "source": "/(.*)", "destination": "/api" },
-        { "source": "/", "destination": "/public" },
-        {
-            "source": "/(.+)",
-            "destination": "public/$1"
-        }
+        { "source": "/", "destination": "/public" }
     ],
     "builds": [
         {
