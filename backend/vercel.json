@@ -9,7 +9,7 @@
     ],
     "builds": [
         {
-            "src": "*.js",
+            "src": "dist/app.js",
             "use": "@vercel/node"
         },
         {
