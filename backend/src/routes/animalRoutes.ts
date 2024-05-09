@@ -2,6 +2,7 @@ import express from "express";
 import upload from "../middleware/multerMiddleware";
 import * as animalService from "../services/animalService";
 import { API_FILE_URL } from "../middleware/secrets";
+import { connect } from "http2";
 
 const router = express.Router();
 
@@ -59,12 +60,14 @@ router.post("/", upload.single("image"), async (req, res) => {
 			tipo,
 			estado_adopcion,
 			peso,
+			tamanyo,
 			raza,
 			fecha_nacimiento,
 			fecha_ingreso,
 			sexo,
 			descripcion,
 			habitacionId,
+			afiliadoId
 		} = req.body;
 		const imageName = req.file ? "/uploads/" + req.file.filename : "";
 		const newAnimal = await animalService.createAnimal({
@@ -72,6 +75,7 @@ router.post("/", upload.single("image"), async (req, res) => {
 			tipo,
 			estado_adopcion,
 			peso,
+			tamanyo,
 			raza,
 			fecha_nacimiento,
 			fecha_ingreso,
@@ -79,6 +83,7 @@ router.post("/", upload.single("image"), async (req, res) => {
 			img: imageName,
 			descripcion,
 			Habitacion: { connect: { id: Number(habitacionId) } },
+			Afiliado: {connect: {id:Number(afiliadoId)}}
 		});
 
 		res.status(201).json(newAnimal);
