@@ -49,9 +49,9 @@
 				</section>
 				<section class="listaAnimales">
 					<div class="cartasAnimal d-flex justify-content-center">
-						<AppCartaAnimal v-for="animal in infoAnimal" :key="animal.id" :id="animal.id" :animal="animal.tipo"
-							:estado-adopcion="animal.estado_adopcion" :nombre="animal.nombre" :raza="animal.raza"
-							:urlImg="API_FILE_URL + animal.img" />
+						<AppCartaAnimal v-for="animal in infoAnimal" :key="animal.id" :id="animal.id"
+							:animal="animal.tipo" :estado-adopcion="animal.estado_adopcion" :nombre="animal.nombre"
+							:raza="animal.raza" :urlImg="API_FILE_URL + animal.img" />
 					</div>
 					<div class="d-flex justify-content-center paginacion">
 						<button @click="anteriorPag()" class="buttonPag">Anterior</button>
@@ -102,8 +102,15 @@ watch(filtros, async () => {
 	} else {
 		console.error("Error: Array de animales vacio");
 		infoAnimal.value = null;
+	}	
+	if (animals) {
+		paginacion.value = Math.ceil(animals.length / 20);
+		console.log(animals.length) // Suponiendo que hay 20 animales por página
+	} else {
+		// Manejar el caso en que response es undefined
+		console.error("Error: La respuesta de getAllAnimales es undefined");
 	}
-}, { deep: true }); 
+}, { deep: true });
 onMounted(async () => {
 	const animals = await getAnimales(paginaActual.value, filtros.value);
 	if (Array.isArray(animals)) {
@@ -115,6 +122,7 @@ onMounted(async () => {
 	const response = await getAllAnimales()
 	if (response) {
 		paginacion.value = Math.ceil(response.length / 20); // Suponiendo que hay 20 animales por página
+		console.log(response.length) 
 	} else {
 		// Manejar el caso en que response es undefined
 		console.error("Error: La respuesta de getAllAnimales es undefined");
@@ -123,7 +131,7 @@ onMounted(async () => {
 async function siguientePag() {
 	paginaActual.value++
 	if (paginaActual < paginacion) {
-		const animals = await getAnimales(paginaActual.value,filtros.value);
+		const animals = await getAnimales(paginaActual.value, filtros.value);
 		if (Array.isArray(animals)) {
 			infoAnimal.value = animals;
 		} else {
@@ -136,19 +144,19 @@ async function anteriorPag() {
 	if (paginaActual.value >= 1) {
 		paginaActual.value--
 		if (paginaActual < paginacion) {
-		const animals = await getAnimales(paginaActual.value,filtros.value);
-		if (Array.isArray(animals)) {
-			infoAnimal.value = animals;
-		} else {
-			console.error("Error: Array de animales vacio");
-			infoAnimal.value = null;
+			const animals = await getAnimales(paginaActual.value, filtros.value);
+			if (Array.isArray(animals)) {
+				infoAnimal.value = animals;
+			} else {
+				console.error("Error: Array de animales vacio");
+				infoAnimal.value = null;
+			}
 		}
-	}
 	}
 }
 async function clickPage(pagina: number) {
 	paginaActual.value = pagina
-	const animals = await getAnimales(paginaActual.value,filtros.value);
+	const animals = await getAnimales(paginaActual.value, filtros.value);
 	if (Array.isArray(animals)) {
 		infoAnimal.value = animals;
 	} else {
