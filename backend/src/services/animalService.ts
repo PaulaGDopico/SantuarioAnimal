@@ -124,7 +124,6 @@ export const createAnimal = async (animal: Prisma.AnimalCreateInput) => {
             img: animal.img,
             descripcion: animal.descripcion,
             Habitacion: animal.Habitacion,
-            Afiliado: animal.Afiliado,
             Donaciones_recibidas: animal.Donaciones_recibidas,
         },
     });
