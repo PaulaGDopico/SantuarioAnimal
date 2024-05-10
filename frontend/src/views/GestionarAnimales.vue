@@ -291,6 +291,7 @@ import GestionarAnimalesDeleteButton from "@/components/GestionarAnimalesDeleteB
 import { getAllAnimalsWithoutPagination } from "@/services/animal";
 import { pushAnimal } from "@/services/animal";
 
+
 // BOTONES MODAL
 const isOpen = ref(false);
 const setOpen = (open: boolean) => (isOpen.value = open);
@@ -357,7 +358,7 @@ const animalData = ref({
 const subirAnimal = async (animalData: any) => {
     console.log(animalData);
     try {
-        pushAnimal(animalData);
+        await pushAnimal(animalData);
         setOpen(false);
         const result = await getAllAnimalsWithoutPagination();
         console.log(result);
@@ -401,7 +402,7 @@ onMounted(async () => {
     //     donaciones_recibidas: animalData.value.donaciones_recibidas,
     //     afiliadoId: animalData.value.afiliadoId
     //   })
-});
+
 
 // const rowData = ref([
 //   { id: 0, nombre: 'Roy', tipo: 'Perro', sexo: 'Macho', raza: 'Bulldog', estado: 'casos-especiales', peso: 5, altura: "muy-pequeño", donativo: 0, afiliado: "", habitacion: 3, fechaNacimiento: '2024-03-05', fechaIngreso: '2020-05-03', imagen: 'pexels-snapwire-46024.jpg' },
@@ -409,6 +410,8 @@ onMounted(async () => {
 //   { nombre: 'Gafe', tipo: 'Gato', sexo: 'Macho', raza: 'Europeo', estado: 'adopcion-urgente', imagen: 'pexels-snapwire-46024.jpg' },
 //   { nombre: 'Tristepin', tipo: 'Perro', sexo: 'Hembra', raza: 'Chihuahua', estado: 'apadrinado', imagen: 'perro.jpg' }
 // ]);
+ })
+
 
 function imageRenderer(params: any) {
     const wrapper = document.createElement("div");
@@ -425,7 +428,7 @@ function imageRenderer(params: any) {
 <style scoped lang="scss">
 h1 {
     text-align: center;
-    margin: 0px;
+    margin: 0;
 }
 
 a {
