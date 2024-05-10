@@ -5,7 +5,7 @@
         <ion-modal :is-open="isOpen" :onDidDismiss="() => setOpen(false)">
             <ion-header>
                 <ion-toolbar>
-                    <ion-title>FORMULARI MODIFICAR ANIMAL</ion-title>
+                    <ion-title>FORMULARI AÑADIR ANIMAL</ion-title>
                     <ion-buttons slot="end">
                         <ion-button @click="setOpen(false)">Close</ion-button>
                     </ion-buttons>
@@ -20,11 +20,11 @@
                                     placeholder="Introduce nombre">
                                 </ion-input>
                             </ion-col>
-                            <ion-col>
+                            <!-- <ion-col>
                                 <ion-input label="Nombre Afiliado" label-placement="floating" fill="solid"
                                     placeholder="Introduce nombre">
                                 </ion-input>
-                            </ion-col>
+                            </ion-col> -->
 
                         </ion-row>
                     </ion-grid>
@@ -108,10 +108,10 @@
                                     </ion-item>
                                 </ion-list>
                             </ion-col>
-                            <ion-col>
+                            <!-- <ion-col>
                                 <ion-input type="number" label="Donativos Necesarios" label-placement="floating"
                                     fill="solid" min="1"></ion-input>
-                            </ion-col>
+                            </ion-col> -->
                         </ion-row>
                     </ion-grid>
                     <ion-grid>
@@ -129,6 +129,11 @@
                             <ion-col>
                                 <ion-textarea label="Descripción" label-placement="floating" fill="solid"
                                     placeholder="Introduce la descripción del animal"></ion-textarea>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                <ion-input type="file" @change="onFileChange" accept="image/*"></ion-input>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
@@ -163,4 +168,27 @@ import { ref } from 'vue';
 const isOpen = ref(false);
 
 const setOpen = (open: boolean) => (isOpen.value = open);
+
+data() {
+  return {
+    animalData: {
+      nombre: '',
+      nombreAfiliado: '',
+      raza: '',
+      genero: '',
+      habitacion: null,
+      peso: null,
+      tamaño: '',
+      estado: '',
+      donativosNecesarios: null,
+      fechaNacimiento: '',
+      fechaIngreso: '',
+      descripcion: '',
+      foto: null // Esta variable almacenará la foto del animal
+    },
+    isOpen: false
+  };
+}
+
+
 </script>

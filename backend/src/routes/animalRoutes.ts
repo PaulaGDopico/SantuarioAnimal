@@ -2,6 +2,7 @@ import express from "express";
 import upload from "../middleware/multerMiddleware";
 import * as animalService from "../services/animalService";
 import { API_FILE_URL } from "../middleware/secrets";
+import { connect } from "http2";
 
 const router = express.Router();
 
@@ -53,46 +54,44 @@ router.get("/animal/:animalId", async (req, res) => {
 });
 
 router.post("/", upload.single("image"), async (req, res) => {
-    try {
-        const {
-            nombre,
-            tipo,
-            estado_adopcion,
-            peso,
-            tamanyo,
-            raza,
-            fecha_nacimiento,
-            fecha_ingreso,
-            sexo,
-            descripcion,
-            habitacionId,
-            afiliadoId,
-        } = req.body;
-        const imageName = req.file
-            ? "/uploads/" + req.file.filename
-            : "";
 
-        const newAnimal = await animalService.createAnimal({
-            nombre,
-            tipo,
-            estado_adopcion,
-            peso,
-            tamanyo,
-            raza,
-            fecha_nacimiento,
-            fecha_ingreso,
-            sexo,
-            img: imageName,
-            descripcion,
-            Afiliado: { connect: { id: Number(afiliadoId) } },
-            Habitacion: { connect: { id: Number(habitacionId) } },
-        });
+	try {
+		const {
+			nombre,
+			tipo,
+			estado_adopcion,
+			peso,
+			tamanyo,
+			raza,
+			fecha_nacimiento,
+			fecha_ingreso,
+			sexo,
+			descripcion,
+			habitacionId,
+			afiliadoId
+		} = req.body;
+		const imageName = req.file ? "/uploads/" + req.file.filename : "";
+		const newAnimal = await animalService.createAnimal({
+			nombre,
+			tipo,
+			estado_adopcion,
+			peso,
+			tamanyo,
+			raza,
+			fecha_nacimiento,
+			fecha_ingreso,
+			sexo,
+			img: imageName,
+			descripcion,
+			Habitacion: { connect: { id: Number(habitacionId) } },
+			Afiliado: {connect: {id:Number(afiliadoId)}}
+		});
 
-        res.status(201).json(newAnimal);
-    } catch (error) {
-        console.error("Error creating animal:", error);
-        res.status(500).json({ error: "Internal server error" });
-    }
+		res.status(201).json(newAnimal);
+	} catch (error) {
+		console.error("Error creating animal:", error);
+		res.status(500).json({ error: "Internal server error" });
+	}
 });
 
 router.put("/:animalId", upload.single("image"), async (req, res) => {

@@ -29,7 +29,7 @@
   <ion-modal :is-open="isOpen" :onDidDismiss="() => setOpen(false)">
     <ion-header>
       <ion-toolbar>
-        <ion-title>FORMULARI MODIFICAR ANIMAL</ion-title>
+        <ion-title>FORMULARI AÑADIR ANIMAL</ion-title>
         <ion-buttons slot="end">
           <ion-button @click="setOpen(false)">Close</ion-button>
         </ion-buttons>
@@ -40,28 +40,27 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              <ion-input label="Nombre Animal" label-placement="floating" fill="solid" placeholder="Introduce nombre">
+              <ion-input v-model="animalData.nombre" label="Nombre Animal" label-placement="floating" fill="solid" placeholder="Introduce nombre">
               </ion-input>
             </ion-col>
             <ion-col>
-              <ion-input label="Nombre Afiliado" label-placement="floating" fill="solid" placeholder="Introduce nombre">
+              <ion-input v-model="animalData.afiliadoId" label="Nombre Afiliado" label-placement="floating" fill="solid" placeholder="Introduce nombre">
               </ion-input>
             </ion-col>
-
           </ion-row>
         </ion-grid>
         <ion-grid>
           <ion-row>
             <ion-col>
-              <ion-input label="Raza" label-placement="floating" fill="solid" placeholder="Introduce la raza">
+              <ion-input v-model="animalData.raza" label="Raza" label-placement="floating" fill="solid" placeholder="Introduce la raza">
               </ion-input>
             </ion-col>
             <ion-col>
               <ion-list>
                 <ion-item>
-                  <ion-select aria-label="Sexo">
-                    <ion-select-option value="Perro">Perro</ion-select-option>
-                    <ion-select-option value="Gato">Gato</ion-select-option>
+                  <ion-select v-model="animalData.tipo" aria-label="Sexo">
+                    <ion-select-option value="PERRO">Perro</ion-select-option>
+                    <ion-select-option value="GATO">Gato</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-list>
@@ -69,9 +68,9 @@
             <ion-col>
               <ion-list>
                 <ion-item>
-                  <ion-select aria-label="Sexo">
-                    <ion-select-option value="Macho">Macho</ion-select-option>
-                    <ion-select-option value="Hembra">Hembra</ion-select-option>
+                  <ion-select v-model="animalData.sexo" aria-label="Sexo">
+                    <ion-select-option value="MACHO">Macho</ion-select-option>
+                    <ion-select-option value="HEMBRA">Hembra</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-list>
@@ -91,21 +90,21 @@
         <ion-grid>
           <ion-row>
             <ion-col>
-              <ion-input type="number" label="Habitación" label-placement="floating" fill="solid" max="20"
+              <ion-input v-model="animalData.habitacionId" type="number" label="Habitación" label-placement="floating" fill="solid" max="20"
                 min="1"></ion-input>
             </ion-col>
             <ion-col>
-              <ion-input type="number" label="Peso" label-placement="floating" fill="solid"></ion-input>
+              <ion-input v-model="animalData.peso" type="number" label="Peso" label-placement="floating" fill="solid"></ion-input>
             </ion-col>
             <ion-col>
               <ion-list>
                 <ion-item>
-                  <ion-select aria-label="Altura">
-                    <ion-select-option value="muy-grande">Muy Grande</ion-select-option>
-                    <ion-select-option value="grande">Grande</ion-select-option>
-                    <ion-select-option value="mediano">Mediano</ion-select-option>
-                    <ion-select-option value="pequeño">Pequeño</ion-select-option>
-                    <ion-select-option value="muy-pequeño">Muy Pequeño</ion-select-option>
+                  <ion-select v-model="animalData.tamanyo" aria-label="Altura">
+                    <ion-select-option value="MUY_GRANDE">Muy Grande</ion-select-option>
+                    <ion-select-option value="GRANDE">Grande</ion-select-option>
+                    <ion-select-option value="MEDIANO">Mediano</ion-select-option>
+                    <ion-select-option value="PEQUEÑO">Pequeño</ion-select-option>
+                    <ion-select-option value="MUY_PEQUEÑO">Muy Pequeño</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-list>
@@ -117,38 +116,49 @@
             <ion-col>
               <ion-list>
                 <ion-item>
-                  <ion-select aria-label="Estado Animal">
-                    <ion-select-option value="sin-estado">Sin estado</ion-select-option>
-                    <ion-select-option value="casos-especiales">Casos
+                  <ion-select v-model="animalData.estado_adopcion" aria-label="Estado Animal">
+                    <ion-select-option value="SIN_ESTADO">Sin estado</ion-select-option>
+                    <ion-select-option value="CASOS_ESPECIALES">Casos
                       Especiales</ion-select-option>
-                    <ion-select-option value="adopcion-urgente">Adopción
+                    <ion-select-option value="ADOPCION_URGENTE">Adopción
                       Urgente</ion-select-option>
-                    <ion-select-option value="apadrinado">Apadrinado</ion-select-option>
+                    <ion-select-option value="APADRINADO">Apadrinado</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-list>
             </ion-col>
-            <ion-col>
-              <ion-input type="number" label="Donativos Necesarios" label-placement="floating" fill="solid"
+            <!-- <ion-col>
+              <ion-input v-model="animalData.donativosNecesarios" type="number" label="Donativos Necesarios" label-placement="floating" fill="solid"
                 min="1"></ion-input>
+            </ion-col> -->
+          </ion-row>
+        </ion-grid>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-input v-model="fechaNacimiento" type="date" name="fechaNacimiento" id="fechaNacimiento" class="inputDate"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-input v-model="fechaIngreso" type="date" name="fechaIngreso" id="fechaIngreso" class="inputDate"></ion-input>
             </ion-col>
           </ion-row>
         </ion-grid>
         <ion-grid>
           <ion-row>
             <ion-col>
-              <input type="date" name="fechaNacimiento" id="fechaNacimiento" class="inputDate">
-            </ion-col>
-            <ion-col>
-              <input type="date" name="fechaIngreso" id="fechaIngreso" class="inputDate">
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-        <ion-grid>
-          <ion-row>
-            <ion-col>
-              <ion-textarea label="Descripción" label-placement="floating" fill="solid"
+              <ion-textarea v-model="animalData.descripcion" label="Descripción" label-placement="floating" fill="solid"
                 placeholder="Introduce la descripción del animal"></ion-textarea>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <input
+                type="file"
+                name="image"
+                id="image"
+                v-on:change="subirImagen"
+                >
+                {{ animalData.img }}
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -158,7 +168,7 @@
               <ion-button @click="setOpen(false)">Cancelar</ion-button>
             </ion-col>
             <ion-col size="3">
-              <ion-button @click="">Enviar</ion-button>
+              <ion-button @click="subirAnimal(animalData)">Enviar</ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -180,9 +190,13 @@ import {
   IonPage,
   IonGrid,
   IonRow,
-  IonCol
+  IonCol,
+  IonSelect,
+  IonSelectOption,
+  IonTextarea,
+  IonList
 } from "@ionic/vue";
-import { ref, Ref, onMounted } from 'vue';
+import { ref, Ref, onMounted, watch, computed} from 'vue';
 import { AgGridVue } from "ag-grid-vue3"; // AG Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
@@ -191,6 +205,8 @@ import GestionarAnimalesEditButton from "@/components/GestionarAnimalesEditButto
 import GestionarAnimalesCreateButton from "@/components/GestionarAnimalesCreateButton.vue";
 import GestionarAnimalesDeleteButton from "@/components/GestionarAnimalesDeleteButton.vue";
 import { getAllAnimalsWithoutPagination } from "@/services/animal";
+import { pushAnimal } from "@/services/animal";
+import { Animal } from "@/types/Animal";
 
 
 
@@ -226,6 +242,53 @@ const columnDefs = ref([
 
 const rowData:any = ref([]);
 
+let fechaNacimiento = ref('');
+let fechaIngreso = ref('')
+
+const fechaNacimientoConvertida = computed(()=> `${fechaNacimiento.value}T00:00:00Z`);
+const fechaIngresoConvertida = computed(()=>`${fechaIngreso.value}T00:00:00Z`) 
+
+let animalData= ref({
+      createdAt: new Date().toISOString(),
+	    updatedAt: new Date().toISOString(),
+      nombre: '',
+      tipo: '',
+      estado_adopcion: '',
+      peso:'',
+      tamanyo:'',
+      raza: '',
+      fecha_nacimiento: fechaNacimientoConvertida,
+      fecha_ingreso: fechaIngresoConvertida,
+      sexo: '',
+      img: '',
+      descripcion: "",
+      habitacionId: 0,
+      donaciones_recibidas: [],
+      afiliadoId: undefined
+  })
+
+
+  const subirAnimal = async (animalData:any) => {
+    console.log(animalData)
+    try {
+      const animal = pushAnimal(animalData);
+      setOpen(false)
+      const result = await getAllAnimalsWithoutPagination();
+        console.log(result)
+        rowData.value = result; // Asigna los datos recuperados al rowData
+    }  
+    catch(error){
+        console.error("Error al subir el animal:",error)
+    }  
+  }
+
+  const subirImagen = (e: any) => {
+    animalData.value.img = e.target.files[0];
+    console.log(animalData.value.img);
+  }
+
+
+
 onMounted(async ()=>{
   try {
         const animales = await getAllAnimalsWithoutPagination();
@@ -233,8 +296,31 @@ onMounted(async ()=>{
         rowData.value = animales; // Asigna los datos recuperados al rowData
       } catch (error) {
         console.error("Error al obtener los animales:", error);
-      }
-})
+    }
+
+    //await subirAnimal(animalData.value)
+
+//   await subirAnimal({
+//     createdAt: animalData.value.createdAt,
+//     updatedAt: animalData.value.updatedAt,
+//     nombre: animalData.value.nombre,
+//     tipo: animalData.value.tipo,
+//     estado_adopcion: animalData.value.estado_adopcion,
+//     peso: animalData.value.peso,
+//     tamanyo: animalData.value.tamanyo,
+//     raza: animalData.value.raza,
+//     fecha_nacimiento: animalData.value.fecha_nacimiento,
+//     fecha_ingreso: animalData.value.fecha_ingreso,
+//     sexo: animalData.value.sexo,
+//     img: animalData.value.img,
+//     descripcion: animalData.value.descripcion,
+//     habitacionId: animalData.value.habitacionId,
+//     donaciones_recibidas: animalData.value.donaciones_recibidas,
+//     afiliadoId: animalData.value.afiliadoId  
+//   })
+ })
+
+
 
 // const rowData = ref([
 //   { id: 0, nombre: 'Roy', tipo: 'Perro', sexo: 'Macho', raza: 'Bulldog', estado: 'casos-especiales', peso: 5, altura: "muy-pequeño", donativo: 0, afiliado: "", habitacion: 3, fechaNacimiento: '2024-03-05', fechaIngreso: '2020-05-03', imagen: 'pexels-snapwire-46024.jpg' },
@@ -254,6 +340,7 @@ function imageRenderer(params: any) {
 
   return wrapper;
 }
+
 </script>
 <style scoped lang="scss">
 h1 {
