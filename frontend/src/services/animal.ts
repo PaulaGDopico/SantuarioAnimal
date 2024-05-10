@@ -6,7 +6,6 @@ import {
     EstadoAdopcionAnimal,
     estadoAdopcionLabels,
 } from "@/types/AnimalEstadoAdopcion";
-import { Ref } from "vue";
 import { Filtros } from "@/types/Filtros";
 
 export const getAnimal = async (animalId: string) => {
