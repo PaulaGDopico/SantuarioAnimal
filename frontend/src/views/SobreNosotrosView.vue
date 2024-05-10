@@ -1,10 +1,10 @@
 <template>
 	<ion-page>
 		<ion-content>
+			<SubHeader titulo="Conoce Más Sobre Nuestra Protectora y Nuestra Misión"
+				texto="Desde nuestros humildes comienzos hasta nuestros logros más recientes, cada capítulo de nuestra historia está impregnado de la pasión y el compromiso de nuestro equipo por hacer del mundo un lugar mejor para todos los seres vivos. Explora nuestra página para descubrir cómo puedes formar parte de nuestra familia y hacer una diferencia significativa en la vida de los animales necesitados."
+				img-url="/img/pexels-umutart-20012844.jpg" infoBtn="Requisitos para adoptar"></SubHeader>
 			<div class="main">
-				<div class="cabecera">
-					<img src="/img/subheader.png" />
-				</div>
 				<section class="informacion">
 					<h1>Sobre Nosotros</h1>
 					<p>¡Bienvenido a Santuario Animal!</p>
@@ -79,6 +79,7 @@
 <script setup lang="ts">
 import AppFooter from "@/components/AppFooter.vue";
 import { IonPage, IonContent } from "@ionic/vue";
+import SubHeader from "@/components/SubHeader.vue";
 </script>
 
 <style lang="scss" scoped>
@@ -87,12 +88,7 @@ import { IonPage, IonContent } from "@ionic/vue";
 	flex-direction: column;
 	align-items: center;
 }
-.cabecera {
-	width: 100%;
-	img {
-		width: 100%;
-	}
-}
+
 .informacion {
 	background-color: white;
 	color: black;

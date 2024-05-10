@@ -1,11 +1,9 @@
 <template>
 	<ion-page>
 		<ion-content>
-			<section class="subheader">
-				<div>
-					<h1>Buscamos personas comprometidas</h1>
-				</div>
-			</section>
+			<SubHeader titulo="Únete a Nosotros Como Voluntario y Marca la Diferencia"
+				texto="El tiempo que dedicas puede cambiar vidas. Únete a nuestro equipo de voluntarios y sé la voz, las manos y el corazón de los que no tienen voz. Desde pasear perros hasta alimentar gatitos, cada gesto cuenta en nuestra misión de proteger y cuidar a los animales más vulnerables. "
+				img-url="/img/pexels-elif-tasli-889857993-20019531.jpg" infoBtn="Requisitos para adoptar"></SubHeader>
 			<section class="container ion-padding">
 				<ion-grid>
 					<ion-row>
@@ -174,6 +172,7 @@
 </template>
 
 <script setup lang="ts">
+import SubHeader from "@/components/SubHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
 import {
 	IonPage,

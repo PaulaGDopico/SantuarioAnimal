@@ -1,8 +1,8 @@
 <template>
 	<ion-page>
 		<ion-content>
-			<SubHeader titulo="Lorem ipsum dolor"
-				texto="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente blanditiis vitae consequatur mollitia quibusdam debitis necessitatibus et. Error, nisi iure repellat recusandae, atque dolorum autem fugiat provident ipsa sit ipsam?"
+			<SubHeader titulo="¡Adopta, ama, y sé amado!"
+				texto="En cada mirada, en cada movimiento, en cada latido, un animal en espera de adopción te ofrece un vínculo indeleble lleno de gratitud y afecto. Descubre el regalo incomparable de la compañía animal, y sé parte de una historia donde el amor encuentra su hogar. ¡Adopta hoy y cambia dos vidas para siempre!"
 				img-url="/img/pexels-helena-lopes-1959054.jpg" infoBtn="Requisitos para adoptar"></SubHeader>
 			<div class="content main-wrapper">
 				<section class="filtros">
