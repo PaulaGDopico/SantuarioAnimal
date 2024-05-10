@@ -1,11 +1,9 @@
 <template>
 	<ion-page>
 		<ion-content>
-			<section class="subheader">
-				<div>
-					<h1>Adoptar es querer</h1>
-				</div>
-			</section>
+			<SubHeader titulo="Un Hogar, un Corazón"
+				texto="Cada criatura, con sus ojos llenos de historias por contar, aguarda ansiosamente el toque cálido de un nuevo amigo humano. Únete a nosotros en esta misión de amor y compasión, donde cada adopción es un acto de rescate mutuo. Contacta con nuestra protectora hoy mismo y sé el cambio que el mundo necesita, un abrazo a la vez."
+				img-url="/img/pexels-andreas-246992646-19967972.jpg" infoBtn="Requisitos para adoptar"></SubHeader>
 			<div>
 				<section class="info container">
 					<ion-grid>
@@ -218,6 +216,7 @@
 
 <script setup lang="ts">
 import AppFooter from "@/components/AppFooter.vue";
+import SubHeader from "@/components/SubHeader.vue";
 import {
 	IonPage,
 	IonContent,
@@ -234,20 +233,6 @@ import { calendar, call, mail, pin } from "ionicons/icons";
 </script>
 
 <style lang="scss" scoped>
-.subheader {
-	height: 50vh;
-	background-image: url(/img/pexels-pixabay-460985.jpg);
-	background-size: cover;
-	background-position: center;
-	justify-content: start;
-	display: flex;
-	align-items: center;
-
-	div {
-		width: 500px;
-		margin-left: 160px;
-	}
-}
 
 .container {
 	margin: 5vh 10vw;

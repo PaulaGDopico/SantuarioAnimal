@@ -5,19 +5,46 @@ import { API_FILE_URL } from "../middleware/secrets";
 import { connect } from "http2";
 
 const router = express.Router();
-
 //Multiples animales
 // ex: http://localhost:3000/animales?page=1
+interface Filtros {
+	tipoPerro: boolean,
+	tipoGato: boolean,
+	urgente: boolean,
+	especial: boolean,
+	apadrinando: boolean,
+	sinEstado: boolean,
+	hembra: boolean,
+	macho: boolean,
+	altura: string,
+	peso: string,
+	// Agrega más filtros según sea necesario
+  }
 router.get("/:page", async (req, res) => {
     try {
         const pageNum = parseInt(req.params.page as string);
-        const offset = 5; //Numero de items por pagina
+        const offset = 20; // Numero de elementos por página
+
 
         if (isNaN(pageNum) || isNaN(offset)) {
             throw new Error("Invalid parameters");
         }
-        console.log(pageNum, offset);
-        const animales = await animalService.getAllAnimals(pageNum, offset);
+
+        const filtros: Filtros = {
+            tipoPerro: req.query.tipoPerro === 'true',
+            tipoGato: req.query.tipoGato === 'true',
+            urgente: req.query.urgente === 'true',
+            especial: req.query.especial === 'true',
+            apadrinando: req.query.apadrinando === 'true',
+            sinEstado: req.query.sinEstado === 'true',
+            hembra: req.query.hembra === 'true',
+            macho: req.query.macho === 'true',
+            altura: req.query.altura as string || "todos",
+            peso: req.query.peso as string || '0',
+        };
+
+        const animales = await animalService.getAllAnimals(pageNum, offset, filtros);
+
         res.json(animales);
     } catch (error) {
         console.error("Error retrieving animales:", error);
