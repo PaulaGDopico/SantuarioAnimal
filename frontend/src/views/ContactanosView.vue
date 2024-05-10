@@ -13,7 +13,6 @@
 									src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d47859.71994730065!2d2.061814069747932!3d41.43417660988949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a497f1b497f215%3A0x49d2d6b706b90165!2sCentro%20de%20Acogida%20de%20Animales%20de%20Compa%C3%B1%C3%ADa%20de%20Barcelona!5e0!3m2!1ses!2ses!4v1713364793950!5m2!1ses!2ses"
 									style="border: 0"
 									class="map"
-									allowfullscreen="false"
 									loading="lazy"
 									referrerpolicy="no-referrer-when-downgrade"></iframe>
 							</ion-col>
@@ -256,7 +255,7 @@ import { calendar, call, mail, pin } from "ionicons/icons";
 		color: var(--ion-color-primary);
 	}
 	h3 {
-		padding: 10px 0px;
+		padding: 10px 0;
 	}
 }
 </style>

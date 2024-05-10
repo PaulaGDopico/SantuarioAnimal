@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import {Prisma} from "@prisma/client";
 import prisma from "../prismaClient";
 
 interface Filtros {
@@ -58,37 +58,17 @@ export const getAllAnimals = async (page_num: number, offset: number, filtros: F
         // Verificar si se proporcionaron filtros
         if (Object.keys(where).length === 0) {
             // Si no se proporcionaron filtros, devolver todos los animales
-            const animales = await prisma.animal.findMany({
+            return await prisma.animal.findMany({
                 skip: offset * (page_num - 1),
                 take: offset,
             });
-            return animales;
         } else {
             // Si se proporcionaron filtros, aplicarlos a la consulta
-            const animales = await prisma.animal.findMany({
+            return await prisma.animal.findMany({
                 where,
                 skip: offset * (page_num - 1),
                 take: offset,
             });
-            return animales;
-        }
-
-        // Verificar si se proporcionaron filtros
-        if (Object.keys(where).length === 0) {
-            // Si no se proporcionaron filtros, devolver todos los animales
-            const animales = await prisma.animal.findMany({
-                skip: offset * (page_num - 1),
-                take: offset,
-            });
-            return animales;
-        } else {
-            // Si se proporcionaron filtros, aplicarlos a la consulta
-            const animales = await prisma.animal.findMany({
-                where,
-                skip: offset * (page_num - 1),
-                take: offset,
-            });
-            return animales;
         }
 
     } catch (error) {
