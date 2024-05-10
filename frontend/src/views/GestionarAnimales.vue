@@ -196,17 +196,15 @@ import {
   IonTextarea,
   IonList
 } from "@ionic/vue";
-import { ref, Ref, onMounted, watch, computed} from 'vue';
+import { ref, onMounted, computed} from 'vue';
 import { AgGridVue } from "ag-grid-vue3"; // AG Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import AppFooter from '@/components/AppFooter.vue';
 import GestionarAnimalesEditButton from "@/components/GestionarAnimalesEditButton.vue";
-import GestionarAnimalesCreateButton from "@/components/GestionarAnimalesCreateButton.vue";
 import GestionarAnimalesDeleteButton from "@/components/GestionarAnimalesDeleteButton.vue";
 import { getAllAnimalsWithoutPagination } from "@/services/animal";
 import { pushAnimal } from "@/services/animal";
-import { Animal } from "@/types/Animal";
 
 
 
@@ -242,30 +240,30 @@ const columnDefs = ref([
 
 const rowData:any = ref([]);
 
-let fechaNacimiento = ref('');
-let fechaIngreso = ref('')
+const fechaNacimiento = ref('');
+const fechaIngreso = ref('')
 
 const fechaNacimientoConvertida = computed(()=> `${fechaNacimiento.value}T00:00:00Z`);
 const fechaIngresoConvertida = computed(()=>`${fechaIngreso.value}T00:00:00Z`) 
 
-let animalData= ref({
-      createdAt: new Date().toISOString(),
-	    updatedAt: new Date().toISOString(),
-      nombre: '',
-      tipo: '',
-      estado_adopcion: '',
-      peso:'',
-      tamanyo:'',
-      raza: '',
-      fecha_nacimiento: fechaNacimientoConvertida,
-      fecha_ingreso: fechaIngresoConvertida,
-      sexo: '',
-      img: '',
-      descripcion: "",
-      habitacionId: 0,
-      donaciones_recibidas: [],
-      afiliadoId: undefined
-  })
+const animalData= ref({
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    nombre: '',
+    tipo: '',
+    estado_adopcion: '',
+    peso:'',
+    tamanyo:'',
+    raza: '',
+    fecha_nacimiento: fechaNacimientoConvertida,
+    fecha_ingreso: fechaIngresoConvertida,
+    sexo: '',
+    img: '',
+    descripcion: "",
+    habitacionId: 0,
+    donaciones_recibidas: [],
+    afiliadoId: undefined
+})
 
 
   const subirAnimal = async (animalData:any) => {
