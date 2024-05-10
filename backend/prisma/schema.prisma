@@ -22,7 +22,7 @@ enum Sexo {
 enum EstadoAdopcionAnimal {
   ADOPCION_URGENTE
   CASOS_ESPECIALES
-  APADRINANDO
+  APADRINADO
   SIN_ESTADO
 }
 
@@ -39,6 +39,7 @@ model Animal {
   tipo             TipoAnimal
   estado_adopcion  EstadoAdopcionAnimal
   peso             String
+  tamanyo          String
   raza             String
   fecha_nacimiento DateTime
   fecha_ingreso    DateTime
@@ -49,6 +50,8 @@ model Animal {
   Habitacion           Habitacion @relation(fields: [habitacionId], references: [id])
   habitacionId         Int
   Donaciones_recibidas Donacion[]
+  Afiliado             Afiliado? @relation(fields: [afiliadoId], references: [id])
+  afiliadoId           Int?
 }
 
 model Habitacion {
@@ -63,6 +66,7 @@ model Afiliado {
   email                 String
   telefono              String
   Donaciones_realizadas Donacion[]
+  Animales_custodiados  Animal[]
 }
 
 model Donacion {
@@ -74,7 +78,7 @@ model Donacion {
   dinero_alcanzado String
   fecha_inicio     DateTime
 
-  animal     Animal   @relation(fields: [animalId], references: [id])
+  animal     Animal   @relation(fields: [animalId], references: [id], onDelete: Cascade)
   animalId   Int
   afiliado   Afiliado @relation(fields: [afiliadoId], references: [id])
   afiliadoId Int

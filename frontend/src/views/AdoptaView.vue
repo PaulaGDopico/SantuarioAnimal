@@ -80,6 +80,7 @@ import { useRoute } from "vue-router";
 
 const pinFormatter = (value: any) => `${value}kg`;
 const infoAnimal = ref<Animal[] | null>(null);
+
 const paginacion = ref() //cantidad de paginas
 const paginaActual = ref(1) //pagina actual
 const filtros = ref({
@@ -167,80 +168,80 @@ async function clickPage(pagina: number) {
 </script>
 <style lang="scss">
 .align-peso {
-	align-items: center;
+    align-items: center;
 }
 
 ion-checkbox {
-	--size: 32px;
+    --size: 32px;
 }
 
 #peso {
-	padding: 0px;
+    padding: 0px;
 }
 
 ion-checkbox::part(container) {
-	border-radius: 6px;
-	border: 2px solid #ff914d;
-	margin: 5px 0px;
+    border-radius: 6px;
+    border: 2px solid #ff914d;
+    margin: 5px 0px;
 }
 
 .content {
-	display: flex;
+    display: flex;
 
-	.listaAnimales {
-		width: 80%;
+    .listaAnimales {
+        width: 80%;
 
-		.cartasAnimal {
-			align-items: center;
-			flex-wrap: wrap;
+        .cartasAnimal {
+            align-items: center;
+            flex-wrap: wrap;
 
-			.cartaAnimal {
-				width: 15%;
-			}
-		}
+            .cartaAnimal {
+                width: 15%;
+            }
+        }
 
-		.paginacion {
-			margin: 20px;
+        .paginacion {
+            margin: 20px;
 
-			.buttonPag {
-				margin: 0px 10px;
-				color: white;
-				padding: 5px;
-				background-color: #ff914d;
-				border-radius: 5px;
-				display: flex;
-				align-items: center;
-				text-decoration: none;
-			}
+            .buttonPag {
+                margin: 0px 10px;
+                color: white;
+                padding: 5px;
+                background-color: #ff914d;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+            }
 
-			.numberPag {
-				text-decoration: none;
-				background-color: white;
-				border-radius: 5px;
-				padding: 5px 10px;
-				margin: 5px;
-			}
-		}
-	}
+            .numberPag {
+                text-decoration: none;
+                background-color: white;
+                border-radius: 5px;
+                padding: 5px 10px;
+                margin: 5px;
+            }
+        }
+    }
 
-	.filtros {
-		padding: 0px 35px;
-		width: 20%;
+    .filtros {
+        padding: 0px 35px;
+        width: 20%;
 
-		.peso {
-			margin: 0px 15px;
-		}
+        .peso {
+            margin: 0px 15px;
+        }
 
-		input[type="checkbox"] {
-			background-color: white !important;
-		}
+        input[type="checkbox"] {
+            background-color: white !important;
+        }
 
-		select {
-			padding: 5px;
-			border-radius: 6px;
-			border: 2px solid #ff914d;
-			background-color: white;
-		}
-	}
+        select {
+            padding: 5px;
+            border-radius: 6px;
+            border: 2px solid #ff914d;
+            background-color: white;
+        }
+    }
 }
 </style>
