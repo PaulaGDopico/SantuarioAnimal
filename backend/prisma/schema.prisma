@@ -39,6 +39,7 @@ model Animal {
   tipo             TipoAnimal
   estado_adopcion  EstadoAdopcionAnimal
   peso             String
+  tamanyo          String
   raza             String
   fecha_nacimiento DateTime
   fecha_ingreso    DateTime
@@ -49,6 +50,8 @@ model Animal {
   Habitacion           Habitacion @relation(fields: [habitacionId], references: [id])
   habitacionId         Int
   Donaciones_recibidas Donacion[]
+  Afiliado             Afiliado @relation(fields: [afiliadoId], references: [id])
+  afiliadoId           Int
 }
 
 model Habitacion {
@@ -63,6 +66,7 @@ model Afiliado {
   email                 String
   telefono              String
   Donaciones_realizadas Donacion[]
+  Animales_custodiados  Animal[]
 }
 
 model Donacion {
