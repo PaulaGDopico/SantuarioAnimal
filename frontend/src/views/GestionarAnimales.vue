@@ -357,8 +357,9 @@ const animalData = ref({
 const subirAnimal = async (animalData: any) => {
     console.log(animalData);
     try {
-        pushAnimal(animalData);
+        const animal = await pushAnimal(animalData);
         setOpen(false);
+        rowData.value.push(animal);
         const result = await getAllAnimalsWithoutPagination();
         console.log(result);
         rowData.value = result; // Asigna los datos recuperados al rowData
