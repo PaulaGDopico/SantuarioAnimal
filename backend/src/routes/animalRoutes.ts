@@ -1,8 +1,6 @@
 import express from "express";
 import upload from "../middleware/multerMiddleware";
 import * as animalService from "../services/animalService";
-import { API_FILE_URL } from "../middleware/secrets";
-import { connect } from "http2";
 
 const router = express.Router();
 //Multiples animales

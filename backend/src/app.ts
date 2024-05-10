@@ -6,7 +6,7 @@ import afiliadoRoutes from "./routes/afiliadoRoutes";
 import donacionesRoutes from "./routes/donacionesRoutes";
 import mailRoutes from "./routes/mailRoutes";
 
-var cors = require("cors");
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
