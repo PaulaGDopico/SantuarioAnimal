@@ -1,6 +1,7 @@
 import { Donacion } from "./Donacion";
 
 export interface Animal {
+	id:number;
 	createdAt: string;
 	updatedAt: string;
 	nombre: string;
