@@ -273,9 +273,11 @@ let animalData= ref({
     try {
       const animal = pushAnimal(animalData);
       setOpen(false)
-      const result = await getAllAnimalsWithoutPagination();
-        console.log(result)
-        rowData.value = result; // Asigna los datos recuperados al rowData
+      
+      //   console.log(result)
+        rowData.value.push = animal; // Asigna los datos recuperados al rowData
+        const result = await getAllAnimalsWithoutPagination();
+        rowData.value = result
     }  
     catch(error){
         console.error("Error al subir el animal:",error)
@@ -297,37 +299,8 @@ onMounted(async ()=>{
       } catch (error) {
         console.error("Error al obtener los animales:", error);
     }
-
-    //await subirAnimal(animalData.value)
-
-//   await subirAnimal({
-//     createdAt: animalData.value.createdAt,
-//     updatedAt: animalData.value.updatedAt,
-//     nombre: animalData.value.nombre,
-//     tipo: animalData.value.tipo,
-//     estado_adopcion: animalData.value.estado_adopcion,
-//     peso: animalData.value.peso,
-//     tamanyo: animalData.value.tamanyo,
-//     raza: animalData.value.raza,
-//     fecha_nacimiento: animalData.value.fecha_nacimiento,
-//     fecha_ingreso: animalData.value.fecha_ingreso,
-//     sexo: animalData.value.sexo,
-//     img: animalData.value.img,
-//     descripcion: animalData.value.descripcion,
-//     habitacionId: animalData.value.habitacionId,
-//     donaciones_recibidas: animalData.value.donaciones_recibidas,
-//     afiliadoId: animalData.value.afiliadoId  
-//   })
  })
 
-
-
-// const rowData = ref([
-//   { id: 0, nombre: 'Roy', tipo: 'Perro', sexo: 'Macho', raza: 'Bulldog', estado: 'casos-especiales', peso: 5, altura: "muy-pequeño", donativo: 0, afiliado: "", habitacion: 3, fechaNacimiento: '2024-03-05', fechaIngreso: '2020-05-03', imagen: 'pexels-snapwire-46024.jpg' },
-//   { nombre: 'Marin', tipo: 'Gato', sexo: 'Hembra', raza: 'Persa', estado: 'sin-estado', imagen: 'pexels-snapwire-46024.jpg' },
-//   { nombre: 'Gafe', tipo: 'Gato', sexo: 'Macho', raza: 'Europeo', estado: 'adopcion-urgente', imagen: 'pexels-snapwire-46024.jpg' },
-//   { nombre: 'Tristepin', tipo: 'Perro', sexo: 'Hembra', raza: 'Chihuahua', estado: 'apadrinado', imagen: 'perro.jpg' }
-// ]);
 
 function imageRenderer(params: any) {
   const wrapper = document.createElement('div');
