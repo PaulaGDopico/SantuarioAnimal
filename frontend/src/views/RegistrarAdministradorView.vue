@@ -22,6 +22,7 @@
                                         fill="solid"
                                         placeholder="Introduce tu email"
                                         v-model="email"></ion-input>
+                                    <p>{{ errors.email.value }}</p>
                                 </ion-col>
                                 <ion-col size="12" size-sm="6">
                                     <ion-input
@@ -30,6 +31,7 @@
                                         fill="solid"
                                         placeholder="Introduce tu contraseña"
                                         v-model="password"></ion-input>
+                                    <p>{{ errors.password.value }}</p>
                                 </ion-col>
 
                                 <ion-col size="12" size-sm="6">
@@ -39,6 +41,7 @@
                                         fill="solid"
                                         placeholder="Introduce tu nombre"
                                         v-model="nombre"></ion-input>
+                                    <p>{{ errors.nombre.value }}</p>
                                 </ion-col>
 
                                 <ion-col size="12" size-sm="6">
@@ -48,6 +51,7 @@
                                         fill="solid"
                                         placeholder="Introduce tu teléfono"
                                         v-model="telefono"></ion-input>
+                                    <p>{{ errors.telefono.value }}</p>
                                 </ion-col>
                             </ion-row>
 
@@ -77,11 +81,49 @@ import {
     IonButton,
     IonInput,
 } from "@ionic/vue";
+import { ref, watch } from "vue";
 
-const email: string = "";
-const password: string = "";
-const nombre: string = "";
-const telefono: string = "";
+const email = ref("");
+const password = ref("");
+const nombre = ref("");
+const telefono = ref("");
+
+const errors = {
+    email: ref(""),
+    password: ref(""),
+    nombre: ref(""),
+    telefono: ref(""),
+};
+function validarTelefono(newTelefono: string) {
+    const telefonoRegex = /^\d{9}$/; // Ajusta esta expresión regular según tus requisitos
+    return telefonoRegex.test(newTelefono.trim());
+}
+function validarCorreo(newCorreo: string) {
+    const correoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expresión regular básica para validar correo electrónico
+    return correoRegex.test(newCorreo.trim());
+}
+
+function validarFormulario() {
+    errors.email.value = email.value.trim() ? "" : "Email requerido";
+    errors.email.value = validarCorreo(email.value) ? "" : "Email inválido";
+    errors.password.value = password.value.trim() ? "" : "Contraseña requerida";
+    errors.nombre.value = nombre.value.trim() ? "" : "Nombre requerido";
+    errors.telefono.value = telefono.value.trim() ? "" : "Teléfono requerido";
+    errors.telefono.value = validarTelefono(telefono.value)
+        ? ""
+        : "Teléfono requerido";
+
+    if (
+        errors.email.value ||
+        errors.password.value ||
+        errors.nombre.value ||
+        errors.telefono.value
+    ) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 async function enviarFormulario(
     email: string,
@@ -89,7 +131,33 @@ async function enviarFormulario(
     nombre: string,
     telefono: string
 ) {
+    if (!validarFormulario) {
+        return;
+    }
     register(email, password, nombre, telefono);
 }
+
+//Watchers para revisar los cambios en cada  campo
+
+watch(email, (newValue) => {
+    errors.email.value = validarCorreo(newValue) ? "" : "Correo inválido";
+});
+
+watch(password, (newValue) => {
+    errors.password.value = newValue.trim() ? "" : "Contraseña requerida";
+});
+
+watch(nombre, (newValue) => {
+    errors.nombre.value = newValue.trim() ? "" : "Nombre requerido";
+});
+watch(telefono, (newValue) => {
+    errors.telefono.value = validarTelefono(newValue)
+        ? ""
+        : "Teléfono requerido";
+});
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.container {
+    margin: 5vh 10vw;
+}
+</style>
