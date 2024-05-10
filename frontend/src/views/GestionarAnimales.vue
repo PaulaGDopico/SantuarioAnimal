@@ -293,7 +293,7 @@ onMounted(async ()=>{
         console.error("Error al obtener los animales:", error);
     }
 
-    await subirAnimal(animalData.value)
+    //await subirAnimal(animalData.value)
 
 //   await subirAnimal({
 //     createdAt: animalData.value.createdAt,
