@@ -83,7 +83,7 @@ export const pushAnimal = async (animalData:Animal) => {
 		formData.append('fecha_nacimiento', animalData.fecha_nacimiento);
 		formData.append('fecha_ingreso', animalData.fecha_ingreso);
 		formData.append('sexo', animalData.sexo);
-		formData.append('img', animalData.img);
+		formData.append('image', animalData.img);
 		formData.append('descripcion', animalData.descripcion ?? '');
 		formData.append('habitacionId', animalData.habitacionId.toString());
 		if (animalData.donaciones_recibidas) {

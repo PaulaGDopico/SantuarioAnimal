@@ -154,8 +154,8 @@
             <ion-col>
               <input
                 type="file"
-                name="img"
-                id="img"
+                name="image"
+                id="image"
                 v-on:change="subirImagen"
                 >
                 {{ animalData.img }}
@@ -259,7 +259,7 @@ let animalData = ref({
       fecha_nacimiento: fechaNacimientoConvertida,
       fecha_ingreso: fechaIngresoConvertida,
       sexo: '',
-      img: null,
+      img: '',
       descripcion: "",
       habitacionId: 0,
       donaciones_recibidas: [],
@@ -278,7 +278,7 @@ let animalData = ref({
   }
 
   const subirImagen = (e: any) => {
-    animalData.value.img = e.target.files[0].name;
+    animalData.value.img = e.target.files[0];
     console.log(animalData.value.img);
   }
 
