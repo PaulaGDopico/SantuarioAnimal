@@ -80,13 +80,13 @@ const routes: Array<RouteRecordRaw> = [
                 path: "/gestionAnimales",
                 name: "gestionAnimales",
                 meta: { requiresAuth: true },
-                component: () => import("../views/GestionTrabajadorView.vue"),
+                component: () => import("../views/GestionarAnimales.vue"),
             },
             {
                 path: "/gestionDonaciones",
                 name: "gestionDonaciones",
                 meta: { requiresAuth: true },
-                component: () => import("../views/GestionTrabajadorView.vue"),
+                component: () => import("../views/GestionarDonaciones.vue"),
             },
             {
                 path: "/gestionNotificaciones",

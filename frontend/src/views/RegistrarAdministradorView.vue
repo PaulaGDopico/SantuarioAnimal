@@ -54,11 +54,20 @@
                             <ion-row>
                                 <ion-col>
                                     <ion-button type="submit"
-                                        >Solicitar unirse</ion-button
+                                        >Registrar nuevo
+                                        administrador</ion-button
                                     >
                                 </ion-col>
                             </ion-row>
                         </ion-grid>
+                        <ion-toast
+                            position="bottom"
+                            :is-open="notificacionEnvioIsOpen"
+                            :message="errors.envio.value"
+                            :duration="5000"
+                            @didDismiss="
+                                abrirNotificacionEnvio(false)
+                            "></ion-toast>
                     </form>
                 </section>
             </section>
@@ -67,6 +76,10 @@
 </template>
 
 <script setup lang="ts">
+const notificacionEnvioIsOpen = ref(false);
+const abrirNotificacionEnvio = (state: boolean) => {
+    notificacionEnvioIsOpen.value = state;
+};
 import { register } from "@/services/auth";
 import {
     IonContent,
@@ -76,6 +89,7 @@ import {
     IonCol,
     IonButton,
     IonInput,
+    IonToast,
 } from "@ionic/vue";
 import { ref, watch } from "vue";
 
@@ -89,6 +103,7 @@ const errors = {
     password: ref(""),
     nombre: ref(""),
     telefono: ref(""),
+    envio: ref(""),
 };
 function validarTelefono(newTelefono: string) {
     const telefonoRegex = /^\d{9}$/; // Ajusta esta expresión regular según tus requisitos
@@ -123,9 +138,14 @@ function validarFormulario() {
 
 async function enviarFormulario() {
     if (!validarFormulario()) {
+        errors.envio.value = "No se ha podido crear el administrador";
+        abrirNotificacionEnvio(true);
         return;
     }
+
     register(email.value, password.value, nombre.value, telefono.value);
+    errors.envio.value = "Administrador creado";
+    abrirNotificacionEnvio(true);
 }
 
 //Watchers para revisar los cambios en cada  campo
