@@ -69,8 +69,8 @@
               <ion-list>
                 <ion-item>
                   <ion-select v-model="animalData.sexo" aria-label="Sexo">
-                    <ion-select-option value="Macho">Macho</ion-select-option>
-                    <ion-select-option value="Hembra">Hembra</ion-select-option>
+                    <ion-select-option value="MACHO">Macho</ion-select-option>
+                    <ion-select-option value="HEMBRA">Hembra</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-list>
@@ -100,11 +100,11 @@
               <ion-list>
                 <ion-item>
                   <ion-select v-model="animalData.tamanyo" aria-label="Altura">
-                    <ion-select-option value="muy_grande">Muy Grande</ion-select-option>
-                    <ion-select-option value="grande">Grande</ion-select-option>
-                    <ion-select-option value="mediano">Mediano</ion-select-option>
-                    <ion-select-option value="pequeño">Pequeño</ion-select-option>
-                    <ion-select-option value="muy-pequeño">Muy Pequeño</ion-select-option>
+                    <ion-select-option value="MUY_GRANDE">Muy Grande</ion-select-option>
+                    <ion-select-option value="GRANDE">Grande</ion-select-option>
+                    <ion-select-option value="MEDIANO">Mediano</ion-select-option>
+                    <ion-select-option value="PEQUEÑO">Pequeño</ion-select-option>
+                    <ion-select-option value="MUY_PEQUEÑO">Muy Pequeño</ion-select-option>
                   </ion-select>
                 </ion-item>
               </ion-list>
@@ -138,12 +138,9 @@
             <ion-col>
               <ion-input v-model="fechaNacimiento" type="date" name="fechaNacimiento" id="fechaNacimiento" class="inputDate"></ion-input>
             </ion-col>
-            {{ animalData.fecha_nacimiento }}
-            
             <ion-col>
               <ion-input v-model="fechaIngreso" type="date" name="fechaIngreso" id="fechaIngreso" class="inputDate"></ion-input>
             </ion-col>
-            {{ animalData.fecha_ingreso }}
           </ion-row>
         </ion-grid>
         <ion-grid>
@@ -152,15 +149,16 @@
               <ion-textarea v-model="animalData.descripcion" label="Descripción" label-placement="floating" fill="solid"
                 placeholder="Introduce la descripción del animal"></ion-textarea>
             </ion-col>
-            {{ fechasConvertidas.value}}
           </ion-row>
           <ion-row>
             <ion-col>
               <input
                 type="file"
-                name="images"
-                id="images"
-                @change="onFileChange"> />
+                name="img"
+                id="img"
+                v-on:change="subirImagen"
+                >
+                {{ animalData.img }}
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -246,13 +244,8 @@ const rowData:any = ref([]);
 let fechaNacimiento = ref('');
 let fechaIngreso = ref('')
 
-let fechasConvertidas = computed(()=>{
-    let fechaNacimiento_new = `${fechaNacimiento}T00:00:00Z`
-    let fechaIngreso_new = `${fechaIngreso}T00:00:00Z`
-
-    return { fechaNacimiento: fechaNacimiento_new, fechaIngreso: fechaIngreso_new };
-});
-
+const fechaNacimientoConvertida = computed(()=> `${fechaNacimiento.value}T00:00:00Z`);
+const fechaIngresoConvertida = computed(()=>`${fechaIngreso.value}T00:00:00Z`) 
 
 let animalData = ref({
       createdAt: new Date().toISOString(),
@@ -263,10 +256,10 @@ let animalData = ref({
       peso:'',
       tamanyo:'',
       raza: '',
-      fecha_nacimiento: '',
-      fecha_ingreso: '',
+      fecha_nacimiento: fechaNacimientoConvertida,
+      fecha_ingreso: fechaIngresoConvertida,
       sexo: '',
-      img: '',
+      img: null,
       descripcion: "",
       habitacionId: 0,
       donaciones_recibidas: [],
@@ -283,6 +276,13 @@ let animalData = ref({
         console.error("Error al subir el animal:",error)
     }  
   }
+
+  const subirImagen = (e: any) => {
+    animalData.value.img = e.target.files[0].name;
+    console.log(animalData.value.img);
+  }
+
+
 
 onMounted(async ()=>{
   try {
@@ -335,15 +335,6 @@ function imageRenderer(params: any) {
 
   return wrapper;
 }
-
-
-
-  const onFileChange = (event:any) => {
-        const file = event.target.files[0];
-        if (file) {
-            animalData.value.img = URL.createObjectURL(file);
-        }
-  }
 
 </script>
 <style scoped lang="scss">
