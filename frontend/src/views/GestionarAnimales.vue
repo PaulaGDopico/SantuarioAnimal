@@ -193,7 +193,8 @@ import {
   IonCol,
   IonSelect,
   IonSelectOption,
-  IonTextarea
+  IonTextarea,
+  IonList
 } from "@ionic/vue";
 import { ref, Ref, onMounted, watch, computed} from 'vue';
 import { AgGridVue } from "ag-grid-vue3"; // AG Grid Component
@@ -247,7 +248,7 @@ let fechaIngreso = ref('')
 const fechaNacimientoConvertida = computed(()=> `${fechaNacimiento.value}T00:00:00Z`);
 const fechaIngresoConvertida = computed(()=>`${fechaIngreso.value}T00:00:00Z`) 
 
-let animalData = ref({
+let animalData= ref({
       createdAt: new Date().toISOString(),
 	    updatedAt: new Date().toISOString(),
       nombre: '',
@@ -263,7 +264,7 @@ let animalData = ref({
       descripcion: "",
       habitacionId: 0,
       donaciones_recibidas: [],
-      afiliadoId:0   
+      afiliadoId: undefined
   })
 
 
@@ -271,6 +272,10 @@ let animalData = ref({
     console.log(animalData)
     try {
       const animal = pushAnimal(animalData);
+      setOpen(false)
+      const result = await getAllAnimalsWithoutPagination();
+        console.log(result)
+        rowData.value = result; // Asigna los datos recuperados al rowData
     }  
     catch(error){
         console.error("Error al subir el animal:",error)
