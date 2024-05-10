@@ -3,11 +3,7 @@
         <ion-content>
             <section class="formularioAdministrador">
                 <section class="container ion-padding">
-                    <form
-                        action=""
-                        @submit.prevent="
-                            enviarFormulario(email, password, nombre, telefono)
-                        ">
+                    <form action="" @submit.prevent="enviarFormulario">
                         <ion-grid>
                             <ion-row>
                                 <ion-col>
@@ -125,16 +121,11 @@ function validarFormulario() {
     }
 }
 
-async function enviarFormulario(
-    email: string,
-    password: string,
-    nombre: string,
-    telefono: string
-) {
-    if (!validarFormulario) {
+async function enviarFormulario() {
+    if (!validarFormulario()) {
         return;
     }
-    register(email, password, nombre, telefono);
+    register(email.value, password.value, nombre.value, telefono.value);
 }
 
 //Watchers para revisar los cambios en cada  campo
@@ -153,7 +144,7 @@ watch(nombre, (newValue) => {
 watch(telefono, (newValue) => {
     errors.telefono.value = validarTelefono(newValue)
         ? ""
-        : "Teléfono requerido";
+        : "Teléfono inválido";
 });
 </script>
 <style scoped lang="scss">

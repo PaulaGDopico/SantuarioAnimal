@@ -282,6 +282,7 @@ function validarFormulario() {
 
 function enviarFormulario() {
     if (!validarFormulario()) {
+        
         return;
     }
     const mensaje = `
