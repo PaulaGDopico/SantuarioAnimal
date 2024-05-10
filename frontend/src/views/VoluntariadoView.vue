@@ -188,6 +188,12 @@
                             </ion-col>
                         </ion-row>
                     </ion-grid>
+                    <ion-toast
+                        position="bottom"
+                        :is-open="notificacionEnvioIsOpen"
+                        :message="errors.envio.value"
+                        :duration="5000"
+                        @didDismiss="abrirNotificacionEnvio(false)"></ion-toast>
                 </form>
             </section>
             <app-footer></app-footer>
@@ -209,10 +215,14 @@ import {
     IonButton,
     IonInput,
     IonCheckbox,
+    IonToast,
 } from "@ionic/vue";
 import { checkmark } from "ionicons/icons";
 import { ref, watch } from "vue";
-
+const notificacionEnvioIsOpen = ref(false);
+const abrirNotificacionEnvio = (state: boolean) => {
+    notificacionEnvioIsOpen.value = state;
+};
 const nombre = ref("");
 const apellidos = ref("");
 const telefono = ref("");
@@ -226,6 +236,7 @@ const errors = {
     correo: ref(""),
     fecha_nacimiento: ref(""),
     politicaAceptada: ref(""),
+    envio: ref(""),
 };
 
 const politicaAceptada = ref();
@@ -282,7 +293,8 @@ function validarFormulario() {
 
 function enviarFormulario() {
     if (!validarFormulario()) {
-        
+        errors.envio.value = "No se ha podido enviar el voluntario";
+        abrirNotificacionEnvio(true);
         return;
     }
     const mensaje = `
@@ -298,6 +310,8 @@ function enviarFormulario() {
         "Voluntariado",
         "notificacionessantuarioanimal@gmail.com"
     );
+    errors.envio.value = "Felicidades, te has inscrito correctamente.";
+        abrirNotificacionEnvio(true);
 }
 
 //Watchers para revisar los cambios en cada  campo
