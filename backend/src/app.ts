@@ -12,7 +12,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const corsOptions = {
-    origin: "https://santuario-animal-frontend.vercel.app",
+    origin: [
+        "https://santuario-animal-frontend.vercel.app",
+        "http://localhost:8100",
+    ],
 };
 
 app.use(express.json());
