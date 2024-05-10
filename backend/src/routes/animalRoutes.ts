@@ -69,7 +69,7 @@ router.post("/", upload.single("image"), async (req, res) => {
             afiliadoId,
         } = req.body;
         const imageName = req.file
-            ? "/public/uploads/" + req.file.filename
+            ? "/uploads/" + req.file.filename
             : "";
 
         const newAnimal = await animalService.createAnimal({
