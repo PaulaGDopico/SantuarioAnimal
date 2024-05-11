@@ -156,7 +156,7 @@
 import {API_FILE_URL} from "@/middleware/secrets";
 import SubHeader from "@/components/SubHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
-import {IonCheckbox, IonContent, IonGrid, IonPage, IonRange, IonRow} from "@ionic/vue";
+import {IonCheckbox, IonCol, IonContent, IonGrid, IonPage, IonRange, IonRow} from "@ionic/vue";
 import AppCartaAnimal from "@/components/AppCartaAnimal.vue";
 import {onMounted, ref, watch} from "vue";
 import {getAllAnimales, getAnimales} from "@/services/animal";

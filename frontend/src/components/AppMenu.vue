@@ -14,12 +14,12 @@
             </div>
           </ion-header>
           <ion-tab-bar slot="top" color="primary">
-            <ion-tab-button href="/home" tab="home">
+            <ion-tab-button tab="home" @click="$router.push({name:'Home'})">
               <ion-icon :icon="homeOutline" :name="homeOutline"/>
               <ion-label>Home</ion-label>
             </ion-tab-button>
 
-            <ion-tab-button href="/adopta" tab="adopta">
+            <ion-tab-button tab="adopta" @click="$router.push({name:'Adopta'})">
               <ion-icon
                   :icon="heartOutline"
                   :name="heartOutline"/>
@@ -40,16 +40,17 @@
               <ion-content class="">
                 <ion-tab-bar color="primary">
                   <ion-tab-button
-                      href="/voluntariado"
-                      tab="voluntariado">
+                      tab="voluntariado"
+                      @click="$router.push({name:'Voluntariado'})">
                     <ion-icon
                         :icon="handLeftOutline"
                         :name="handLeftOutline"/>
                     <ion-label>Voluntario</ion-label>
                   </ion-tab-button>
                   <ion-tab-button
-                      href="/donaciones"
-                      tab="donaciones">
+                      tab="donaciones"
+                      @click="$router.push({name:'Donaciones'})"
+                  >
                     <ion-icon
                         :icon="heartCircleOutline"
                         :name="heartCircleOutline"/>
@@ -60,12 +61,13 @@
             </ion-popover>
 
             <ion-tab-button
-                href="/sobre-nosotros"
-                tab="sobre-nosotros">
+                tab="sobre-nosotros"
+                @click="$router.push({name:'Sobre Nosotros'})"
+            >
               <ion-icon :icon="pawOutline" :name="pawOutline"/>
               <ion-label>Sobre nosotros</ion-label>
             </ion-tab-button>
-            <ion-tab-button href="/contactanos" tab="contactanos">
+            <ion-tab-button tab="contactanos" @click="$router.push({name:'Contactanos'})">
               <ion-icon
                   :icon="chatbubblesOutline"
                   :name="chatbubblesOutline"/>
