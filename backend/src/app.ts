@@ -6,7 +6,7 @@ import afiliadoRoutes from "./routes/afiliadoRoutes";
 import donacionesRoutes from "./routes/donacionesRoutes";
 import mailRoutes from "./routes/mailRoutes";
 
-var cors = require("cors");
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,12 +24,14 @@ app.use(cors(corsOptions));
 
 //All routes
 
+
 app.use("/habitaciones", habitacionRoutes);
 app.use("/animales", animalRoutes);
 app.use("/user", authRoutes);
 app.use("/afiliado", afiliadoRoutes);
 app.use("/donaciones", donacionesRoutes);
 app.use("/mail", mailRoutes);
+
 
 //External commands
 app.listen(PORT, () => {

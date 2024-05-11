@@ -1,5 +1,3 @@
-import { MAIL_DOMAIN } from "../middleware/secrets";
-import { mailgunClient } from "../middleware/mailgunMiddleware";
 import { transporter } from "../middleware/nodemailerMiddleware";
 
 export const enviarMail = async (
@@ -20,7 +18,7 @@ export const enviarMail = async (
 		});
   });
 
-	var message = {
+	const message = {
 		from: "notificacionessantuarioanimal@gmail.com",
 		to: destinatario,
 		subject: asunto,

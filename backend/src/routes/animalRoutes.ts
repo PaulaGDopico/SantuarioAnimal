@@ -1,22 +1,48 @@
 import express from "express";
 import upload from "../middleware/multerMiddleware";
 import * as animalService from "../services/animalService";
-import { API_FILE_URL } from "../middleware/secrets";
 
 const router = express.Router();
-
 //Multiples animales
 // ex: http://localhost:3000/animales?page=1
+interface Filtros {
+	tipoPerro: boolean,
+	tipoGato: boolean,
+	urgente: boolean,
+	especial: boolean,
+	apadrinando: boolean,
+	sinEstado: boolean,
+	hembra: boolean,
+	macho: boolean,
+	altura: string,
+	peso: string,
+	// Agrega más filtros según sea necesario
+  }
 router.get("/:page", async (req, res) => {
     try {
         const pageNum = parseInt(req.params.page as string);
-        const offset = 5; //Numero de items por pagina
+        const offset = 20; // Numero de elementos por página
+
 
         if (isNaN(pageNum) || isNaN(offset)) {
             throw new Error("Invalid parameters");
         }
-        console.log(pageNum, offset);
-        const animales = await animalService.getAllAnimals(pageNum, offset);
+
+        const filtros: Filtros = {
+            tipoPerro: req.query.tipoPerro === 'true',
+            tipoGato: req.query.tipoGato === 'true',
+            urgente: req.query.urgente === 'true',
+            especial: req.query.especial === 'true',
+            apadrinando: req.query.apadrinando === 'true',
+            sinEstado: req.query.sinEstado === 'true',
+            hembra: req.query.hembra === 'true',
+            macho: req.query.macho === 'true',
+            altura: req.query.altura as string || "todos",
+            peso: req.query.peso as string || '0',
+        };
+
+        const animales = await animalService.getAllAnimals(pageNum, offset, filtros);
+
         res.json(animales);
     } catch (error) {
         console.error("Error retrieving animales:", error);
@@ -53,46 +79,44 @@ router.get("/animal/:animalId", async (req, res) => {
 });
 
 router.post("/", upload.single("image"), async (req, res) => {
-    try {
-        const {
-            nombre,
-            tipo,
-            estado_adopcion,
-            peso,
-            tamanyo,
-            raza,
-            fecha_nacimiento,
-            fecha_ingreso,
-            sexo,
-            descripcion,
-            habitacionId,
-            afiliadoId,
-        } = req.body;
-        const imageName = req.file
-            ? "/uploads/" + req.file.filename
-            : "";
 
-        const newAnimal = await animalService.createAnimal({
-            nombre,
-            tipo,
-            estado_adopcion,
-            peso,
-            tamanyo,
-            raza,
-            fecha_nacimiento,
-            fecha_ingreso,
-            sexo,
-            img: imageName,
-            descripcion,
-            Afiliado: { connect: { id: Number(afiliadoId) } },
-            Habitacion: { connect: { id: Number(habitacionId) } },
-        });
+	try {
+		const {
+			nombre,
+			tipo,
+			estado_adopcion,
+			peso,
+			tamanyo,
+			raza,
+			fecha_nacimiento,
+			fecha_ingreso,
+			sexo,
+			descripcion,
+			habitacionId,
+			afiliadoId
+		} = req.body;
+		const imageName = req.file ? "/uploads/" + req.file.filename : "";
+		const newAnimal = await animalService.createAnimal({
+			nombre,
+			tipo,
+			estado_adopcion,
+			peso,
+			tamanyo,
+			raza,
+			fecha_nacimiento,
+			fecha_ingreso,
+			sexo,
+			img: imageName,
+			descripcion,
+			Habitacion: { connect: { id: Number(habitacionId) } },
+			Afiliado: {connect: {id:Number(afiliadoId)}}
+		});
 
-        res.status(201).json(newAnimal);
-    } catch (error) {
-        console.error("Error creating animal:", error);
-        res.status(500).json({ error: "Internal server error" });
-    }
+		res.status(201).json(newAnimal);
+	} catch (error) {
+		console.error("Error creating animal:", error);
+		res.status(500).json({ error: "Internal server error" });
+	}
 });
 
 router.put("/:animalId", upload.single("image"), async (req, res) => {

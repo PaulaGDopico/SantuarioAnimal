@@ -158,12 +158,12 @@ const openAdoptaModal = async () => {
     const adoptaModal = await modalController.create({
         component: InfoAnimalAdoptaModal,
     });
-    adoptaModal.present();
+    await adoptaModal.present();
 
     const { data, role } = await adoptaModal.onWillDismiss();
 
     if (role === "confirm") {
-        enviarMail(data, "Adopción", "notificacionessantuarioanimal@gmail.com");
+        await enviarMail(data, "Adopción", "notificacionessantuarioanimal@gmail.com");
     }
 };
 
@@ -171,12 +171,12 @@ const openApadrinaModal = async () => {
     const apadrinaModal = await modalController.create({
         component: InfoAnimalApadrinaModal,
     });
-    apadrinaModal.present();
+    await apadrinaModal.present();
 
     const { data, role } = await apadrinaModal.onWillDismiss();
 
     if (role === "confirm") {
-        enviarMail(
+        await enviarMail(
             data,
             "Apadrinar",
             "notificacionessantuarioanimal@gmail.com"

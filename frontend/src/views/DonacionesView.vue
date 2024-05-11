@@ -1,11 +1,9 @@
 <template>
 	<ion-page>
 		<ion-content>
-			<section class="subheader">
-				<div>
-					<h1>Un donativo para una buena causa</h1>
-				</div>
-			</section>
+			<SubHeader titulo="Dona y Cambia Vidas en Nuestra Protectora de Animales"
+				texto="Cada gesto de generosidad es un paso hacia un mundo más compasivo. Con tu donación, no solo brindas comida, refugio y cuidado médico a los animales necesitados, sino que también les das una segunda oportunidad para vivir una vida plena y feliz. "
+				img-url="/img/pexels-ricardo-martinez-gonzalez-214380188-11910797.jpg" infoBtn="Requisitos para adoptar"></SubHeader>
 			<section class="donativos container ion-padding">
 				<h2>Donativos</h2>
 				<p>
@@ -252,23 +250,11 @@ import {
 	IonButton,
 } from "@ionic/vue";
 import { card, helpBuoy, logoEuro, logoPaypal, people } from "ionicons/icons";
+import SubHeader from "@/components/SubHeader.vue";
 </script>
 
 <style lang="scss">
-.subheader {
-	height: 50vh;
-	background-image: url(/img/pexels-snapwire-46024.jpg);
-	background-size: cover;
-	background-position: center;
-	justify-content: start;
-	display: flex;
-	align-items: center;
 
-	div {
-		width: 90%;
-		text-align: end;
-	}
-}
 .container {
 	margin: 5vh 10vw;
 }

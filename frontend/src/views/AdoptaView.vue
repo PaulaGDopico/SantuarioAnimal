@@ -2,8 +2,8 @@
     <ion-page>
         <ion-content>
             <SubHeader
-                titulo="Lorem ipsum dolor"
-                texto="Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente blanditiis vitae consequatur mollitia quibusdam debitis necessitatibus et. Error, nisi iure repellat recusandae, atque dolorum autem fugiat provident ipsa sit ipsam?"
+                titulo="¡Adopta, ama, y sé amado!"
+                texto="En cada mirada, en cada movimiento, en cada latido, un animal en espera de adopción te ofrece un vínculo indeleble lleno de gratitud y afecto. Descubre el regalo incomparable de la compañía animal, y sé parte de una historia donde el amor encuentra su hogar. ¡Adopta hoy y cambia dos vidas para siempre!"
                 img-url="/img/pexels-helena-lopes-1959054.jpg"
                 infoBtn="Requisitos para adoptar"></SubHeader>
             <div class="content main-wrapper">
@@ -71,11 +71,11 @@
                             id="macho"
                             >Macho</ion-checkbox
                         >
-                        <h2>Altura</h2>
+                        <h2>tamanyo</h2>
                         <select
-                            name="altura"
-                            id="altura"
-                            v-model="filtros.altura">
+                            name="tamanyo"
+                            id="tamanyo"
+                            v-model="filtros.tamanyo">
                             <option value="todos" selected>Todos</option>
                             <option value="mgrande">Muy grande</option>
                             <option value="grande">Grande</option>
@@ -100,7 +100,7 @@
                 <section class="listaAnimales">
                     <div class="cartasAnimal d-flex justify-content-center">
                         <AppCartaAnimal
-                            v-for="animal in result"
+                            v-for="animal in infoAnimal"
                             :key="animal.id"
                             :id="animal.id"
                             :animal="animal.tipo"
@@ -110,23 +110,19 @@
                             :urlImg="API_FILE_URL + animal.img" />
                     </div>
                     <div class="d-flex justify-content-center paginacion">
-                        <a
-                            :href="`http://localhost:8100/adopta/`"
-                            class="buttonPag"
-                            >Anterior</a
-                        >
-                        <a
-                            v-for="(numero, index) in paginas"
+                        <button @click="anteriorPag()" class="buttonPag">
+                            Anterior
+                        </button>
+                        <button
+                            v-for="(numero, index) in paginacion"
                             :key="index"
                             class="numberPag"
-                            :href="`http://localhost:8100/adopta/${numero}`">
+                            @click="clickPage(numero)">
                             {{ index + 1 }}
-                        </a>
-                        <a
-                            :href="`http://localhost:8100/adopta/`"
-                            class="buttonPag"
-                            >Siguiente</a
-                        >
+                        </button>
+                        <button @click="siguientePag()" class="buttonPag">
+                            Siguiente
+                        </button>
                     </div>
                 </section>
             </div>
@@ -140,21 +136,15 @@ import SubHeader from "@/components/SubHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
 import { IonPage, IonContent, IonCheckbox, IonRange } from "@ionic/vue";
 import AppCartaAnimal from "@/components/AppCartaAnimal.vue";
-import { computed, onMounted, ref } from "vue";
-import { getAnimales } from "@/services/animal";
+import { onMounted, ref, watch } from "vue";
+import { getAnimales, getAllAnimales } from "@/services/animal";
 import { Animal } from "@/types/Animal";
 
 const pinFormatter = (value: any) => `${value}kg`;
-
 const infoAnimal = ref<Animal[] | null>(null);
-onMounted(async () => {
-    const animals = await getAnimales(1);
-    if (Array.isArray(animals)) {
-        infoAnimal.value = animals;
-    } else {
-        console.error("Error: Array de animales vacio");
-    }
-});
+
+const paginacion = ref(); //cantidad de paginas
+const paginaActual = ref(1); //pagina actual
 const filtros = ref({
     tipoPerro: false,
     tipoGato: false,
@@ -164,40 +154,86 @@ const filtros = ref({
     sinEstado: false,
     hembra: false,
     macho: false,
-    altura: "todos",
+    tamanyo: "todos",
     peso: 0,
 });
-const result = computed(() => {
-    if (!infoAnimal.value) return null;
-    return infoAnimal.value.filter((animal: Animal) => {
-        return (
-            //Filtrar por tipo de animal
-            ((!filtros.value.tipoPerro && !filtros.value.tipoGato) ||
-                (filtros.value.tipoPerro && animal.tipo === "PERRO") ||
-                (filtros.value.tipoGato && animal.tipo === "GATO")) && //Filtrar por estado
-            ((!filtros.value.urgente &&
-                !filtros.value.especial &&
-                !filtros.value.apadrinando &&
-                !filtros.value.sinEstado) ||
-                (filtros.value.urgente &&
-                    animal.estado_adopcion === "adopcion-urgente") ||
-                (filtros.value.especial &&
-                    animal.estado_adopcion === "casos-especiales") ||
-                (filtros.value.apadrinando &&
-                    animal.estado_adopcion === "apadrinado") ||
-                (filtros.value.sinEstado &&
-                    animal.estado_adopcion === "sin-estado")) && //Filtrar por genero
-            ((!filtros.value.hembra && !filtros.value.macho) ||
-                (filtros.value.hembra && animal.sexo === "hembra") ||
-                (filtros.value.macho && animal.sexo === "macho")) && //Filtrar por peso
-            (filtros.value.peso === 0 ||
-                filtros.value.peso == parseInt(animal.peso)) /*&&*/ //filtrar por alura
-            // (filtros.value.altura === "todos" ||
-            // 	filtros.value.altura == animal.altura)
-        );
-    });
+watch(
+    filtros,
+    async () => {
+        console.log(filtros.value.tamanyo);
+        const animals = await getAnimales(paginaActual.value, filtros.value);
+        if (Array.isArray(animals)) {
+            infoAnimal.value = animals;
+        } else {
+            console.error("Error: Array de animales vacio");
+            infoAnimal.value = null;
+        }
+        if (animals) {
+            paginacion.value = Math.ceil(animals.length / 20);
+            console.log(animals.length); // Suponiendo que hay 20 animales por página
+        } else {
+            // Manejar el caso en que response es undefined
+            console.error("Error: La respuesta de getAllAnimales es undefined");
+        }
+    },
+    { deep: true }
+);
+onMounted(async () => {
+    const animals = await getAnimales(paginaActual.value, filtros.value);
+    if (Array.isArray(animals)) {
+        infoAnimal.value = animals;
+    } else {
+        console.error("Error: Array de animales vacio");
+        infoAnimal.value = null;
+    }
+    const response = await getAllAnimales();
+    if (response) {
+        paginacion.value = Math.ceil(response.length / 20); // Suponiendo que hay 20 animales por página
+        console.log(response.length);
+    } else {
+        // Manejar el caso en que response es undefined
+        console.error("Error: La respuesta de getAllAnimales es undefined");
+    }
 });
-const paginas = ref(10);
+async function siguientePag() {
+    paginaActual.value++;
+    if (paginaActual.value < paginacion.value) {
+        const animals = await getAnimales(paginaActual.value, filtros.value);
+        if (Array.isArray(animals)) {
+            infoAnimal.value = animals;
+        } else {
+            console.error("Error: Array de animales vacio");
+            infoAnimal.value = null;
+        }
+    }
+}
+async function anteriorPag() {
+    if (paginaActual.value >= 1) {
+        paginaActual.value--;
+        if (paginaActual.value < paginacion.value) {
+            const animals = await getAnimales(
+                paginaActual.value,
+                filtros.value
+            );
+            if (Array.isArray(animals)) {
+                infoAnimal.value = animals;
+            } else {
+                console.error("Error: Array de animales vacio");
+                infoAnimal.value = null;
+            }
+        }
+    }
+}
+async function clickPage(pagina: number) {
+    paginaActual.value = pagina;
+    const animals = await getAnimales(paginaActual.value, filtros.value);
+    if (Array.isArray(animals)) {
+        infoAnimal.value = animals;
+    } else {
+        console.error("Error: Array de animales vacio");
+        infoAnimal.value = null;
+    }
+}
 </script>
 <style lang="scss">
 .align-peso {

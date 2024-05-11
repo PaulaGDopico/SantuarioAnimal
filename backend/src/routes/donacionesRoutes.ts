@@ -1,4 +1,4 @@
-import express, { response } from "express";
+import express from "express";
 import * as donacionesService from "../services/donacionesService";
 import upload from "../middleware/multerMiddleware";
 

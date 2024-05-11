@@ -1,11 +1,9 @@
 <template>
     <ion-page>
         <ion-content>
-            <section class="subheader">
-                <div>
-                    <h1>Buscamos personas comprometidas</h1>
-                </div>
-            </section>
+            <SubHeader titulo="Únete a Nosotros Como Voluntario y Marca la Diferencia"
+				texto="El tiempo que dedicas puede cambiar vidas. Únete a nuestro equipo de voluntarios y sé la voz, las manos y el corazón de los que no tienen voz. Desde pasear perros hasta alimentar gatitos, cada gesto cuenta en nuestra misión de proteger y cuidar a los animales más vulnerables. "
+				img-url="/img/pexels-elif-tasli-889857993-20019531.jpg" infoBtn="Requisitos para adoptar"></SubHeader>
             <section class="container ion-padding">
                 <ion-grid>
                     <ion-row>
@@ -188,6 +186,12 @@
                             </ion-col>
                         </ion-row>
                     </ion-grid>
+                    <ion-toast
+                        position="bottom"
+                        :is-open="notificacionEnvioIsOpen"
+                        :message="errors.envio.value"
+                        :duration="5000"
+                        @didDismiss="abrirNotificacionEnvio(false)"></ion-toast>
                 </form>
             </section>
             <app-footer></app-footer>
@@ -196,6 +200,7 @@
 </template>
 
 <script setup lang="ts">
+import SubHeader from "@/components/SubHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
 import { enviarMail } from "@/services/mail";
 import {
@@ -209,10 +214,14 @@ import {
     IonButton,
     IonInput,
     IonCheckbox,
+    IonToast,
 } from "@ionic/vue";
 import { checkmark } from "ionicons/icons";
 import { ref, watch } from "vue";
-
+const notificacionEnvioIsOpen = ref(false);
+const abrirNotificacionEnvio = (state: boolean) => {
+    notificacionEnvioIsOpen.value = state;
+};
 const nombre = ref("");
 const apellidos = ref("");
 const telefono = ref("");
@@ -226,6 +235,7 @@ const errors = {
     correo: ref(""),
     fecha_nacimiento: ref(""),
     politicaAceptada: ref(""),
+    envio: ref(""),
 };
 
 const politicaAceptada = ref();
@@ -282,6 +292,8 @@ function validarFormulario() {
 
 function enviarFormulario() {
     if (!validarFormulario()) {
+        errors.envio.value = "No se ha podido enviar el voluntario";
+        abrirNotificacionEnvio(true);
         return;
     }
     const mensaje = `
@@ -297,6 +309,8 @@ function enviarFormulario() {
         "Voluntariado",
         "notificacionessantuarioanimal@gmail.com"
     );
+    errors.envio.value = "Felicidades, te has inscrito correctamente.";
+        abrirNotificacionEnvio(true);
 }
 
 //Watchers para revisar los cambios en cada  campo
