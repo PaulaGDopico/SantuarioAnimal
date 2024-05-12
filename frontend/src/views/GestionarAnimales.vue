@@ -62,12 +62,14 @@
                         </ion-col>
                         <ion-col>
                             <ion-input
-                                v-model="animalData.afiliadoId"
+                                v-model="nombre_afiliado"
+                                :class="nombreAfiliadoInputStyle"
                                 label="Nombre Afiliado"
                                 label-placement="floating"
                                 fill="solid"
                                 placeholder="Introduce nombre">
                             </ion-input>
+                            <div v-if="mostrarErrorAfiliado" class="error-message">No hay ningún afiliado con ese nombre.</div>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
@@ -204,6 +206,7 @@
                 <ion-grid>
                     <ion-row>
                         <ion-col>
+                            <p>Fecha de nacimiento</p>
                             <ion-input
                                 v-model="fechaNacimiento"
                                 type="date"
@@ -212,6 +215,7 @@
                                 class="inputDate"></ion-input>
                         </ion-col>
                         <ion-col>
+                            <p>Fecha de ingreso</p>
                             <ion-input
                                 v-model="fechaIngreso"
                                 type="date"
@@ -290,6 +294,8 @@ import GestionarAnimalesEditButton from "@/components/GestionarAnimalesEditButto
 import GestionarAnimalesDeleteButton from "@/components/GestionarAnimalesDeleteButton.vue";
 import { getAllAnimalsWithoutPagination } from "@/services/animal";
 import { pushAnimal } from "@/services/animal";
+import { getAfiliados } from "@/services/afiliados";
+import { Afiliado } from "@/types/Afiliado";
 
 // BOTONES MODAL
 const isOpen = ref(false);
@@ -335,6 +341,13 @@ const fechaIngresoConvertida = computed(
     () => `${fechaIngreso.value}T00:00:00Z`
 );
 
+const nombre_afiliado = ref('')
+const afiliados = ref<Afiliado[]>([]);
+const es_afiliado = ref(false)
+
+const nombreAfiliadoInputStyle = ref('');
+const mostrarErrorAfiliado = ref(false);
+
 const animalData = ref({
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -351,16 +364,47 @@ const animalData = ref({
     descripcion: "",
     habitacionId: 0,
     donaciones_recibidas: [],
-    afiliadoId: undefined,
+    afiliadoId:'',
 });
+
+const verificarAfiliado = async(afiliadosData:Array<Afiliado> | undefined) => {
+    if (!afiliadosData || afiliadosData.length === 0) {
+            es_afiliado.value = false;
+    }else{
+        afiliados.value = afiliadosData;
+        if (!nombre_afiliado.value || nombre_afiliado.value.trim() === '') {
+            es_afiliado.value = true;
+        }else{
+            // Verifica si el nombre_afiliado está presente en la lista de afiliados
+            es_afiliado.value = afiliados.value.some(afiliado => afiliado.nombre === nombre_afiliado.value);
+            if (es_afiliado.value) {
+                // Buscar el ID del afiliado correspondiente al nombre introducido
+                const afiliadoEncontrado = afiliados.value.find(afiliado => afiliado.nombre === nombre_afiliado.value);
+                if (afiliadoEncontrado) {
+                    animalData.value.afiliadoId = afiliadoEncontrado.id;
+                }
+            }
+        }
+    }
+}
 
 const subirAnimal = async (animalData: any) => {
     console.log(animalData);
     try {
+        const afiliadosData = await getAfiliados()
+        await verificarAfiliado(afiliadosData);
+        if (!es_afiliado.value) {
+            console.error("El nombre del afiliado no está en la base de datos.");
+            nombreAfiliadoInputStyle.value = 'error-input';
+            mostrarErrorAfiliado.value = true;
+            return;
+        }    
         const animal = await pushAnimal(animalData);
         setOpen(false);
         rowData.value.push(animal);
         const result = await getAllAnimalsWithoutPagination();
+        nombreAfiliadoInputStyle.value = 'error-input';
+        mostrarErrorAfiliado.value = true;
         console.log(result);
         rowData.value = result; // Asigna los datos recuperados al rowData
     } catch (error) {
@@ -381,28 +425,10 @@ onMounted(async () => {
     } catch (error) {
         console.error("Error al obtener los animales:", error);
     }
-
-    //await subirAnimal(animalData.value)
-
-    //   await subirAnimal({
-    //     createdAt: animalData.value.createdAt,
-    //     updatedAt: animalData.value.updatedAt,
-    //     nombre: animalData.value.nombre,
-    //     tipo: animalData.value.tipo,
-    //     estado_adopcion: animalData.value.estado_adopcion,
-    //     peso: animalData.value.peso,
-    //     tamanyo: animalData.value.tamanyo,
-    //     raza: animalData.value.raza,
-    //     fecha_nacimiento: animalData.value.fecha_nacimiento,
-    //     fecha_ingreso: animalData.value.fecha_ingreso,
-    //     sexo: animalData.value.sexo,
-    //     img: animalData.value.img,
-    //     descripcion: animalData.value.descripcion,
-    //     habitacionId: animalData.value.habitacionId,
-    //     donaciones_recibidas: animalData.value.donaciones_recibidas,
-    //     afiliadoId: animalData.value.afiliadoId
-    //   })
 });
+
+
+
 
 // const rowData = ref([
 //   { id: 0, nombre: 'Roy', tipo: 'Perro', sexo: 'Macho', raza: 'Bulldog', estado: 'casos-especiales', peso: 5, altura: "muy-pequeño", donativo: 0, afiliado: "", habitacion: 3, fechaNacimiento: '2024-03-05', fechaIngreso: '2020-05-03', imagen: 'pexels-snapwire-46024.jpg' },
@@ -437,5 +463,15 @@ a {
 .buttonDelete {
     background-color: rgb(145, 30, 30);
     color: white;
+}
+
+.error-input {
+    border-color: red; /* Cambia el borde del campo de entrada a rojo */
+}
+
+.error-message {
+    color: red; /* Color rojo para el mensaje de error */
+    font-size: 14px; /* Tamaño de fuente del mensaje de error */
+    margin-top: 5px; /* Espaciado superior para separar el mensaje de error del campo de entrada */
 }
 </style>
