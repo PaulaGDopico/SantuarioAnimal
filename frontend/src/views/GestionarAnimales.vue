@@ -30,7 +30,8 @@
                     :editType="'fullRow'"
                     :animateRows="true"
                     :suppressClickEdit="true"
-                    :pagination="true">
+                    :pagination="true"
+                    @deleteRow="handleDeleteRow">
                 </ag-grid-vue>
             </div>
             <app-footer></app-footer>
@@ -63,7 +64,7 @@
                         <ion-col>
                             <ion-input
                                 v-model="nombre_afiliado"
-                                :class="nombreAfiliadoInputStyle"
+                                :class="errorInputAfiliadoStyle"
                                 label="Nombre Afiliado"
                                 label-placement="floating"
                                 fill="solid"
@@ -129,12 +130,15 @@
                         <ion-col>
                             <ion-input
                                 v-model="animalData.habitacionId"
+                                :class="errorInputHabitacionStyle"
                                 type="number"
                                 label="Habitación"
                                 label-placement="floating"
                                 fill="solid"
                                 max="20"
                                 min="1"></ion-input>
+                                {{ animalData.habitacionId }}
+                                <div v-if="mostrarErrorHabitacion" class="error-message">No hay ninguna habitación con ese id o la habitacion seleccionada no puede albergar más animales.</div>
                         </ion-col>
                         <ion-col>
                             <ion-input
@@ -243,7 +247,6 @@
                                 name="image"
                                 id="image"
                                 v-on:change="subirImagen" />
-                            {{ animalData.img }}
                         </ion-col>
                     </ion-row>
                 </ion-grid>
@@ -296,6 +299,8 @@ import { getAllAnimalsWithoutPagination } from "@/services/animal";
 import { pushAnimal } from "@/services/animal";
 import { getAfiliados } from "@/services/afiliados";
 import { Afiliado } from "@/types/Afiliado";
+//import { Habitacion } from "@/types/Habitacion";
+import { getHabitaciones } from "@/services/habitacion";
 
 // BOTONES MODAL
 const isOpen = ref(false);
@@ -323,6 +328,7 @@ const columnDefs = ref([
     {
         headerName: "Eliminar",
         cellRenderer: GestionarAnimalesDeleteButton,
+        cellRendererFramework: GestionarAnimalesDeleteButton,
         cellRendererParams: (params: any) => ({
             datosFila: params.data,
         }),
@@ -341,12 +347,18 @@ const fechaIngresoConvertida = computed(
     () => `${fechaIngreso.value}T00:00:00Z`
 );
 
-const nombre_afiliado = ref('')
+const nombre_afiliado = ref('');
 const afiliados = ref<Afiliado[]>([]);
-const es_afiliado = ref(false)
+const es_afiliado = ref(false);
 
-const nombreAfiliadoInputStyle = ref('');
+const errorInputAfiliadoStyle = ref('');
 const mostrarErrorAfiliado = ref(false);
+
+//const existe_habitacion = ref(false);
+//const habitaciones = ref<Habitacion[]>([]);
+
+const errorInputHabitacionStyle = ref('');
+const mostrarErrorHabitacion = ref(false);
 
 const animalData = ref({
     createdAt: new Date().toISOString(),
@@ -362,21 +374,24 @@ const animalData = ref({
     sexo: "",
     img: "",
     descripcion: "",
-    habitacionId: 0,
+    habitacionId: 1,
     donaciones_recibidas: [],
     afiliadoId:'',
 });
+
 
 const verificarAfiliado = async(afiliadosData:Array<Afiliado> | undefined) => {
     if (!afiliadosData || afiliadosData.length === 0) {
             es_afiliado.value = false;
     }else{
         afiliados.value = afiliadosData;
+        console.log(afiliados.value)
         if (!nombre_afiliado.value || nombre_afiliado.value.trim() === '') {
             es_afiliado.value = true;
         }else{
             // Verifica si el nombre_afiliado está presente en la lista de afiliados
             es_afiliado.value = afiliados.value.some(afiliado => afiliado.nombre === nombre_afiliado.value);
+            console.log(es_afiliado.value)
             if (es_afiliado.value) {
                 // Buscar el ID del afiliado correspondiente al nombre introducido
                 const afiliadoEncontrado = afiliados.value.find(afiliado => afiliado.nombre === nombre_afiliado.value);
@@ -388,28 +403,83 @@ const verificarAfiliado = async(afiliadosData:Array<Afiliado> | undefined) => {
     }
 }
 
+// const verificarHabitacion = async(habitacionData:Array<Habitacion> | undefined) => {
+//     if (!habitacionData || habitacionData.length === 0) {
+//             existe_habitacion.value = false;
+//             return;
+//     }else{
+//         habitaciones.value = habitacionData;
+//         console.log(habitaciones.value)
+//         existe_habitacion.value = habitaciones.value.some(habitacion => habitacion.id === animalData.value.habitacionId);
+        
+//         console.log(animalData.value.habitacionId);
+        
+//         console.log(existe_habitacion.value)
+//         if(existe_habitacion.value){
+//             const habitacionEncontrada = habitaciones.value.find(habitacion => habitacion.id === animalData.value.habitacionId);
+//             console.log(habitacionEncontrada)
+//             if (!habitacionEncontrada) {
+//                 console.error("La habitación no existe.");
+//                 return;
+//             }       
+//             if(habitacionEncontrada.animals.length>=habitacionEncontrada.aforo){
+//                 console.error("El aforo de la habitación está lleno.");
+//                 return;
+//             }
+//         }
+//     }
+// }
+
+const resetFormData = () => {
+    animalData.value.nombre = "";
+    animalData.value.tipo = "";
+    animalData.value.estado_adopcion = "";
+    animalData.value.peso = "";
+    animalData.value.tamanyo = "";
+    animalData.value.raza = "";
+    animalData.value.fecha_nacimiento = "";
+    animalData.value.fecha_ingreso = "";
+    animalData.value.sexo = "";
+    animalData.value.img = "";
+    animalData.value.descripcion = "";
+    animalData.value.habitacionId = 1;
+    animalData.value.afiliadoId = '';
+
+    nombre_afiliado.value = '';
+};
+
 const subirAnimal = async (animalData: any) => {
     console.log(animalData);
     try {
         const afiliadosData = await getAfiliados()
+        const habitacionData = await getHabitaciones()
+        console.log(afiliadosData)
+        console.log(habitacionData)
         await verificarAfiliado(afiliadosData);
+        //await verificarHabitacion(habitacionData)
         if (!es_afiliado.value) {
             console.error("El nombre del afiliado no está en la base de datos.");
-            nombreAfiliadoInputStyle.value = 'error-input';
+            errorInputAfiliadoStyle.value = 'error-input';
             mostrarErrorAfiliado.value = true;
             return;
-        }    
+        }//else if(!existe_habitacion.value){
+        //     errorInputHabitacionStyle.value = 'error-input';
+        //     mostrarErrorHabitacion.value = true;
+        //     return;
+        // }    
         const animal = await pushAnimal(animalData);
         setOpen(false);
         rowData.value.push(animal);
         const result = await getAllAnimalsWithoutPagination();
-        nombreAfiliadoInputStyle.value = 'error-input';
-        mostrarErrorAfiliado.value = true;
-        console.log(result);
         rowData.value = result; // Asigna los datos recuperados al rowData
+        resetFormData();
     } catch (error) {
         console.error("Error al subir el animal:", error);
     }
+};
+
+const handleDeleteRow = (deletedId:number) => {
+  console.log("Has eliminado la fila:",deletedId)
 };
 
 const subirImagen = (e: any) => {

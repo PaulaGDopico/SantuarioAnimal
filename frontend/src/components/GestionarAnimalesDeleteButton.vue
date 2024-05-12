@@ -2,7 +2,8 @@
     <ion-button @click="deleteAnimalConfirmar(props.params.datosFila)"><ion-icon :icon="trash" :name="trash"></ion-icon></ion-button>
 </template>
 <script setup lang="ts">
-import { deleteAnimal } from "@/services/animal";
+import { deleteAnimal} from "@/services/animal";
+import { defineProps, defineEmits} from "vue";
 
 import {
     IonButton,
@@ -16,11 +17,13 @@ const props = defineProps<{
     };
 }>();
 
+const emits = defineEmits(["deleteRow"])
 
 async function deleteAnimalConfirmar(params:any) {
     const confirmation = window.confirm(`¿Estás seguro de que deseas eliminar a ${params.nombre}?`);
     if (confirmation) {
        deleteAnimal(params.id)
+       emits("deleteRow",params.id)
     } else {
       console.log("Eliminación cancelada.");
     }
