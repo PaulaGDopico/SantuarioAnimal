@@ -56,10 +56,10 @@
                                             :value="
                                                 props.params.datosFila.tipo
                                             ">
-                                            <ion-select-option value="Perro"
+                                            <ion-select-option value="PERRO"
                                                 >Perro</ion-select-option
                                             >
-                                            <ion-select-option value="Gato"
+                                            <ion-select-option value="GATO"
                                                 >Gato</ion-select-option
                                             >
                                         </ion-select>
@@ -74,10 +74,10 @@
                                             :value="
                                                 props.params.datosFila.sexo
                                             ">
-                                            <ion-select-option value="Macho"
+                                            <ion-select-option value="MACHO"
                                                 >Macho</ion-select-option
                                             >
-                                            <ion-select-option value="Hembra"
+                                            <ion-select-option value="HEMBRA"
                                                 >Hembra</ion-select-option
                                             >
                                         </ion-select>
@@ -185,7 +185,7 @@
                                     label="Donativos Necesarios"
                                     label-placement="floating"
                                     fill="solid"
-                                    :value="props.params.datosFila.donativo"
+                                    :value="props.params.datosFila.donaciones_recibidas"
                                     min="1"></ion-input>
                             </ion-col>
                         </ion-row>
@@ -193,6 +193,7 @@
                     <ion-grid>
                         <ion-row>
                             <ion-col>
+                                <p>Fecha de nacimiento</p>
                                 <input
                                     type="date"
                                     name="fechaNacimiento"
@@ -203,6 +204,7 @@
                                     " />
                             </ion-col>
                             <ion-col>
+                                <p>Fecha de INgreso</p>
                                 <input
                                     type="date"
                                     name="fechaIngreso"
@@ -275,6 +277,7 @@ const props = defineProps<{
     };
 }>();
 
+console.log(props.params.datosFila)
 const isOpen = ref(false);
 
 const setOpen = (open: boolean) => (isOpen.value = open);
