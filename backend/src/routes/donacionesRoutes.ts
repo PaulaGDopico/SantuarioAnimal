@@ -1,5 +1,6 @@
 import express from "express";
 import * as donacionesService from "../services/donacionesService";
+import {getDonacion} from "../services/donacionesService";
 import upload from "../middleware/multerMiddleware";
 
 const router = express.Router();
@@ -59,17 +60,16 @@ router.post("/", upload.single("image"), async (req, res) => {
 router.put("/:donacionId", upload.single("image"), async (req, res) => {
     try {
         const donacionId = parseInt(req.params.donacionId);
-
-        let imagePath = req.body.img; // Preserve the existing image path if not updating the image
-
-        // If a new image is uploaded, update the image path
-        if (req.file) {
-            imagePath = req.file.path;
+        const donacion = await getDonacion(donacionId)
+        if (!donacion) {
+            res.status(400).json({error: "No existe esa donación"})
+            return
         }
+        const imageName = req.file ? "/uploads/" + req.file.filename : donacion.img;
 
         const updateDonacion = await donacionesService.updateDonacion(
             donacionId,
-            req.body
+            {...req.body, img: imageName}
         );
 
         res.json(updateDonacion);
