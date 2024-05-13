@@ -63,52 +63,71 @@ const routes: Array<RouteRecordRaw> = [
 				component: () => import("../views/GestionarAnimales.vue"),
 			},
             {
-				path: "/donaciones-solidarias",
-				name: "DonacionesSolidarias",
-				component: () => import("../views/DonacionSolidaria.vue"),
-			},
-			{
-				path: "/donaciones-solidarias/:donacion_id",
-				name: "DonacionesSolidariasInfo",
-				component: () => import("../views/DonacionSolidariaInfo.vue"),
-			},
+                path: "/donaciones-solidarias",
+                name: "DonacionesSolidarias",
+                component: () => import("../views/DonacionSolidaria.vue"),
+            },
+            {
+                path: "/donaciones-solidarias/:donacion_id",
+                name: "DonacionesSolidariasInfo",
+                component: () => import("../views/DonacionSolidariaInfo.vue"),
+            },
 		],
 	},
 
-	{
-		path: "/admin",
-		name: "AppAdminMenu",
-		component: () => import("../components/AppAdminMenu.vue"),
-		children: [
-			{
-				path: "/gestion",
-				name: "gestion",
-				meta: { requiresAuth: true },
-				component: () => import("../views/GestionTrabajadorView.vue"),
-			},
-			{
-				path: "/gestionNotificaciones",
-				name: "gestionNotificaciones",
-				meta: { requiresAuth: true },
-				component: () =>
-					import("../views/GestionNotificacionesView.vue"),
-			},
-		],
-	},
+    {
+        path: "/admin",
+        name: "AppAdminMenu",
+        component: () => import("../components/AppAdminMenu.vue"),
+        children: [
+            {
+                path: "/gestion",
+                name: "gestion",
+                meta: { requiresAuth: true },
+                component: () => import("../views/GestionTrabajadorView.vue"),
+            },
+            {
+                path: "/gestionAnimales",
+                name: "gestionAnimales",
+                meta: { requiresAuth: true },
+                component: () => import("../views/GestionarAnimales.vue"),
+            },
+            {
+                path: "/gestionDonaciones",
+                name: "gestionDonaciones",
+                meta: { requiresAuth: true },
+                component: () => import("../views/GestionarDonaciones.vue"),
+            },
+            {
+                path: "/gestionNotificaciones",
+                name: "gestionNotificaciones",
+                meta: { requiresAuth: true },
+                component: () =>
+                    import("../views/GestionNotificacionesView.vue"),
+            },
+            {
+                path: "/registrarAdministradores",
+                name: "registrarAdministradores",
+                meta: { requiresAuth: true },
+                component: () =>
+                    import("../views/RegistrarAdministradorView.vue"),
+            },
+        ],
+    },
 ];
 
 const router = createRouter({
-	history: createWebHistory(import.meta.env.BASE_URL),
-	routes,
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes,
 });
 
 //Comprovar autentificación en páginas que lo requieran
 router.beforeEach((to, from, next) => {
-	if (to.meta.requiresAuth && !isAuthenticated()) {
-		next("/iniciosesion");
-	} else {
-		next();
-	}
+    if (to.meta.requiresAuth && !isAuthenticated()) {
+        next("/iniciosesion");
+    } else {
+        next();
+    }
 });
 
 export default router;

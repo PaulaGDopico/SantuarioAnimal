@@ -1,11 +1,10 @@
 <template>
 	<ion-page>
 		<ion-content>
-			<section class="subheader">
-				<div>
-					<h1>Un donativo para una buena causa</h1>
-				</div>
-			</section>
+      <SubHeader img-url="/img/pexels-ricardo-martinez-gonzalez-214380188-11910797.jpg"
+                 infoBtn="Requisitos para adoptar"
+                 texto="Cada gesto de generosidad es un paso hacia un mundo más compasivo. Con tu donación, no solo brindas comida, refugio y cuidado médico a los animales necesitados, sino que también les das una segunda oportunidad para vivir una vida plena y feliz. "
+                 titulo="Dona y Cambia Vidas en Nuestra Protectora de Animales"></SubHeader>
 			<section class="donativos container ion-padding">
 				<h2>Donativos</h2>
 				<p>
@@ -149,26 +148,38 @@
 										<ion-label>Más información</ion-label>
 									</ion-item>
 									<div slot="content">
-										<section class="ion-padding light-orange">
-											<ion-icon :name="logoPaypal" :icon="logoPaypal"></ion-icon>
+										<section
+											class="ion-padding light-orange">
+											<ion-icon
+												:name="logoPaypal"
+												:icon="logoPaypal"></ion-icon>
 											<h4>Donación mediante paypal</h4>
 											<p>
 												Para dar cualquier cantidad de
 												una forma sencilla y segura a
 												través de Paypal
 											</p>
-											<ion-button>Ayúdanos</ion-button>
+                      <ion-button
+                          href="https://www.paypal.com/donate?token=XfTGMwwpPIAx2e0oMMm1M5FwOvFBbOVkkJbxbJQR7Sx4iBgzCyklPnguyhljDQQcFBUs6CwLQSgduDmbS"
+                          target="_blank">
+                        Ayúdanos
+                      </ion-button>
 										</section>
 										<section class="ion-padding orange">
-											<ion-icon :name="card" :icon="card"></ion-icon>
+											<ion-icon
+												:name="card"
+												:icon="card"></ion-icon>
 											<h4>
 												Donación mediante transferéncia
 												bancaria
 											</h4>
 											<p>ESXX XXXX XXXX XXXX XXXX XXXX</p>
 										</section>
-										<section class="ion-padding light-orange">
-											<ion-icon :name="logoEuro" :icon="logoEuro"></ion-icon>
+										<section
+											class="ion-padding light-orange">
+											<ion-icon
+												:name="logoEuro"
+												:icon="logoEuro"></ion-icon>
 											<h4>Donación mediante bizum</h4>
 											<p>Identificador: XXXXX</p>
 										</section>
@@ -192,23 +203,25 @@
 										<ion-label>Más información</ion-label>
 									</ion-item>
 									<div slot="content">
-										<RouterLink class="" :to="{ name: 'DonacionesSolidarias' }">
-											<section class="ion-padding light-orange">
-												<ion-icon :name="people" :icon="people"></ion-icon>
-												<h4>Haz una donación solidaria</h4>
-												<p>
-													Ayuda economicamente para
-													alcanzar el importe de la
-													operación de uno de nuestros
-													animales
-												</p>
-											</section>
-										</RouterLink>
+                    <RouterLink class="" :to="{ name: 'DonacionesSolidarias' }">
+                      <section class="ion-padding light-orange">
+                        <ion-icon :name="people" :icon="people"></ion-icon>
+                        <h4>Haz una donación solidaria</h4>
+                        <p>
+                          Ayuda económicamente para
+                          alcanzar el importe de la
+                          operación de uno de nuestros
+                          animales
+                        </p>
+                      </section>
+                    </RouterLink>
 										<section class="ion-padding orange">
-											<ion-icon :name="helpBuoy" :icon="helpBuoy"></ion-icon>
+											<ion-icon
+												:name="helpBuoy"
+												:icon="helpBuoy"></ion-icon>
 											<h4>Solicita ayuda</h4>
 											<p>
-												Ayuda economicamente para
+												Ayuda económicamente para
 												alcanzar el importe de la
 												operación de uno de nuestros
 												animales
@@ -225,22 +238,23 @@
 	</ion-page>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {
-	IonPage,
-	IonContent,
-	IonAccordionGroup,
-	IonAccordion,
-	IonItem,
-	IonLabel,
-	IonGrid,
-	IonRow,
-	IonCol,
-	IonImg,
-	IonIcon,
-	IonButton,
+  IonAccordion,
+  IonAccordionGroup,
+  IonButton,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonIcon,
+  IonImg,
+  IonItem,
+  IonLabel,
+  IonPage,
+  IonRow,
 } from "@ionic/vue";
-import { card, helpBuoy, logoEuro, logoPaypal, people } from "ionicons/icons";
+import {card, helpBuoy, logoEuro, logoPaypal, people} from "ionicons/icons";
+import SubHeader from "@/components/SubHeader.vue";
 </script>
 
 <style lang="scss">
@@ -286,7 +300,6 @@ ion-img {
 .orange {
 	background-color: #ff914d30;
 }
-
 .light-orange {
 	background-color: #ff914d10;
 }
