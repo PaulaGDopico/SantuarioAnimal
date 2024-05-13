@@ -82,12 +82,19 @@ router.put("/:donacionId", upload.single("image"), async (req, res) => {
 router.put("/donar/:donacionId", async (req, res) => {
     try {
         const donacionId = parseInt(req.params.donacionId);
-        const {dineroASumar} = req.body
-        const updateDineroAlcanzado = await donacionesService.updateDineroAlcanzado(
+        const {dineroASumar} = req.body;
+
+        const updateResult = await donacionesService.updateDineroAlcanzado(
             donacionId,
             parseInt(dineroASumar)
         );
-        res.json(updateDineroAlcanzado);
+
+
+        if (updateResult.success) {
+            res.json(updateResult.data);
+        } else {
+            res.status(400).json({error: updateResult.error});
+        }
     } catch (error) {
         console.error("Error updating donacion:", error);
         res.status(500).json({error: "Internal server error"});
