@@ -137,6 +137,8 @@ export const pushAnimal = async (animalData: Animal) => {
     }
 };
 
+
+
 export const deleteAnimal = async (id: number) => {
     try {
         const response = await fetch(`${API_URL}/animales/${id}`, {

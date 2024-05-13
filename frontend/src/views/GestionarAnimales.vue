@@ -31,7 +31,7 @@
                     :animateRows="true"
                     :suppressClickEdit="true"
                     :pagination="true"
-                    @deleteRow="handleDeleteRow">
+                    :context="context">
                 </ag-grid-vue>
             </div>
             <app-footer></app-footer>
@@ -288,7 +288,7 @@ import {
     IonTextarea,
     IonList,
 } from "@ionic/vue";
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, onBeforeMount, provide } from "vue";
 import { AgGridVue } from "ag-grid-vue3"; // AG Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
@@ -379,6 +379,7 @@ const animalData = ref({
     afiliadoId:'',
 });
 
+const context = ref<{handleDeleteRow: () => void} | null>(null);
 
 const verificarAfiliado = async(afiliadosData:Array<Afiliado> | undefined) => {
     if (!afiliadosData || afiliadosData.length === 0) {
@@ -478,8 +479,10 @@ const subirAnimal = async (animalData: any) => {
     }
 };
 
-const handleDeleteRow = (deletedId:number) => {
-  console.log("Has eliminado la fila:",deletedId)
+const handleDeleteRow = async () => {
+    console.log(rowData.value)
+    rowData.value = await getAllAnimalsWithoutPagination();
+    console.log(rowData.value)
 };
 
 const subirImagen = (e: any) => {
@@ -487,11 +490,21 @@ const subirImagen = (e: any) => {
     console.log(animalData.value.img);
 };
 
+onBeforeMount(()=>{
+    context.value = {
+        handleDeleteRow 
+    }
+
+    provide('gridContext',context);
+})
+
 onMounted(async () => {
     try {
         const animales = await getAllAnimalsWithoutPagination();
         console.log(animales);
         rowData.value = animales; // Asigna los datos recuperados al rowData
+
+        
     } catch (error) {
         console.error("Error al obtener los animales:", error);
     }

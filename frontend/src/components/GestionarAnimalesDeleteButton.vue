@@ -3,7 +3,7 @@
 </template>
 <script setup lang="ts">
 import { deleteAnimal} from "@/services/animal";
-import { defineProps, defineEmits} from "vue";
+import { Ref, defineProps, inject} from "vue";
 
 import {
     IonButton,
@@ -17,13 +17,15 @@ const props = defineProps<{
     };
 }>();
 
-const emits = defineEmits(["deleteRow"])
+const gridContext = inject<Ref<{handleDeleteRow: () => void} | null>>("gridContext")
 
 async function deleteAnimalConfirmar(params:any) {
     const confirmation = window.confirm(`¿Estás seguro de que deseas eliminar a ${params.nombre}?`);
     if (confirmation) {
-       deleteAnimal(params.id)
-       emits("deleteRow",params.id)
+       await deleteAnimal(params.id)
+        if(gridContext && gridContext.value && gridContext.value.handleDeleteRow){
+            gridContext.value.handleDeleteRow();
+        }
     } else {
       console.log("Eliminación cancelada.");
     }

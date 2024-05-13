@@ -8,18 +8,18 @@ const router = express.Router();
 //Multiples animales
 // ex: http://localhost:3000/animales?page=1
 interface Filtros {
-	tipoPerro: boolean,
-	tipoGato: boolean,
-	urgente: boolean,
-	especial: boolean,
-	apadrinando: boolean,
-	sinEstado: boolean,
-	hembra: boolean,
-	macho: boolean,
-	altura: string,
-	peso: string,
-	// Agrega más filtros según sea necesario
-  }
+    tipoPerro: boolean,
+    tipoGato: boolean,
+    urgente: boolean,
+    especial: boolean,
+    apadrinando: boolean,
+    sinEstado: boolean,
+    hembra: boolean,
+    macho: boolean,
+    altura: string,
+    peso: string,
+    // Agrega más filtros según sea necesario
+}
 router.get("/:page", async (req, res) => {
     try {
         const pageNum = parseInt(req.params.page as string);
@@ -82,59 +82,54 @@ router.get("/animal/:animalId", async (req, res) => {
 
 router.post("/", upload.single("image"), async (req, res) => {
 
-	try {
-		const {
-			nombre,
-			tipo,
-			estado_adopcion,
-			peso,
-			tamanyo,
-			raza,
-			fecha_nacimiento,
-			fecha_ingreso,
-			sexo,
-			descripcion,
-			habitacionId,
-			afiliadoId
-		} = req.body;
-		const imageName = req.file ? "/uploads/" + req.file.filename : "";
-		const newAnimal = await animalService.createAnimal({
-			nombre,
-			tipo,
-			estado_adopcion,
-			peso,
-			tamanyo,
-			raza,
-			fecha_nacimiento,
-			fecha_ingreso,
-			sexo,
-			img: imageName,
-			descripcion,
-			Habitacion: { connect: { id: Number(habitacionId) } },
-			Afiliado: {connect: {id:Number(afiliadoId)}}
-		});
+    try {
+        const {
+            nombre,
+            tipo,
+            estado_adopcion,
+            peso,
+            tamanyo,
+            raza,
+            fecha_nacimiento,
+            fecha_ingreso,
+            sexo,
+            descripcion,
+            habitacionId,
+            afiliadoId
+        } = req.body;
+        const imageName = req.file ? "/uploads/" + req.file.filename : "";
+        const newAnimal = await animalService.createAnimal({
+            nombre,
+            tipo,
+            estado_adopcion,
+            peso,
+            tamanyo,
+            raza,
+            fecha_nacimiento,
+            fecha_ingreso,
+            sexo,
+            img: imageName,
+            descripcion,
+            Habitacion: { connect: { id: Number(habitacionId) } },
+            Afiliado: { connect: { id: Number(afiliadoId) } }
+        });
 
-		res.status(201).json(newAnimal);
-	} catch (error) {
-		console.error("Error creating animal:", error);
-		res.status(500).json({ error: "Internal server error" });
-	}
+        res.status(201).json(newAnimal);
+    } catch (error) {
+        console.error("Error creating animal:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
 });
 
 router.put("/:animalId", upload.single("image"), async (req, res) => {
     try {
         const animalId = parseInt(req.params.animalId);
 
-        let imagePath = req.body.img; // Preserve the existing image path if not updating the image
-
-        // If a new image is uploaded, update the image path
-        if (req.file) {
-            imagePath = req.file.path;
-        }
+        let imageName = req.file ? "/uploads/" + req.file.filename : req.body.img;
 
         const updatedAnimal = await animalService.updateAnimal(
             animalId,
-            req.body
+            { ...req.body, img: imageName }
         );
 
         res.json(updatedAnimal);
