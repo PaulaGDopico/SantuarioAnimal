@@ -62,6 +62,16 @@ const routes: Array<RouteRecordRaw> = [
 				name: "GestionarAnimales",
 				component: () => import("../views/GestionarAnimales.vue"),
 			},
+            {
+				path: "/donaciones-solidarias",
+				name: "DonacionesSolidarias",
+				component: () => import("../views/DonacionSolidaria.vue"),
+			},
+			{
+				path: "/donaciones-solidarias/:donacion_id",
+				name: "DonacionesSolidariasInfo",
+				component: () => import("../views/DonacionSolidariaInfo.vue"),
+			},
 		],
 	},
 

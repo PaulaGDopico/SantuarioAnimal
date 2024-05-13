@@ -149,11 +149,8 @@
 										<ion-label>Más información</ion-label>
 									</ion-item>
 									<div slot="content">
-										<section
-											class="ion-padding light-orange">
-											<ion-icon
-												:name="logoPaypal"
-												:icon="logoPaypal"></ion-icon>
+										<section class="ion-padding light-orange">
+											<ion-icon :name="logoPaypal" :icon="logoPaypal"></ion-icon>
 											<h4>Donación mediante paypal</h4>
 											<p>
 												Para dar cualquier cantidad de
@@ -163,20 +160,15 @@
 											<ion-button>Ayúdanos</ion-button>
 										</section>
 										<section class="ion-padding orange">
-											<ion-icon
-												:name="card"
-												:icon="card"></ion-icon>
+											<ion-icon :name="card" :icon="card"></ion-icon>
 											<h4>
 												Donación mediante transferéncia
 												bancaria
 											</h4>
 											<p>ESXX XXXX XXXX XXXX XXXX XXXX</p>
 										</section>
-										<section
-											class="ion-padding light-orange">
-											<ion-icon
-												:name="logoEuro"
-												:icon="logoEuro"></ion-icon>
+										<section class="ion-padding light-orange">
+											<ion-icon :name="logoEuro" :icon="logoEuro"></ion-icon>
 											<h4>Donación mediante bizum</h4>
 											<p>Identificador: XXXXX</p>
 										</section>
@@ -200,23 +192,20 @@
 										<ion-label>Más información</ion-label>
 									</ion-item>
 									<div slot="content">
-										<section
-											class="ion-padding light-orange">
-											<ion-icon
-												:name="people"
-												:icon="people"></ion-icon>
-											<h4>Haz una donación solidaria</h4>
-											<p>
-												Ayuda economicamente para
-												alcanzar el importe de la
-												operación de uno de nuestros
-												animales
-											</p>
-										</section>
+										<RouterLink class="" :to="{ name: 'DonacionesSolidarias' }">
+											<section class="ion-padding light-orange">
+												<ion-icon :name="people" :icon="people"></ion-icon>
+												<h4>Haz una donación solidaria</h4>
+												<p>
+													Ayuda economicamente para
+													alcanzar el importe de la
+													operación de uno de nuestros
+													animales
+												</p>
+											</section>
+										</RouterLink>
 										<section class="ion-padding orange">
-											<ion-icon
-												:name="helpBuoy"
-												:icon="helpBuoy"></ion-icon>
+											<ion-icon :name="helpBuoy" :icon="helpBuoy"></ion-icon>
 											<h4>Solicita ayuda</h4>
 											<p>
 												Ayuda economicamente para
@@ -269,6 +258,7 @@ import { card, helpBuoy, logoEuro, logoPaypal, people } from "ionicons/icons";
 		text-align: end;
 	}
 }
+
 .container {
 	margin: 5vh 10vw;
 }
@@ -296,6 +286,7 @@ ion-img {
 .orange {
 	background-color: #ff914d30;
 }
+
 .light-orange {
 	background-color: #ff914d10;
 }
