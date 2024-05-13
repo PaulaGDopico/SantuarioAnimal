@@ -32,7 +32,7 @@
                                     label-placement="floating"
                                     fill="solid"
                                     placeholder="Introduce nombre"
-                                    :value="props.params.datosFila.afiliado">
+                                    :value="props.params.datosFila.afiliadoId">
                                 </ion-input>
                             </ion-col>
                         </ion-row>
@@ -103,7 +103,7 @@
                                     max="20"
                                     min="1"
                                     :value="
-                                        props.params.datosFila.habitacion
+                                        props.params.datosFila.habitacionId
                                     "></ion-input>
                             </ion-col>
                             <ion-col>
@@ -122,7 +122,7 @@
                                         <ion-select
                                             aria-label="Altura"
                                             :value="
-                                                props.params.datosFila.altura
+                                                props.params.datosFila.tamanyo
                                             ">
                                             <ion-select-option
                                                 value="muy-grande"
@@ -155,31 +155,31 @@
                                         <ion-select
                                             aria-label="Estado Animal"
                                             :value="
-                                                props.params.datosFila.estado
+                                                props.params.datosFila.estado_adopcion
                                             ">
                                             <ion-select-option
-                                                value="sin-estado"
+                                                value="SIN_ESTADO"
                                                 >Sin estado</ion-select-option
                                             >
                                             <ion-select-option
-                                                value="casos-especiales"
+                                                value="CASOS_ESPECIALES"
                                                 >Casos
                                                 Especiales</ion-select-option
                                             >
                                             <ion-select-option
-                                                value="adopcion-urgente"
+                                                value="ADOPCION_URGENTE"
                                                 >Adopción
                                                 Urgente</ion-select-option
                                             >
                                             <ion-select-option
-                                                value="apadrinado"
+                                                value="APADRINADO"
                                                 >Apadrinado</ion-select-option
                                             >
                                         </ion-select>
                                     </ion-item>
                                 </ion-list>
                             </ion-col>
-                            <ion-col>
+                            <!-- <ion-col>
                                 <ion-input
                                     type="number"
                                     label="Donativos Necesarios"
@@ -187,7 +187,7 @@
                                     fill="solid"
                                     :value="props.params.datosFila.donaciones_recibidas"
                                     min="1"></ion-input>
-                            </ion-col>
+                            </ion-col> -->
                         </ion-row>
                     </ion-grid>
                     <ion-grid>
@@ -196,22 +196,22 @@
                                 <p>Fecha de nacimiento</p>
                                 <input
                                     type="date"
-                                    name="fechaNacimiento"
+                                    name="fecha_nacimiento"
                                     id="fechaNacimiento"
                                     class="inputDate"
                                     :value="
-                                        props.params.datosFila.fechaNacimiento
+                                        props.params.datosFila.fecha_nacimiento
                                     " />
                             </ion-col>
                             <ion-col>
-                                <p>Fecha de INgreso</p>
+                                <p>Fecha de ingreso</p>
                                 <input
                                     type="date"
                                     name="fechaIngreso"
                                     id="fechaIngreso"
                                     class="inputDate"
                                     :value="
-                                        props.params.datosFila.fechaIngreso
+                                        props.params.datosFila.fecha_ingreso
                                     " />
                             </ion-col>
                         </ion-row>
@@ -220,6 +220,7 @@
                         <ion-row>
                             <ion-col>
                                 <ion-textarea
+                                    :value="props.params.datosFila.descripcion"
                                     label="Descripción"
                                     label-placement="floating"
                                     fill="solid"

@@ -50,7 +50,7 @@ model Animal {
   Habitacion           Habitacion @relation(fields: [habitacionId], references: [id])
   habitacionId         Int
   Donaciones_recibidas Donacion[]
-  Afiliado             Afiliado? @relation(fields: [afiliadoId], references: [id])
+  Afiliado             Afiliado?  @relation(fields: [afiliadoId], references: [id])
   afiliadoId           Int?
 }
 
