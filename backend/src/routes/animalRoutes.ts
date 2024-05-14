@@ -121,15 +121,20 @@ router.post("/", upload.single("image"), async (req, res) => {
     }
 });
 
-router.put("/:animalId", upload.single("image"), async (req, res) => {
+router.put("/:animalId", upload.single("img"), async (req, res) => {
     try {
         const animalId = parseInt(req.params.animalId);
 
         let imageName = req.file ? "/uploads/" + req.file.filename : req.body.img;
+        req.body.habitacionId = parseInt(req.body.habitacionId);
+        //const habitacionId = parseInt(req.body.habitacionId);
+        delete req.body.Donaciones_recibidas
+        req.body.afiliadoId = parseInt(req.body.afiliadoId)
 
         const updatedAnimal = await animalService.updateAnimal(
             animalId,
-            { ...req.body, img: imageName }
+            { ...req.body, img: imageName}
+            //Habitacion: { connect: { id: Number(habitacionId) } }
         );
 
         res.json(updatedAnimal);
@@ -138,6 +143,7 @@ router.put("/:animalId", upload.single("image"), async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
 
 router.delete("/:animalId", async (req, res) => {
     try {

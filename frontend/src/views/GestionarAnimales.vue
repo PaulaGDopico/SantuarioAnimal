@@ -322,7 +322,7 @@ const columnDefs = ref([
         headerName: "Editar",
         cellRenderer: GestionarAnimalesEditButton,
         cellRendererParams: (params: any) => ({
-            datosFila: params.data,
+            datosFila: params.data
         }),
     },
     {
