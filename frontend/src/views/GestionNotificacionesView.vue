@@ -7,7 +7,7 @@
             <ion-col size="12" size-lg="2">
               <router-link :to="{ name: 'gestion' }"
               >
-                <ion-button>
+                <ion-button class="boton-atras">
                   Volver atrás
                 </ion-button>
               </router-link
@@ -183,6 +183,11 @@ watch(description, (newValue) => {
   width: 100%;
   display: flex;
   flex-direction: row;
+
+  .boton-atras {
+    margin-left: 10px;
+    margin-top: 30px;
+  }
 
   .notificacion {
 
