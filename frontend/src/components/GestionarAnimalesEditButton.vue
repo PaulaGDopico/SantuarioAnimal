@@ -292,7 +292,7 @@ import {
     IonIcon,
 } from "@ionic/vue";
 import {  createOutline } from "ionicons/icons";
-import { ref, computed, inject, Ref, onMounted, onBeforeMount} from "vue";
+import { ref, computed, inject, Ref, onBeforeMount} from "vue";
 import { getAfiliados } from "@/services/afiliados";
 import { Afiliado } from "@/types/Afiliado";
 import { updateAnimal } from "@/services/animal";
@@ -311,11 +311,11 @@ const setOpen = (open: boolean) => (isOpen.value = open);
 
 const fechaNacimientoCompleta = props.params.datosFila.fecha_nacimiento
 const fechaNacimientoFormateada = fechaNacimientoCompleta.split('T')[0];
-console.log(fechaNacimientoFormateada)
+
 
 const fechaIngresoCompleta = props.params.datosFila.fecha_ingreso
 const fechaIngresoFormateada = fechaIngresoCompleta.split('T')[0];
-console.log(fechaIngresoFormateada)
+
 
 const fechaNacimiento = ref(fechaNacimientoFormateada);
 const fechaIngreso = ref(fechaIngresoFormateada);
@@ -359,21 +359,16 @@ const animalData = ref({
 
 const subirImagen = (e: any) => {
     animalData.value.img = e.target.files[0];
-    console.log(animalData.value.img);
 };
 
 const getNombreAfiliado = (afiliadosData:Array<Afiliado> | undefined)=>{
     if (!afiliadosData || afiliadosData.length === 0) {
             es_afiliado.value = false;
     }else{
-        console.log(afiliadosData)
         // const afiliadoEncontrado = afiliadosData.find(afiliado => afiliado.id === props.params.datosFila.afiliado_id);
         for(let i=0;i<afiliadosData.length;i++){
-            console.log(afiliadosData[i].id)
-            console.log(props.params.datosFila.afiliadoId)
             if(afiliadosData[i].id==props.params.datosFila.afiliadoId){
                 nombre_afiliado.value = afiliadosData[i].nombre
-                console.log(afiliadosData[i].nombre)
             }
         }
     }   
@@ -386,13 +381,11 @@ const verificarAfiliado = async(afiliadosData:Array<Afiliado> | undefined) => {
             es_afiliado.value = false;
     }else{
         afiliados.value = afiliadosData;
-        console.log(afiliados.value)
         if (!nombre_afiliado.value || nombre_afiliado.value.trim() === '') {
             es_afiliado.value = true;
         }else{
             // Verifica si el nombre_afiliado está presente en la lista de afiliados
             es_afiliado.value = afiliados.value.some(afiliado => afiliado.nombre === nombre_afiliado.value);
-            console.log(es_afiliado.value)
             if (es_afiliado.value) {
                 // Buscar el ID del afiliado correspondiente al nombre introducido
                 const afiliadoEncontrado = afiliados.value.find(afiliado => afiliado.nombre === nombre_afiliado.value);
