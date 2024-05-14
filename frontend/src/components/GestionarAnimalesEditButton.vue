@@ -111,6 +111,7 @@
 
                                     v-model="animalData.habitacionId">
                                 </ion-input>
+                                <div v-if="mostrarErrorHabitacion" class="error-message">{{ mensaje_error }}</div>
                             </ion-col>
                             <ion-col>
                                 <ion-input
@@ -296,7 +297,8 @@ import { ref, computed, inject, Ref, onBeforeMount} from "vue";
 import { getAfiliados } from "@/services/afiliados";
 import { Afiliado } from "@/types/Afiliado";
 import { updateAnimal } from "@/services/animal";
-
+import { getHabitaciones } from "@/services/habitacion";
+import { Habitacion } from "@/types/Habitacion";
 
 // Definimos las props para recibir los datos de la fila
 const props = defineProps<{
@@ -332,7 +334,14 @@ const nombre_afiliado = ref('');
 const afiliados = ref<Afiliado[]>([]);
 const es_afiliado = ref(false);
 
+const existe_habitacion = ref(false);
+
+const mensaje_error = ref('')
+
 const errorInputAfiliadoStyle = ref('');
+const errorInputHabitacionStyle = ref('');
+
+const mostrarErrorHabitacion = ref(false);
 const mostrarErrorAfiliado = ref(false);
 
 const gridContext = inject<Ref<{handleDeleteRow: () => void} | null>>("gridContext")
@@ -351,7 +360,7 @@ const animalData = ref({
     sexo: props.params.datosFila.sexo,
     img: props.params.datosFila.img,
     descripcion: props.params.datosFila.descripcion,
-    habitacionId: 1,
+    habitacionId: props.params.datosFila.habitacionId,
     donaciones_recibidas: [],
     afiliadoId: '',
 });
@@ -397,16 +406,50 @@ const verificarAfiliado = async(afiliadosData:Array<Afiliado> | undefined) => {
     }
 }
 
+const verificarHabitacion = async (habitacionData:Array<Habitacion> | undefined) => {
+    if (!habitacionData || habitacionData.length === 0) {
+            existe_habitacion.value = false;
+            return;
+    }else{
+        for(let i=0;i<habitacionData.length;i++){
+            console.log(habitacionData[i].id)
+            console.log(parseInt(animalData.value.habitacionId))
+            console.log(habitacionData[i].animals)
+            console.log(habitacionData[i].aforo)
+            if(habitacionData[i].id==parseInt(animalData.value.habitacionId) && habitacionData[i].aforo>habitacionData[i].animals.length){
+                existe_habitacion.value=true;
+                animalData.value.habitacionId=habitacionData[i].id.toLocaleString()
+                break;
+            }
+            console.log(existe_habitacion.value)
+        }
+        if(!existe_habitacion.value){
+            console.error("No existe la habitación que ha introducido")
+            mensaje_error.value= "No existe la habitación que ha introducido";
+            return;
+        }
+        console.log(existe_habitacion.value)
+    }
+}
+
 const modificarAnimal = async(animalData:any)=>{
     try{
         const afiliadosData = await getAfiliados();
+        const habitacionData = await getHabitaciones()
+        console.log(habitacionData)
         await verificarAfiliado(afiliadosData);
+        verificarHabitacion(habitacionData)
         if (!es_afiliado.value) {
             console.error("El nombre del afiliado no está en la base de datos.");
             errorInputAfiliadoStyle.value = 'error-input';
             mostrarErrorAfiliado.value = true;
             return;
         }
+        if(!existe_habitacion.value){
+             errorInputHabitacionStyle.value = 'error-input';
+             mostrarErrorHabitacion.value = true;
+             return;
+        }    
         await updateAnimal(props.params.datosFila.id, animalData);
         if(gridContext && gridContext.value && gridContext.value.handleDeleteRow){
             gridContext.value.handleDeleteRow();

@@ -137,7 +137,6 @@
                                 fill="solid"
                                 max="20"
                                 min="1"></ion-input>
-                                {{ animalData.habitacionId }}
                                 <div v-if="mostrarErrorHabitacion" class="error-message">{{ mensaje_error }}</div>
                         </ion-col>
                         <ion-col>
@@ -428,23 +427,23 @@ const verificarHabitacion = async (habitacionData:Array<Habitacion> | undefined)
     }
 }
 
-const resetFormData = async () => {
-    animalData.value.nombre = "";
-    animalData.value.tipo = "";
-    animalData.value.estado_adopcion = "";
-    animalData.value.peso = "";
-    animalData.value.tamanyo = "";
-    animalData.value.raza = "";
-    animalData.value.fecha_nacimiento = "";
-    animalData.value.fecha_ingreso = "";
-    animalData.value.sexo = "";
-    animalData.value.img = "";
-    animalData.value.descripcion = "";
-    animalData.value.habitacionId = "";
-    animalData.value.afiliadoId = '';
+// const resetFormData = async () => {
+//     animalData.value.nombre = "";
+//     animalData.value.tipo = "";
+//     animalData.value.estado_adopcion = "";
+//     animalData.value.peso = "";
+//     animalData.value.tamanyo = "";
+//     animalData.value.raza = "";
+//     animalData.value.fecha_nacimiento = "";
+//     animalData.value.fecha_ingreso = "";
+//     animalData.value.sexo = "";
+//     animalData.value.img = "";
+//     animalData.value.descripcion = "";
+//     animalData.value.habitacionId = "";
+//     animalData.value.afiliadoId = '';
 
-    nombre_afiliado.value = '';
-};
+//     nombre_afiliado.value = '';
+// };
 
 const subirAnimal = async (animalData: any) => {
     console.log(animalData);
@@ -465,7 +464,7 @@ const subirAnimal = async (animalData: any) => {
              return;
         }    
         const animal = await pushAnimal(animalData);
-        await resetFormData();
+        //await resetFormData();
         setOpen(false);
         rowData.value.push(animal);
         const result = await getAllAnimalsWithoutPagination();
