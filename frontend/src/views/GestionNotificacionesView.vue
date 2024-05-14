@@ -2,83 +2,90 @@
   <ion-page>
     <ion-content>
       <div class="main">
-        <nav class="menuLateral">
-          <ul>
-            <router-link :to="{ name: 'gestion' }"
-            >
-              <button class="atras">
-                Volver atrás
-              </button>
-            </router-link
-            >
-          </ul>
-        </nav>
-        <div class="notificacion">
-          <h1>Formulario de notificaciones</h1>
-          <form action="" @submit.prevent="enviarFormulario">
-            <ion-grid>
-              <ion-row>
-                <ion-col>
-                  <ion-list>
-                    <ion-item>
-                      <ion-select v-if="afiliados"
-                                  v-model="emails"
-                                  :multiple="true"
-                                  aria-label="Correo"
-                                  placeholder="Selecciona los correos a los que quieres enviar la notificación">
-                        <ion-select-option v-for="afiliado in afiliados" :key="afiliado.id"
-                                           :value="afiliado.email">
-                          {{ afiliado.email }}
-                        </ion-select-option>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" size-lg="2">
+              <router-link :to="{ name: 'gestion' }"
+              >
+                <ion-button>
+                  Volver atrás
+                </ion-button>
+              </router-link
+              >
+            </ion-col>
+            <ion-col>
+              <div class="notificacion">
+                <h1>Formulario de notificaciones</h1>
+                <form action="" @submit.prevent="enviarFormulario">
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col>
+                        <ion-list>
+                          <ion-item>
+                            <ion-select v-if="afiliados"
+                                        v-model="emails"
+                                        :multiple="true"
+                                        aria-label="Correo"
+                                        placeholder="Selecciona los correos a los que quieres enviar la notificación">
+                              <ion-select-option v-for="afiliado in afiliados" :key="afiliado.id"
+                                                 :value="afiliado.email">
+                                {{ afiliado.email }}
+                              </ion-select-option>
 
-                      </ion-select>
-                    </ion-item>
-                  </ion-list>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col
-                >
-                  <ion-input
-                      v-model="issue"
-                      fill="solid"
-                      label="Asunto"
-                      label-placement="floating"
-                      placeholder="Introduce el asunto del mensaje"></ion-input
-                  >
-                  <p>{{ errors.issue.value }}</p>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <ion-textarea
-                      v-model="description"
-                      class="textarea"
-                      fill="solid"
-                      label="Mensaje"
-                      label-placement="floating"
-                      placeholder="Introduce el mensaje"></ion-textarea
-                  >
-                  <p>{{ errors.description.value }}</p>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <ion-button
-                      type="submit">
-                    Enviar mensaje
-                  </ion-button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-            <ion-toast
-                :duration="5000"
-                :is-open="notificacionEnvioIsOpen"
-                :message="errors.envio.value"
-                position="bottom"
-                @didDismiss="abrirNotificacionEnvio(false)"></ion-toast>
-          </form>
-        </div>
+                            </ion-select>
+                          </ion-item>
+                        </ion-list>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col
+                      >
+                        <ion-input
+                            v-model="issue"
+                            fill="solid"
+                            label="Asunto"
+                            label-placement="floating"
+                            placeholder="Introduce el asunto del mensaje"></ion-input
+                        >
+                        <p>{{ errors.issue.value }}</p>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col>
+                        <ion-textarea
+                            v-model="description"
+                            class="textarea"
+                            fill="solid"
+                            label="Mensaje"
+                            label-placement="floating"
+                            placeholder="Introduce el mensaje"></ion-textarea
+                        >
+                        <p>{{ errors.description.value }}</p>
+                      </ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-col>
+                        <ion-button
+                            type="submit">
+                          Enviar mensaje
+                        </ion-button>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                  <ion-toast
+                      :duration="5000"
+                      :is-open="notificacionEnvioIsOpen"
+                      :message="errors.envio.value"
+                      position="bottom"
+                      @didDismiss="abrirNotificacionEnvio(false)"></ion-toast>
+                </form>
+              </div>
+            </ion-col>
+
+          </ion-row>
+        </ion-grid>
+
+
       </div>
       <app-footer></app-footer>
     </ion-content>
@@ -177,33 +184,7 @@ watch(description, (newValue) => {
   display: flex;
   flex-direction: row;
 
-  .menuLateral {
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-    margin-left: 60px;
-
-    ul {
-      list-style: none;
-      width: 100%;
-
-      .atras {
-        width: 40%;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        background-color: #ff914d;
-        color: white;
-        margin-bottom: 40px;
-        font-size: large;
-      }
-    }
-  }
-
   .notificacion {
-    width: 70%;
-    padding-top: 50px;
 
     h1 {
       margin-left: 10px;
