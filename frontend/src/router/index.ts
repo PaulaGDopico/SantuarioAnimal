@@ -1,6 +1,6 @@
-import { isAuthenticated } from "@/middleware/checkLogin";
-import { createRouter, createWebHistory } from "@ionic/vue-router";
-import { RouteRecordRaw } from "vue-router";
+import {isAuthenticated} from "@/middleware/checkLogin";
+import {createRouter, createWebHistory} from "@ionic/vue-router";
+import {RouteRecordRaw} from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -57,11 +57,6 @@ const routes: Array<RouteRecordRaw> = [
                 name: "InicioSesion",
                 component: () => import("../views/InicioSesion.vue"),
             },
-            {
-                path: "/gestionar-animales",
-                name: "GestionarAnimales",
-                component: () => import("../views/GestionarAnimales.vue"),
-            },
         ],
     },
 
@@ -73,32 +68,32 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: "/gestion",
                 name: "gestion",
-                meta: { requiresAuth: true },
+                meta: {requiresAuth: true},
                 component: () => import("../views/GestionTrabajadorView.vue"),
             },
             {
                 path: "/gestionAnimales",
                 name: "gestionAnimales",
-                meta: { requiresAuth: true },
+                meta: {requiresAuth: true},
                 component: () => import("../views/GestionarAnimales.vue"),
             },
             {
                 path: "/gestionDonaciones",
                 name: "gestionDonaciones",
-                meta: { requiresAuth: true },
+                meta: {requiresAuth: true},
                 component: () => import("../views/GestionarDonaciones.vue"),
             },
             {
                 path: "/gestionNotificaciones",
                 name: "gestionNotificaciones",
-                meta: { requiresAuth: true },
+                meta: {requiresAuth: true},
                 component: () =>
                     import("../views/GestionNotificacionesView.vue"),
             },
             {
                 path: "/registrarAdministradores",
                 name: "registrarAdministradores",
-                meta: { requiresAuth: true },
+                meta: {requiresAuth: true},
                 component: () =>
                     import("../views/RegistrarAdministradorView.vue"),
             },
