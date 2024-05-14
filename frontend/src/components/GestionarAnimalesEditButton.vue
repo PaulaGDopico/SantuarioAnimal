@@ -291,8 +291,8 @@ import {
     IonTextarea,
     IonIcon,
 } from "@ionic/vue";
-import { createOutline } from "ionicons/icons";
-import { ref, computed, inject, Ref} from "vue";
+import {  createOutline } from "ionicons/icons";
+import { ref, computed, inject, Ref, onMounted, onBeforeMount} from "vue";
 import { getAfiliados } from "@/services/afiliados";
 import { Afiliado } from "@/types/Afiliado";
 import { updateAnimal } from "@/services/animal";
@@ -362,19 +362,24 @@ const subirImagen = (e: any) => {
     console.log(animalData.value.img);
 };
 
-// const getNombreAfiliado = async(afiliadosData:Array<Afiliado> | undefined)=>{
-//     if (!afiliadosData || afiliadosData.length === 0) {
-//             es_afiliado.value = false;
-//     }else{
-//         afiliados.value = afiliadosData
-//         const afiliadoEncontrado = afiliados.value.find(afiliado => afiliado.id === props.params.datosFila.afiliado_id);
-//         console.log(afiliadoEncontrado)
-//         if (afiliadoEncontrado) {
-//             nombre_afiliado.value = afiliadoEncontrado.nombre;
-//             console.log(nombre_afiliado.value)
-//         }
-//     }   
-// }
+const getNombreAfiliado = (afiliadosData:Array<Afiliado> | undefined)=>{
+    if (!afiliadosData || afiliadosData.length === 0) {
+            es_afiliado.value = false;
+    }else{
+        console.log(afiliadosData)
+        // const afiliadoEncontrado = afiliadosData.find(afiliado => afiliado.id === props.params.datosFila.afiliado_id);
+        for(let i=0;i<afiliadosData.length;i++){
+            console.log(afiliadosData[i].id)
+            console.log(props.params.datosFila.afiliadoId)
+            if(afiliadosData[i].id==props.params.datosFila.afiliadoId){
+                nombre_afiliado.value = afiliadosData[i].nombre
+                console.log(afiliadosData[i].nombre)
+            }
+        }
+    }   
+}
+
+
 
 const verificarAfiliado = async(afiliadosData:Array<Afiliado> | undefined) => {
     if (!afiliadosData || afiliadosData.length === 0) {
@@ -419,6 +424,13 @@ const modificarAnimal = async(animalData:any)=>{
         console.error("Error al subir el animal:", error);
     }
 }
+
+onBeforeMount(async()=>{
+    const afiliadosData = await getAfiliados();
+    getNombreAfiliado(afiliadosData)
+})
+
+
 
 </script>
 

@@ -8,7 +8,7 @@ export const getAfiliados = async () => {
 			API_URL + "/afiliado",
 		);
 		const afiliados: Array<Afiliado> = await response.json();
-		console.log(response)
+		console.log(afiliados)
 		return afiliados;
 	} catch (error) {
 		console.log(error);
