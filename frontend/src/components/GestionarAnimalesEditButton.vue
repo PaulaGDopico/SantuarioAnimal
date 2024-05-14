@@ -30,11 +30,13 @@
                             <ion-col>
                                 <ion-input
                                     label="Nombre Afiliado"
+                                    :class="errorInputAfiliadoStyle"
                                     label-placement="floating"
                                     fill="solid"
                                     placeholder="Introduce nombre"
-                                    v-model="animalData.afiliadoId">
+                                    v-model="nombre_afiliado">
                                 </ion-input>
+                                <div v-if="mostrarErrorAfiliado" class="error-message">No hay ningún afiliado con ese nombre.</div>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
@@ -230,6 +232,7 @@
                             <ion-col>
                                 <ion-textarea
                                     :value="props.params.datosFila.descripcion"
+                                    v-model="animalData.descripcion"
                                     label="Descripción"
                                     label-placement="floating"
                                     fill="solid"
@@ -417,6 +420,16 @@ const modificarAnimal = async(animalData:any)=>{
     }
 }
 
-
-
 </script>
+
+<style scoped lang="scss">
+    .error-input {
+        border-color: red; /* Cambia el borde del campo de entrada a rojo */
+    }
+
+    .error-message {
+        color: red; /* Color rojo para el mensaje de error */
+        font-size: 14px; /* Tamaño de fuente del mensaje de error */
+        margin-top: 5px; /* Espaciado superior para separar el mensaje de error del campo de entrada */
+    }
+</style>
