@@ -13,6 +13,7 @@
                                 <p><strong>Nombre:</strong> {{ infoDonacion.animal }}</p>
                                 <p><strong>Fecha de inicio:</strong> {{ infoDonacion.fecha_inicio }}</p>
                                 <p><strong>Importe:</strong> {{ infoDonacion.dinero_necesario }}€</p>
+                                <DonacionSolidariaInfoModal :animal-name="infoDonacion.animal"/>
                             </ion-col>
                         </ion-row>
                         <ion-row>
@@ -53,6 +54,7 @@ import {
 } from "@ionic/vue";
 import { onMounted, ref } from "vue";
 import DonacionSolidariaCard from "@/components/DonacionSolidariaCard.vue";
+import DonacionSolidariaInfoModal from "@/components/DonacionSolidariaInfoModal.vue";
 import AppFooter from '@/components/AppFooter.vue';
 
 const infoDonacion = ref({
