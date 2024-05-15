@@ -15,6 +15,16 @@ router.get("/", async (req, res) => {
     }
 })
 
+// MOSTRAR 5 donaciones NO COMPLETADAS
+router.get("/otros/", async (req, res) => {
+    try {
+        const donaciones = await donacionesService.getFiveDonations()
+        res.json(donaciones)
+    } catch (error) {
+        console.error("Error recibiendo la donación", error)
+    }
+})
+
 router.get("/:id", async (req, res) => {
     try {
         const donacionId = parseInt(req.params.id)
