@@ -1,5 +1,5 @@
 <template>
-    <ion-col size="7" size-md="2" class="cartaAnimal">
+    <ion-col size="7" size-lg="2" size-md="3" size-sm="5" class="cartaAnimal">
         <h3 :class="retoCumplidoClass">{{ retoCumplidoTitle }}</h3>
         <div class="contenedorImg">
             <img :src="props.urlImg" alt="Foto animal">

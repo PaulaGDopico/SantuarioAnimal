@@ -31,7 +31,16 @@ export const getDonacion = async (id: number) => {
 export const createDonacion = async (donacion: Prisma.DonacionCreateInput) => {
     console.log(donacion);
     return prisma.donacion.create({
-        data: donacion,
+        data: {
+            titulo: donacion.titulo,
+            contexto:  donacion.contexto,
+            dinero_necesario:  donacion.dinero_necesario,
+            dinero_alcanzado: donacion.dinero_alcanzado,
+            fecha_inicio:  donacion.fecha_inicio,
+            animal:  donacion.animal,
+            afiliado:  donacion.afiliado,
+            img:  donacion.img,
+        },
     });
 }
 
