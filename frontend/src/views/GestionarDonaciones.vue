@@ -17,7 +17,6 @@
                 Añadir donación
               </ion-button>
             </div>
-
           </ion-col>
         </ion-row>
         <ion-row>
@@ -41,14 +40,44 @@
       <ion-modal :is-open="isOpen" :onDidDismiss="() => setOpen(false)">
         <ion-header>
           <ion-toolbar>
-            <ion-title>FORMULARI AÑADIR ANIMAL</ion-title>
+            <ion-title>AÑADIR DONACIÓN</ion-title>
             <ion-buttons slot="end">
-              <ion-button @click="setOpen(false)">Close</ion-button>
+              <ion-button @click="setOpen(false)">Cerrar</ion-button>
+              <ion-button>Enviar</ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
         <ion-content>
-
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12">
+                <ion-input label="Título" type="text"></ion-input>
+              </ion-col>
+              <ion-col size="12">
+                <ion-textarea label="Contexto"></ion-textarea>
+              </ion-col>
+              <ion-col size="12">
+                <ion-row>
+                  <ion-col size="12" size-sm="2"><label>Imagen</label></ion-col>
+                  <ion-col><input id="image" name="image" type="file"></ion-col>
+                </ion-row>
+              </ion-col>
+              <ion-col size="12">
+                <ion-input label="Dinero necesario" type="number"></ion-input>
+              </ion-col>
+              <!--              Fecha de inicio usar Date.now-->
+              <ion-col size="12">
+                <ion-select aria-label="Animal" interface="popover" placeholder="Seleccionar Animal">
+                  <ion-select-option>Animal 1</ion-select-option>
+                </ion-select>
+              </ion-col>
+              <ion-col size="12">
+                <ion-select aria-label="Afiliado" interface="popover" placeholder="Seleccionar Afiliado">
+                  <ion-select-option>Afiliado 1</ion-select-option>
+                </ion-select>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-content>
       </ion-modal>
     </ion-content>
@@ -63,8 +92,11 @@ import {
   IonContent,
   IonGrid,
   IonHeader,
+  IonInput,
+  IonModal,
   IonPage,
   IonRow,
+  IonTextarea,
   IonTitle,
   IonToolbar
 } from "@ionic/vue";
@@ -79,6 +111,7 @@ import {getDonaciones} from "@/services/donacion";
 //Modal
 const isOpen = ref(false);
 const setOpen = (open: boolean) => (isOpen.value = open);
+
 //Tabla
 const columnDefs = ref([
   {headerName: "Título", field: "titulo", sorteable: true, filter: true},
