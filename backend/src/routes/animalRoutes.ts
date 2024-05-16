@@ -19,6 +19,17 @@ interface Filtros {
     // Agrega más filtros según sea necesario
 }
 
+//5 primeros animales
+router.get("/primeros", async (req, res) => {
+    try {
+        const primerosAnimales = await animalService.getFiveFirstAnimals();
+        res.json(primerosAnimales)
+    } catch (error) {
+        console.error("Error recibiendo los primeros", error);
+        res.status(400).json({error: "No se han podido recibir los primeros animales"})
+    }
+})
+
 router.get("/:page", async (req, res) => {
     try {
         const pageNum = parseInt(req.params.page as string);
