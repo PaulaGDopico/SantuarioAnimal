@@ -36,7 +36,7 @@
                                     placeholder="Introduce nombre"
                                     v-model="nombre_afiliado">
                                 </ion-input>
-                                <div v-if="mostrarErrorAfiliado" class="error-message">No hay ningún afiliado con ese nombre.</div>
+                                <div v-if="mostrarErrorAfiliado" class="error-message">{{ mensaje_errorAfiliado }}</div>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
@@ -111,7 +111,7 @@
 
                                     v-model="animalData.habitacionId">
                                 </ion-input>
-                                <div v-if="mostrarErrorHabitacion" class="error-message">{{ mensaje_error }}</div>
+                                <div v-if="mostrarErrorHabitacion" class="error-message">{{ mensaje_errorHabitacion }}</div>
                             </ion-col>
                             <ion-col>
                                 <ion-input
@@ -136,20 +136,20 @@
                                             v-model="animalData.tamanyo"
                                             >
                                             <ion-select-option
-                                                value="muy-grande"
+                                                value="MUY_GRANDE"
                                                 >Muy Grande</ion-select-option
                                             >
-                                            <ion-select-option value="grande"
+                                            <ion-select-option value="GRANDE"
                                                 >Grande</ion-select-option
                                             >
-                                            <ion-select-option value="mediano"
+                                            <ion-select-option value="MEDIANO"
                                                 >Mediano</ion-select-option
                                             >
-                                            <ion-select-option value="pequeño"
+                                            <ion-select-option value="PEQUEÑO"
                                                 >Pequeño</ion-select-option
                                             >
                                             <ion-select-option
-                                                value="muy-pequeño"
+                                                value="MUY_PEQUEÑO"
                                                 >Muy Pequeño</ion-select-option
                                             >
                                         </ion-select>
@@ -250,6 +250,11 @@
                                 v-on:change="subirImagen" />
                         </ion-col>
                     </ion-row>
+                    <ion-row>
+                            <ion-col>
+                                <div v-if="campo_vacio" class="error-message">Tienes campos vacios</div>
+                            </ion-col>
+                        </ion-row>
                     </ion-grid>
                     <ion-grid>
                         <ion-row class="ion-justify-content-end">
@@ -262,6 +267,7 @@
                                 <ion-button @click="modificarAnimal(animalData)">Enviar</ion-button>
                             </ion-col>
                         </ion-row>
+                        
                     </ion-grid>
                 </div>
                 <div v-else>
@@ -331,18 +337,23 @@ const fechaIngresoConvertida = computed(
 );
 
 const nombre_afiliado = ref('');
-const afiliados = ref<Afiliado[]>([]);
+
 const es_afiliado = ref(false);
 
 const existe_habitacion = ref(false);
 
-const mensaje_error = ref('')
+const campo_vacio = ref(false)
+
+const mensaje_errorAfiliado = ref('')
 
 const errorInputAfiliadoStyle = ref('');
 const errorInputHabitacionStyle = ref('');
+const errorInputVacioStyle = ref('');
 
 const mostrarErrorHabitacion = ref(false);
 const mostrarErrorAfiliado = ref(false);
+
+const mensaje_errorHabitacion = ref('')
 
 const gridContext = inject<Ref<{handleDeleteRow: () => void} | null>>("gridContext")
 
@@ -362,7 +373,7 @@ const animalData = ref({
     descripcion: props.params.datosFila.descripcion,
     habitacionId: props.params.datosFila.habitacionId,
     donaciones_recibidas: [],
-    afiliadoId: '',
+    afiliadoId: props.params.datosFila.afiliado_id,
 });
 
 
@@ -374,34 +385,52 @@ const getNombreAfiliado = (afiliadosData:Array<Afiliado> | undefined)=>{
     if (!afiliadosData || afiliadosData.length === 0) {
             es_afiliado.value = false;
     }else{
-        // const afiliadoEncontrado = afiliadosData.find(afiliado => afiliado.id === props.params.datosFila.afiliado_id);
-        for(let i=0;i<afiliadosData.length;i++){
-            if(afiliadosData[i].id==props.params.datosFila.afiliadoId){
-                nombre_afiliado.value = afiliadosData[i].nombre
+        if(props.params.datosFila.afiliadoId==null){
+            nombre_afiliado.value=""
+            animalData.value.afiliadoId=null
+        }
+        else{
+
+            for(let i=0;i<afiliadosData.length;i++){
+                if(afiliadosData[i].id==props.params.datosFila.afiliadoId){
+                    animalData.value.afiliadoId=afiliadosData[i].id
+                    nombre_afiliado.value = afiliadosData[i].nombre
+                }
             }
         }
+        
     }   
 }
 
 
 
 const verificarAfiliado = async(afiliadosData:Array<Afiliado> | undefined) => {
+    console.log("Hola")
+    console.log(animalData.value.afiliadoId)
     if (!afiliadosData || afiliadosData.length === 0) {
             es_afiliado.value = false;
     }else{
-        afiliados.value = afiliadosData;
-        if (!nombre_afiliado.value || nombre_afiliado.value.trim() === '') {
-            es_afiliado.value = true;
+        if(nombre_afiliado.value==""){
+            animalData.value.afiliadoId=null;
+            es_afiliado.value=true
+            mensaje_errorAfiliado.value=""
         }else{
-            // Verifica si el nombre_afiliado está presente en la lista de afiliados
-            es_afiliado.value = afiliados.value.some(afiliado => afiliado.nombre === nombre_afiliado.value);
-            if (es_afiliado.value) {
-                // Buscar el ID del afiliado correspondiente al nombre introducido
-                const afiliadoEncontrado = afiliados.value.find(afiliado => afiliado.nombre === nombre_afiliado.value);
-                if (afiliadoEncontrado) {
-                    animalData.value.afiliadoId = afiliadoEncontrado.id;
+            for(let i=0;i<afiliadosData.length;i++){
+                if(afiliadosData[i].nombre==nombre_afiliado.value){
+                    console.log(nombre_afiliado.value)
+                    es_afiliado.value=true;
+                    animalData.value.afiliadoId=afiliadosData[i].id
+                    console.log(animalData.value.afiliadoId)
+                    mensaje_errorAfiliado.value=""
+                    
+                    break;
                 }
             }
+        }  
+        
+        if(!es_afiliado.value){
+            console.error("No existe el afiliado introducido")
+            mensaje_errorAfiliado.value="No existe el nombre del afiliado introducido";
         }
     }
 }
@@ -412,50 +441,77 @@ const verificarHabitacion = async (habitacionData:Array<Habitacion> | undefined)
             return;
     }else{
         for(let i=0;i<habitacionData.length;i++){
-            console.log(habitacionData[i].id)
-            console.log(parseInt(animalData.value.habitacionId))
-            console.log(habitacionData[i].animals)
-            console.log(habitacionData[i].aforo)
-            if(habitacionData[i].id==parseInt(animalData.value.habitacionId) && habitacionData[i].aforo>habitacionData[i].animals.length){
+            if(habitacionData[i].id.toString()==animalData.value.habitacionId.toString() && habitacionData[i].aforo>habitacionData[i].animals.length){
                 existe_habitacion.value=true;
-                animalData.value.habitacionId=habitacionData[i].id.toLocaleString()
+                animalData.value.habitacionId=habitacionData[i].id
+                mensaje_errorHabitacion.value=""
                 break;
             }
-            console.log(existe_habitacion.value)
+            console.log(habitacionData[i].id)
         }
         if(!existe_habitacion.value){
+            console.log(animalData.value.habitacionId)
             console.error("No existe la habitación que ha introducido")
-            mensaje_error.value= "No existe la habitación que ha introducido";
+            mensaje_errorHabitacion.value= "No existe la habitación que ha introducido o el aforo esta lleno";
             return;
         }
-        console.log(existe_habitacion.value)
     }
+}
+
+const verificarCamposVacios = async () =>{
+  if(
+    fechaNacimiento.value == "" ||
+    fechaIngreso.value == "" ||
+
+    animalData.value.nombre == "" ||
+    animalData.value.tipo == "" ||
+    animalData.value.estado_adopcion == "" ||
+    animalData.value.peso == "" ||
+    animalData.value.tamanyo == "" ||
+    animalData.value.raza == "" ||
+    animalData.value.sexo == "" ||
+    animalData.value.img == ""
+  ){
+    campo_vacio.value=true
+  }
 }
 
 const modificarAnimal = async(animalData:any)=>{
     try{
+        existe_habitacion.value = false
+        campo_vacio.value = false
+        es_afiliado.value = false
         const afiliadosData = await getAfiliados();
         const habitacionData = await getHabitaciones()
-        console.log(habitacionData)
         await verificarAfiliado(afiliadosData);
-        verificarHabitacion(habitacionData)
-        if (!es_afiliado.value) {
-            console.error("El nombre del afiliado no está en la base de datos.");
-            errorInputAfiliadoStyle.value = 'error-input';
-            mostrarErrorAfiliado.value = true;
-            return;
+        await verificarHabitacion(habitacionData)
+        await verificarCamposVacios()
+        if (!es_afiliado.value || campo_vacio.value || !existe_habitacion.value) {
+            if(!es_afiliado.value){
+                console.error("El nombre del afiliado no está en la base de datos.");
+                errorInputAfiliadoStyle.value = 'error-input';
+                mostrarErrorAfiliado.value = true;
+            }
+            if(!existe_habitacion.value){
+                errorInputHabitacionStyle.value = 'error-input';
+                mostrarErrorHabitacion.value = true;
+                return;
+            }
+            if(campo_vacio.value){
+                console.error("Tienes campos vacios")
+                errorInputVacioStyle.value = 'error-input';
+                console.log(animalData.value)
+                console.log(campo_vacio.value)
+            }
+            return;    
+        }else{
+            await updateAnimal(props.params.datosFila.id, animalData);
+            if(gridContext && gridContext.value && gridContext.value.handleDeleteRow){
+                gridContext.value.handleDeleteRow();
+            }
+            setOpen(false);
         }
-        if(!existe_habitacion.value){
-             errorInputHabitacionStyle.value = 'error-input';
-             mostrarErrorHabitacion.value = true;
-             return;
-        }    
-        await updateAnimal(props.params.datosFila.id, animalData);
-        if(gridContext && gridContext.value && gridContext.value.handleDeleteRow){
-            gridContext.value.handleDeleteRow();
-        }
-        setOpen(false);
-
+        
     }catch(error){
         console.error("Error al subir el animal:", error);
     }

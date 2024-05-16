@@ -40,6 +40,7 @@
 
     <!-- MODAL -->
     <ion-modal :is-open="isOpen" :onDidDismiss="() => setOpen(false)">
+        
         <ion-header>
             <ion-toolbar>
                 <ion-title>FORMULARI AÑADIR ANIMAL</ion-title>
@@ -58,10 +59,11 @@
                                 label="Nombre Animal"
                                 label-placement="floating"
                                 fill="solid"
-                                placeholder="Introduce nombre">
+                                placeholder="Introduce nombre"
+                                required>
                             </ion-input>
                         </ion-col>
-                        <ion-col>
+                        <!-- <ion-col>
                             <ion-input
                                 v-model="nombre_afiliado"
                                 :class="errorInputAfiliadoStyle"
@@ -70,8 +72,8 @@
                                 fill="solid"
                                 placeholder="Introduce nombre">
                             </ion-input>
-                            <div v-if="mostrarErrorAfiliado" class="error-message">No hay ningún afiliado con ese nombre.</div>
-                        </ion-col>
+                            <div v-if="mostrarErrorAfiliado" class="error-message">{{ mensaje_errorAfiliado }}</div>
+                        </ion-col> -->
                     </ion-row>
                 </ion-grid>
                 <ion-grid>
@@ -82,7 +84,8 @@
                                 label="Raza"
                                 label-placement="floating"
                                 fill="solid"
-                                placeholder="Introduce la raza">
+                                placeholder="Introduce la raza"
+                                required>
                             </ion-input>
                         </ion-col>
                         <ion-col>
@@ -90,7 +93,8 @@
                                 <ion-item>
                                     <ion-select
                                         v-model="animalData.tipo"
-                                        aria-label="Sexo">
+                                        aria-label="Sexo"
+                                        required>
                                         <ion-select-option value="PERRO"
                                             >Perro</ion-select-option
                                         >
@@ -106,7 +110,8 @@
                                 <ion-item>
                                     <ion-select
                                         v-model="animalData.sexo"
-                                        aria-label="Sexo">
+                                        aria-label="Sexo"
+                                        required>
                                         <ion-select-option value="MACHO"
                                             >Macho</ion-select-option
                                         >
@@ -136,8 +141,9 @@
                                 label-placement="floating"
                                 fill="solid"
                                 max="20"
-                                min="1"></ion-input>
-                                <div v-if="mostrarErrorHabitacion" class="error-message">{{ mensaje_error }}</div>
+                                min="1"
+                                required></ion-input>
+                                <div v-if="mostrarErrorHabitacion" class="error-message">{{ mensaje_errorHabitacion }}</div>
                         </ion-col>
                         <ion-col>
                             <ion-input
@@ -145,14 +151,16 @@
                                 type="number"
                                 label="Peso"
                                 label-placement="floating"
-                                fill="solid"></ion-input>
+                                fill="solid"
+                                required></ion-input>
                         </ion-col>
                         <ion-col>
                             <ion-list>
                                 <ion-item>
                                     <ion-select
                                         v-model="animalData.tamanyo"
-                                        aria-label="Altura">
+                                        aria-label="Altura"
+                                        required>
                                         <ion-select-option value="MUY_GRANDE"
                                             >Muy Grande</ion-select-option
                                         >
@@ -181,7 +189,8 @@
                                 <ion-item>
                                     <ion-select
                                         v-model="animalData.estado_adopcion"
-                                        aria-label="Estado Animal">
+                                        aria-label="Estado Animal"
+                                        required>
                                         <ion-select-option value="SIN_ESTADO"
                                             >Sin estado</ion-select-option
                                         >
@@ -215,7 +224,8 @@
                                 type="date"
                                 name="fechaNacimiento"
                                 id="fechaNacimiento"
-                                class="inputDate"></ion-input>
+                                class="inputDate"
+                                required></ion-input>
                         </ion-col>
                         <ion-col>
                             <p>Fecha de ingreso</p>
@@ -224,7 +234,8 @@
                                 type="date"
                                 name="fechaIngreso"
                                 id="fechaIngreso"
-                                class="inputDate"></ion-input>
+                                class="inputDate"
+                                required></ion-input>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
@@ -248,6 +259,11 @@
                                 v-on:change="subirImagen" />
                         </ion-col>
                     </ion-row>
+                    <ion-row>
+                        <ion-col>
+                            <div v-if="campo_vacio" class="error-message">Tienes campos vacios</div>
+                        </ion-col>
+                    </ion-row>
                 </ion-grid>
                 <ion-grid>
                     <ion-row class="ion-justify-content-end">
@@ -258,13 +274,14 @@
                         </ion-col>
                         <ion-col size="3">
                             <ion-button @click="subirAnimal(animalData)"
-                                >Enviar</ion-button
+                            type="submit">Enviar</ion-button
                             >
                         </ion-col>
                     </ion-row>
                 </ion-grid>
             </div>
         </ion-content>
+        
     </ion-modal>
 </template>
 <script setup lang="ts">
@@ -296,11 +313,11 @@ import GestionarAnimalesEditButton from "@/components/GestionarAnimalesEditButto
 import GestionarAnimalesDeleteButton from "@/components/GestionarAnimalesDeleteButton.vue";
 import { getAllAnimalsWithoutPagination } from "@/services/animal";
 import { pushAnimal } from "@/services/animal";
-import { getAfiliados } from "@/services/afiliados";
-import { Afiliado } from "@/types/Afiliado";
+//import { getAfiliados } from "@/services/afiliados";
+//import { Afiliado } from "@/types/Afiliado";
 import { Habitacion } from "@/types/Habitacion";
 import { getHabitaciones } from "@/services/habitacion";
-
+//import { getAfiliados } from "@/services/afiliados";
 // BOTONES MODAL
 const isOpen = ref(false);
 const setOpen = (open: boolean) => (isOpen.value = open);
@@ -346,18 +363,16 @@ const fechaIngresoConvertida = computed(
     () => `${fechaIngreso.value}T00:00:00Z`
 );
 
-const nombre_afiliado = ref('');
-const afiliados = ref<Afiliado[]>([]);
-const es_afiliado = ref(false);
-
-const errorInputAfiliadoStyle = ref('');
-const mostrarErrorAfiliado = ref(false);
-
 const existe_habitacion = ref(false);
+
+const campo_vacio = ref(false)
 
 const errorInputHabitacionStyle = ref('');
 const mostrarErrorHabitacion = ref(false);
-const mensaje_error = ref('')
+
+const mensaje_errorHabitacion = ref('')
+
+const errorInputVacioStyle = ref('');
 
 const animalData = ref({
     createdAt: new Date().toISOString(),
@@ -373,35 +388,13 @@ const animalData = ref({
     sexo: "",
     img: "",
     descripcion: "",
-    habitacionId: "",
+    habitacionId:0,
     donaciones_recibidas: [],
-    afiliadoId:'',
+    afiliadoId:0,
 });
 
 const context = ref<{handleDeleteRow: () => void} | null>(null);
 
-const verificarAfiliado = async(afiliadosData:Array<Afiliado> | undefined) => {
-    if (!afiliadosData || afiliadosData.length === 0) {
-            es_afiliado.value = false;
-    }else{
-        afiliados.value = afiliadosData;
-        console.log(afiliados.value)
-        if (!nombre_afiliado.value || nombre_afiliado.value.trim() === '') {
-            es_afiliado.value = true;
-        }else{
-            // Verifica si el nombre_afiliado está presente en la lista de afiliados
-            es_afiliado.value = afiliados.value.some(afiliado => afiliado.nombre === nombre_afiliado.value);
-            console.log(es_afiliado.value)
-            if (es_afiliado.value) {
-                // Buscar el ID del afiliado correspondiente al nombre introducido
-                const afiliadoEncontrado = afiliados.value.find(afiliado => afiliado.nombre === nombre_afiliado.value);
-                if (afiliadoEncontrado) {
-                    animalData.value.afiliadoId = afiliadoEncontrado.id;
-                }
-            }
-        }
-    }
-}
 
 const verificarHabitacion = async (habitacionData:Array<Habitacion> | undefined) => {
     if (!habitacionData || habitacionData.length === 0) {
@@ -409,75 +402,95 @@ const verificarHabitacion = async (habitacionData:Array<Habitacion> | undefined)
             return;
     }else{
         for(let i=0;i<habitacionData.length;i++){
-            console.log(habitacionData[i].id)
-            console.log(parseInt(animalData.value.habitacionId))
-            if(habitacionData[i].id==parseInt(animalData.value.habitacionId) && habitacionData[i].aforo>habitacionData[i].animals.length){
+            if(habitacionData[i].id.toString()==animalData.value.habitacionId.toString() && habitacionData[i].aforo>habitacionData[i].animals.length){
                 existe_habitacion.value=true;
-                animalData.value.habitacionId=habitacionData[i].id.toLocaleString()
+                animalData.value.habitacionId=habitacionData[i].id
+                mensaje_errorHabitacion.value=""
                 break;
             }
-            console.log(existe_habitacion.value)
         }
         if(!existe_habitacion.value){
+            console.log(animalData.value.habitacionId)
             console.error("No existe la habitación que ha introducido")
-            mensaje_error.value= "No existe la habitación que ha introducido";
+            mensaje_errorHabitacion.value= "No existe la habitación que ha introducido o el aforo esta lleno";
             return;
         }
         console.log(existe_habitacion.value)
     }
 }
 
-// const resetFormData = async () => {
-//     animalData.value.nombre = "";
-//     animalData.value.tipo = "";
-//     animalData.value.estado_adopcion = "";
-//     animalData.value.peso = "";
-//     animalData.value.tamanyo = "";
-//     animalData.value.raza = "";
-//     animalData.value.fecha_nacimiento = "";
-//     animalData.value.fecha_ingreso = "";
-//     animalData.value.sexo = "";
-//     animalData.value.img = "";
-//     animalData.value.descripcion = "";
-//     animalData.value.habitacionId = "";
-//     animalData.value.afiliadoId = '';
+const verificarCamposVacios = async () =>{
+  if(
+    fechaNacimiento.value == "" ||
+    fechaIngreso.value == "" ||
 
-//     nombre_afiliado.value = '';
-// };
+    animalData.value.nombre == "" ||
+    animalData.value.tipo == "" ||
+    animalData.value.estado_adopcion == "" ||
+    animalData.value.peso == "" ||
+    animalData.value.tamanyo == "" ||
+    animalData.value.raza == "" ||
+    animalData.value.sexo == "" ||
+    animalData.value.img == ""
+  ){
+    campo_vacio.value=true
+  }
+}
+
+const resetFormData = async () => {
+    fechaNacimiento.value = ""
+    fechaIngreso.value = ""
+
+    animalData.value.nombre = "";
+    animalData.value.tipo = "";
+    animalData.value.estado_adopcion = "";
+    animalData.value.peso = "";
+    animalData.value.tamanyo = "";
+    animalData.value.raza = "";
+    animalData.value.sexo = "";
+    animalData.value.img = "";
+    animalData.value.descripcion = "";
+    animalData.value.habitacionId = 0;
+
+};
 
 const subirAnimal = async (animalData: any) => {
     console.log(animalData);
     try {
-        const afiliadosData = await getAfiliados()
+        existe_habitacion.value = false
+        campo_vacio.value = false
         const habitacionData = await getHabitaciones()
-        await verificarAfiliado(afiliadosData);
         await verificarHabitacion(habitacionData)
-        if (!es_afiliado.value ) {
-            console.error("El nombre del afiliado no está en la base de datos.");
-            errorInputAfiliadoStyle.value = 'error-input';
-            mostrarErrorAfiliado.value = true;
-            return;
+        await verificarCamposVacios()
+        if(!existe_habitacion.value || campo_vacio.value){
+            if(!existe_habitacion.value){
+                console.error("La habitación no esta en la base de datos")
+                errorInputHabitacionStyle.value = 'error-input';
+                mostrarErrorHabitacion.value = true;
+            }
+            if(campo_vacio.value){
+                console.error("Tienes campos vacios")
+                errorInputVacioStyle.value = 'error-input';
+                console.log(animalData.value)
+                console.log(campo_vacio.value)
+            }    
+            return;  
+        }else{
+            const animal = await pushAnimal(animalData);
+            setOpen(false);
+            rowData.value.push(animal);
+            const result = await getAllAnimalsWithoutPagination();
+            rowData.value = result; // Asigna los datos recuperados al rowData
+            await resetFormData();
         }
-        if(!existe_habitacion.value){
-             errorInputHabitacionStyle.value = 'error-input';
-             mostrarErrorHabitacion.value = true;
-             return;
-        }    
-        const animal = await pushAnimal(animalData);
-        //await resetFormData();
-        setOpen(false);
-        rowData.value.push(animal);
-        const result = await getAllAnimalsWithoutPagination();
-        rowData.value = result; // Asigna los datos recuperados al rowData
+        
     } catch (error) {
         console.error("Error al subir el animal:", error);
     }
 };
 
 const handleDeleteRow = async () => {
-    console.log(rowData.value)
     rowData.value = await getAllAnimalsWithoutPagination();
-    console.log(rowData.value)
 };
 
 const subirImagen = (e: any) => {
@@ -496,24 +509,13 @@ onBeforeMount(()=>{
 onMounted(async () => {
     try {
         const animales = await getAllAnimalsWithoutPagination();
-        console.log(animales);
         rowData.value = animales; // Asigna los datos recuperados al rowData
-
         
     } catch (error) {
         console.error("Error al obtener los animales:", error);
     }
 });
 
-
-
-
-// const rowData = ref([
-//   { id: 0, nombre: 'Roy', tipo: 'Perro', sexo: 'Macho', raza: 'Bulldog', estado: 'casos-especiales', peso: 5, altura: "muy-pequeño", donativo: 0, afiliado: "", habitacion: 3, fechaNacimiento: '2024-03-05', fechaIngreso: '2020-05-03', imagen: 'pexels-snapwire-46024.jpg' },
-//   { nombre: 'Marin', tipo: 'Gato', sexo: 'Hembra', raza: 'Persa', estado: 'sin-estado', imagen: 'pexels-snapwire-46024.jpg' },
-//   { nombre: 'Gafe', tipo: 'Gato', sexo: 'Macho', raza: 'Europeo', estado: 'adopcion-urgente', imagen: 'pexels-snapwire-46024.jpg' },
-//   { nombre: 'Tristepin', tipo: 'Perro', sexo: 'Hembra', raza: 'Chihuahua', estado: 'apadrinado', imagen: 'perro.jpg' }
-// ]);
 
 function imageRenderer(params: any) {
     const wrapper = document.createElement("div");
