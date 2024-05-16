@@ -31,13 +31,11 @@ export const getDonacionesOtras = async () => {
     }
 }
 
-export const realizarDonacion = async (donacionId:string, dineroASumar: string) => {
-    const formData = new FormData();
+export const realizarDonacion = async (donacionId:string, dineroASumar: number) => {
 
-    formData.append("dineroASumar", dineroASumar);
     const response = await fetch(API_URL+"/donaciones/donar/"+donacionId, {
         method: "PUT",
-        body: formData
+        body: JSON.stringify({"dineroASumar":dineroASumar})
     });
     if (response.ok) {
         const data = await response.json();

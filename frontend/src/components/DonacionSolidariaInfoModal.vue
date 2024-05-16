@@ -119,8 +119,7 @@ const submitForm = async (donacionId: string, dinero_necesario: number) => {
     }
     if (isCardNumberValid.value && isNameValid.value && isExpiryValid.value && isCvvValid.value) {
         try {
-            const dineroNecesarioString:string = dinero_necesario.toString as unknown as string
-            await realizarDonacion(donacionId, dineroNecesarioString);
+            await realizarDonacion(donacionId, dinero_necesario);
         } catch (error) {
             console.error("Error al subir el animal:", error);
         }
