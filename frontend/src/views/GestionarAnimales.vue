@@ -238,6 +238,7 @@
                                 required></ion-input>
                         </ion-col>
                     </ion-row>
+                    <div v-if="mostrarErrorFecha" class="error-message">{{ mensaje_errorFecha }}</div>
                 </ion-grid>
                 <ion-grid>
                     <ion-row>
@@ -364,13 +365,15 @@ const fechaIngresoConvertida = computed(
 );
 
 const existe_habitacion = ref(false);
-
 const campo_vacio = ref(false)
+const fecha_incorrecta = ref(false)
 
 const errorInputHabitacionStyle = ref('');
 const mostrarErrorHabitacion = ref(false);
 
 const mensaje_errorHabitacion = ref('')
+const mensaje_errorFecha = ref('')
+const mostrarErrorFecha = ref(false)
 
 const errorInputVacioStyle = ref('');
 
@@ -419,6 +422,21 @@ const verificarHabitacion = async (habitacionData:Array<Habitacion> | undefined)
     }
 }
 
+const verificarFechas = async () =>{
+    const dateNacimiento = new Date(animalData.value.fecha_nacimiento)
+    const dateIngreso = new Date(animalData.value.fecha_ingreso)
+    console.log(dateNacimiento)
+    console.log(dateIngreso)
+    if(dateNacimiento>dateIngreso){
+        fecha_incorrecta.value = true;
+        mensaje_errorFecha.value = "Fechas incorrectas. La fecha de nacimiento debe de ser anterior a la de fecha de ingreso"
+    }else{
+        fecha_incorrecta.value=false
+        mensaje_errorFecha.value = ""
+    }
+    console.log(fecha_incorrecta.value)
+}
+
 const verificarCamposVacios = async () =>{
   if(
     fechaNacimiento.value == "" ||
@@ -458,11 +476,13 @@ const subirAnimal = async (animalData: any) => {
     console.log(animalData);
     try {
         existe_habitacion.value = false
+        fecha_incorrecta.value = false
         campo_vacio.value = false
         const habitacionData = await getHabitaciones()
         await verificarHabitacion(habitacionData)
+        await verificarFechas()
         await verificarCamposVacios()
-        if(!existe_habitacion.value || campo_vacio.value){
+        if(!existe_habitacion.value || campo_vacio.value || fecha_incorrecta.value){
             if(!existe_habitacion.value){
                 console.error("La habitación no esta en la base de datos")
                 errorInputHabitacionStyle.value = 'error-input';
@@ -471,9 +491,11 @@ const subirAnimal = async (animalData: any) => {
             if(campo_vacio.value){
                 console.error("Tienes campos vacios")
                 errorInputVacioStyle.value = 'error-input';
-                console.log(animalData.value)
                 console.log(campo_vacio.value)
-            }    
+            }if(fecha_incorrecta.value){
+                console.error("La fecha de nacimiento no puede ser menor a la fecha de ingreso");
+                mostrarErrorFecha.value = true;
+            }   
             return;  
         }else{
             const animal = await pushAnimal(animalData);

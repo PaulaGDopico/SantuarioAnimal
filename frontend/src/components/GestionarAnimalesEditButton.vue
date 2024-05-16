@@ -227,6 +227,7 @@
                                     />
                             </ion-col>
                         </ion-row>
+                        <div v-if="mostrarErrorFecha" class="error-message">{{ mensaje_errorFecha }}</div>
                     </ion-grid>
                     <ion-grid>
                         <ion-row>
@@ -339,12 +340,13 @@ const fechaIngresoConvertida = computed(
 const nombre_afiliado = ref('');
 
 const es_afiliado = ref(false);
-
 const existe_habitacion = ref(false);
-
 const campo_vacio = ref(false)
+const fecha_incorrecta = ref(false);
 
 const mensaje_errorAfiliado = ref('')
+const mensaje_errorFecha = ref('')
+const mensaje_errorHabitacion = ref('')
 
 const errorInputAfiliadoStyle = ref('');
 const errorInputHabitacionStyle = ref('');
@@ -352,8 +354,7 @@ const errorInputVacioStyle = ref('');
 
 const mostrarErrorHabitacion = ref(false);
 const mostrarErrorAfiliado = ref(false);
-
-const mensaje_errorHabitacion = ref('')
+const mostrarErrorFecha = ref(false)
 
 const gridContext = inject<Ref<{handleDeleteRow: () => void} | null>>("gridContext")
 
@@ -458,6 +459,21 @@ const verificarHabitacion = async (habitacionData:Array<Habitacion> | undefined)
     }
 }
 
+const verificarFechas = async () =>{
+    const dateNacimiento = new Date(animalData.value.fecha_nacimiento)
+    const dateIngreso = new Date(animalData.value.fecha_ingreso)
+    console.log(dateNacimiento)
+    console.log(dateIngreso)
+    if(dateNacimiento>dateIngreso){
+        fecha_incorrecta.value = true;
+        mensaje_errorFecha.value = "Fechas incorrectas. La fecha de nacimiento debe de ser anterior a la de fecha de ingreso"
+    }else{
+        fecha_incorrecta.value=false
+        mensaje_errorFecha.value = ""
+    }
+    console.log(fecha_incorrecta.value)
+}
+
 const verificarCamposVacios = async () =>{
   if(
     fechaNacimiento.value == "" ||
@@ -479,14 +495,16 @@ const verificarCamposVacios = async () =>{
 const modificarAnimal = async(animalData:any)=>{
     try{
         existe_habitacion.value = false
-        campo_vacio.value = false
         es_afiliado.value = false
+        fecha_incorrecta.value = false
+        campo_vacio.value = false
         const afiliadosData = await getAfiliados();
         const habitacionData = await getHabitaciones()
         await verificarAfiliado(afiliadosData);
         await verificarHabitacion(habitacionData)
+        await verificarFechas()
         await verificarCamposVacios()
-        if (!es_afiliado.value || campo_vacio.value || !existe_habitacion.value) {
+        if (!es_afiliado.value || campo_vacio.value || !existe_habitacion.value || fecha_incorrecta.value) {
             if(!es_afiliado.value){
                 console.error("El nombre del afiliado no está en la base de datos.");
                 errorInputAfiliadoStyle.value = 'error-input';
@@ -495,8 +513,11 @@ const modificarAnimal = async(animalData:any)=>{
             if(!existe_habitacion.value){
                 errorInputHabitacionStyle.value = 'error-input';
                 mostrarErrorHabitacion.value = true;
-                return;
             }
+            if(fecha_incorrecta.value){
+                console.error("La fecha de nacimiento no puede ser menor a la fecha de ingreso");
+                mostrarErrorFecha.value = true;
+            }   
             if(campo_vacio.value){
                 console.error("Tienes campos vacios")
                 errorInputVacioStyle.value = 'error-input';
