@@ -37,7 +37,7 @@
                     <ion-input v-model="creditCard.cvv" type="number" required></ion-input>
                 </ion-item>
             </ion-list>
-            <ion-button expand="block" @click="submitForm">Enviar</ion-button>
+            <ion-button expand="block" @click="submitForm(props.animalId,importeDonar)">Enviar</ion-button>
             <p class="error">{{ errorisCardNumberValid }}</p>
             <p class="error">{{ errorisNameValid }}</p>
             <p class="error">{{ errorisExpiryValid }}</p>
@@ -47,6 +47,7 @@
 </template>
 
 <script lang="ts" setup>
+import { realizarDonacion } from "@/services/donacion";
 import {
     IonButtons,
     IonButton,
@@ -69,6 +70,7 @@ import {
 } from "@ionic/vue";
 import { computed, ref } from "vue";
 const props = defineProps<{
+    animalId: string,
     animalName: string
 }>();
 const importeDonar = ref()
@@ -96,7 +98,7 @@ const isExpiryValid = computed(() => isValidExpiry(creditCard.value.expiry));
 const isCvvValid = computed(() => isValidCvv(creditCard.value.cvv));
 
 // Función para enviar el formulario (aquí puedes agregar la lógica de envío)
-const submitForm = () => {
+const submitForm = async (donacionId: string, dinero_necesario: number) => {
     errorisCardNumberValid.value = '';
     errorisExpiryValid.value = '';
     errorisCvvValid.value = '';
@@ -111,14 +113,20 @@ const submitForm = () => {
     }
     if (!isNameValid.value) {
         errorisNameValid.value = "La casilla de nombre no puede estar vacia"
-    } 
+    }
     if (importeDonar.value <= 0) {
         errorimporteDonar.value = "El importe debe ser mayor a 0€"
     }
     if (isCardNumberValid.value && isNameValid.value && isExpiryValid.value && isCvvValid.value) {
-    // Aquí puedes agregar la lógica para enviar los datos del formulario
-    alert('¡Gracias por donar a !'+ props.animalName);
-    window.location.reload(); // Recargar la página
+        try {
+            const dineroNecesarioString:string = dinero_necesario.toString as unknown as string
+            await realizarDonacion(donacionId, dineroNecesarioString);
+        } catch (error) {
+            console.error("Error al subir el animal:", error);
+        }
+        // Aquí puedes agregar la lógica para enviar los datos del formulario
+        alert('¡Gracias por donar a !' + props.animalName);
+        //window.location.reload(); // Recargar la página
     }
 };
 
@@ -135,6 +143,10 @@ const isValidExpiry = (expiry: string) => {
 // Función para validar el código de seguridad (CVV)
 const isValidCvv = (cvv: string) => {
     return /^\d{3,4}$/.test(cvv);
+};
+
+const donar = async (donacionId: string, dinero_necesario: string) => {
+
 };
 </script>
 <style scoped lang="scss">

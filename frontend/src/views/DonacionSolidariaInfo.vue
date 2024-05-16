@@ -6,23 +6,23 @@
                     <ion-grid class="fondo-naranja">
                         <ion-row>
                             <ion-col size="12" size-md="4">
-                                <img :src="infoDonacion.img" alt="Foto Animal Urgente">
+                                <img class="img-height" :src="`http://localhost:3000${infoDonacion?.img}`" alt="Foto Animal Urgente">
                             </ion-col>
                             <ion-col>
-                                <h1>{{ infoDonacion.titulo }}</h1>
-                                <p><strong>Nombre:</strong> {{ infoDonacion.animal }}</p>
-                                <p><strong>Fecha de inicio:</strong> {{ infoDonacion.fecha_inicio }}</p>
-                                <p><strong>Importe:</strong> {{ infoDonacion.dinero_necesario }}€</p>
-                                <DonacionSolidariaInfoModal :animal-name="infoDonacion.animal"/>
+                                <h1>{{ infoDonacion?.titulo }}</h1>
+                                <p><strong>Nombre:</strong> {{ infoDonacion?.animal.nombre }}</p>
+                                <p><strong>Fecha de inicio:</strong> {{ infoDonacion?.fecha_inicio }}</p>
+                                <p><strong>Importe:</strong> {{ infoDonacion?.dinero_necesario }}€</p>
+                                <DonacionSolidariaInfoModal :animal-id="infoDonacion?.id as string" :animal-name="infoDonacion?.animal.nombre as string"/>
                             </ion-col>
                         </ion-row>
                         <ion-row>
-                            <p>{{ infoDonacion.contexto }}</p>
+                            <p>{{ infoDonacion?.contexto }}</p>
                         </ion-row>
                     </ion-grid>
                 </section>
                 <section class="donation-range">
-                    <h2>Necesitamos {{ infoDonacion.dinero_necesario }}€</h2>
+                    <h2>Necesitamos {{ infoDonacion?.dinero_necesario }}€</h2>
                     <div class="progress">
                         <div class="progress-done" :style="{ width: progressBarWidth }">
                         <span class="progress-text">Dinero Recaudad: {{ progressBarWidth }}</span>
@@ -32,10 +32,9 @@
                 <section class="other-solidary-donation">
                     <ion-grid class="list-donation main-wrapper">
                         <ion-row class="ion-justify-content-center">
-                            <DonacionSolidariaCard v-for="donacion in listaDonaciones" :key="donacion.id"
-                                :id="donacion.id" :nombre="donacion.nombre" :descripcion="donacion.descripcion"
-                                :donado="donacion.donado" :fondoNecesario="donacion.fondoNecesario"
-                                :urlImg="donacion.urlImg" />
+                            <DonacionSolidariaCard v-for="donacion in listaDonaciones" :key="donacion.id" :id="donacion.id"
+                            :nombre="donacion.animal.nombre" :descripcion="donacion.contexto" :donado="donacion.dinero_alcanzado"
+                            :fondoNecesario="donacion.dinero_necesario" :urlImg="`${API_FILE_URL}${donacion.img}`" />
                         </ion-row>
                     </ion-grid>
                 </section>
@@ -56,72 +55,35 @@ import { onMounted, ref } from "vue";
 import DonacionSolidariaCard from "@/components/DonacionSolidariaCard.vue";
 import DonacionSolidariaInfoModal from "@/components/DonacionSolidariaInfoModal.vue";
 import AppFooter from '@/components/AppFooter.vue';
+import { getDonacionInfo, getDonacionesOtras } from "@/services/donacion";
+import { useRoute } from "vue-router";
+import { Donacion } from "@/types/Donacion";
+import {API_FILE_URL} from "@/middleware/secrets";
 
-const infoDonacion = ref({
-    id: 1,
-    titulo: "¡Urgente operación!",
-    contexto: `Pancho fue rescatado de la calle en un estado famélico y con problemas de movilidad.
-Desde el primer momento, se mostró un perrito muy sociable y  cariñoso con las personas, por lo que seguramente convivió durante un  tiempo con la familia que la abandonó. Al principio, creímos que su  problema de movilidad venía provocado por algún golpe o atropello  durante el tiempo que tuvo que vivir en la calle pero, al realizarle  pruebas se le diagnosticó luxación de rótula en grado 3, que le impedía  moverse con normalidad y le provocaba mucho dolor.
-Pancho solo tiene 2 añitos y tiene muchas ganas de correr, saltar, jugar  y disfrutar de la vida que tiene por delante. Para ello, necesitamos  operarle con urgencia antes que su luxación empeore y perjudique todavía  más su movilidad. Por desgracia, la operación tiene un coste muy alto,  concretamente de 1.000€ y necesitamos de vuestra ayuda para poder hacer  frente a este elevado gasto veterinario.`,
-    img: "img/gato.jpg",
-    dinero_necesario: 1000,
-    dinero_alcanzado: 300,
-    fecha_inicio: "1970-01-01T00:00:00.000Z",
-    animal: "Nemu",
-    animalID: 1,
-    afiliado: "Jose Montesinos",
-    afiliadoId: 1
-});
-const listaDonaciones = ref([
-    {
-        id: 1,
-        nombre: "Tonia",
-        descripcion: "Necesita ayuda por que si no se muere :(((",
-        donado: 1000,
-        fondoNecesario: 1000,
-        urlImg: "img/gato.jpg"
-    },
-    {
-        id: 2,
-        nombre: "Tonia",
-        descripcion: "Necesita ayuda por que si no se muere :(((",
-        donado: 100,
-        fondoNecesario: 1000,
-        urlImg: "img/gato.jpg"
-    },
-    {
-        id: 1,
-        nombre: "Tonia",
-        descripcion: "Necesita ayuda por que si no se muere :(((",
-        donado: 1000,
-        fondoNecesario: 1000,
-        urlImg: "img/gato.jpg"
-    },
-    {
-        id: 2,
-        nombre: "Tonia",
-        descripcion: "Necesita ayuda por que si no se muere :(((",
-        donado: 100,
-        fondoNecesario: 1000,
-        urlImg: "img/gato.jpg"
-    },
-    {
-        id: 1,
-        nombre: "Tonia",
-        descripcion: "Necesita ayuda por que si no se muere :(((",
-        donado: 1000,
-        fondoNecesario: 1000,
-        urlImg: "img/gato.jpg"
-    }
-]);
+const infoDonacion = ref<Donacion | undefined>(undefined);
+const listaDonaciones = ref();
 const progressBarWidth = ref("0%")
 function calculateProgress(dinero_necesario:number,dinero_alcanzado:number) {
     const total = dinero_alcanzado * 100 / dinero_necesario
     progressBarWidth.value = total as unknown as string + '%'
 }
-calculateProgress(infoDonacion.value.dinero_necesario,infoDonacion.value.dinero_alcanzado)
+
+
 onMounted(async () => {
-    
+    const route = useRoute();
+    const donacionId = route.params.donacion_id as string;
+    infoDonacion.value = await getDonacionInfo(donacionId);
+    const dineroNecesarioInt = infoDonacion.value?.dinero_necesario as unknown as number
+    const dineroAlcanzadoInt = infoDonacion.value?.dinero_alcanzado as unknown as number
+    calculateProgress(dineroNecesarioInt,dineroAlcanzadoInt)
+    //OTROS ANIMALEs
+    const animals = await getDonacionesOtras();
+    if (Array.isArray(animals)) {
+        listaDonaciones.value = animals;
+    } else {
+        console.error("Error: Array de animales vacio");
+        listaDonaciones.value = null;
+    }
 });
 </script>
 <style scoped lang="scss">
@@ -129,7 +91,11 @@ onMounted(async () => {
     max-width: 1280px;
     padding: 0px 20px;
 }
-
+.img-height {
+    width: 100%;
+    height: 15rem;
+    object-fit: cover;
+}
 .fondo-naranja {
     padding: 30px;
     background-color: #ff914d50;

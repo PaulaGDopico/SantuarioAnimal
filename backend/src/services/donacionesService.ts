@@ -92,7 +92,15 @@ export const deleteDonacion = async (donacionId: number) => {
 export const getFiveDonations = async () => {
     try {
         // Obtener todas las donaciones
-        const donaciones = await prisma.donacion.findMany();
+        const donaciones = await prisma.donacion.findMany({
+            include: {
+                animal: {
+                    select: {
+                        nombre: true
+                    }
+                }
+            }
+        })
 
         // Filtrar las donaciones no completadas
         const donacionesNoCompletadas = donaciones.filter(donacion => {

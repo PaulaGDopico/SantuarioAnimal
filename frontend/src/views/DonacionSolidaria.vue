@@ -33,8 +33,8 @@
                 <ion-grid class="list-donation main-wrapper">
                     <ion-row class="ion-justify-content-center">
                         <DonacionSolidariaCard v-for="donacion in listaDonaciones" :key="donacion.id" :id="donacion.id"
-                            :nombre="donacion.nombre" :descripcion="donacion.descripcion" :donado="donacion.donado"
-                            :fondoNecesario="donacion.fondoNecesario" :urlImg="donacion.urlImg" />
+                            :nombre="donacion.animal.nombre" :descripcion="donacion.contexto" :donado="donacion.dinero_alcanzado"
+                            :fondoNecesario="donacion.dinero_necesario" :urlImg="`${API_FILE_URL}${donacion.img}`" />
                     </ion-row>
                 </ion-grid>
             </div>
@@ -53,87 +53,37 @@ import {
 } from "@ionic/vue";
 import SubHeader from '@/components/SubHeader.vue';
 import DonacionSolidariaCard from '@/components/DonacionSolidariaCard.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import AppFooter from '@/components/AppFooter.vue';
+import { getDonaciones } from "@/services/donacion";
+import {API_FILE_URL} from "@/middleware/secrets";
 
-const listaDonaciones = ref([
-    {
-        id: 1,
-        nombre: "Tonia",
-        descripcion: "Necesita ayuda por que si no se muere :(((",
-        donado: 1000,
-        fondoNecesario: 1000,
-        urlImg: "img/gato.jpg"
-    },
-    {
-        id: 2,
-        nombre: "Tonia",
-        descripcion: "Necesita ayuda por que si no se muere :(((",
-        donado: 100,
-        fondoNecesario: 1000,
-        urlImg: "img/gato.jpg"
-    },
-    {
-        id: 1,
-        nombre: "Tonia",
-        descripcion: "Necesita ayuda por que si no se muere :(((",
-        donado: 1000,
-        fondoNecesario: 1000,
-        urlImg: "img/gato.jpg"
-    },
-    {
-        id: 2,
-        nombre: "Tonia",
-        descripcion: "Necesita ayuda por que si no se muere :(((",
-        donado: 100,
-        fondoNecesario: 1000,
-        urlImg: "img/gato.jpg"
-    },
-    {
-        id: 1,
-        nombre: "Tonia",
-        descripcion: "Necesita ayuda por que si no se muere :(((",
-        donado: 1000,
-        fondoNecesario: 1000,
-        urlImg: "img/gato.jpg"
-    },
-    {
-        id: 2,
-        nombre: "Tonia",
-        descripcion: "Necesita ayuda por que si no se muere :(((",
-        donado: 100,
-        fondoNecesario: 1000,
-        urlImg: "img/gato.jpg"
-    },
-    {
-        id: 1,
-        nombre: "Tonia",
-        descripcion: "Necesita ayuda por que si no se muere :(((",
-        donado: 1000,
-        fondoNecesario: 1000,
-        urlImg: "img/gato.jpg"
-    },
-    {
-        id: 2,
-        nombre: "Tonia",
-        descripcion: "Necesita ayuda por que si no se muere :(((",
-        donado: 100,
-        fondoNecesario: 1000,
-        urlImg: "img/gato.jpg"
-    },
-    ]);
+const listaDonaciones = ref();
+
+onMounted(async () => {
+    const animals = await getDonaciones();
+    if (Array.isArray(animals)) {
+        listaDonaciones.value = animals;
+    } else {
+        console.error("Error: Array de animales vacio");
+        listaDonaciones.value = null;
+    }
+});
 </script>
 <style scoped lang="scss">
 .main-wrapper {
     max-width: 1200px;
 }
+
 .info {
     padding: 20px 0px;
 }
+
 .list-donation {
     margin-bottom: 0px;
     padding-bottom: 20px;
 }
+
 .orange-background {
     background-color: #ff914d50;
 }

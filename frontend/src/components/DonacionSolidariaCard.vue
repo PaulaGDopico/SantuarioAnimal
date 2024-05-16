@@ -35,11 +35,11 @@ const props = defineProps({
         required: true
     },
     donado: {
-        type: Number,
+        type: String,
         required: true
     },
     fondoNecesario: {
-        type: Number,
+        type: String,
         required: true
     }
 })
@@ -54,7 +54,7 @@ function retoConseguido(donado:number,fondoNecesario:number) {
     }
 }
 onMounted( ()=>{
-   retoConseguido(props.donado,props.fondoNecesario) 
+   retoConseguido(parseInt(props.donado),parseInt(props.fondoNecesario)) 
 });
 </script>
 <style scoped lang="scss">
@@ -108,7 +108,9 @@ ion-col {
     p {
         padding: 5px;
         height: 15%;
-        text-align: justify;
+        text-align: center;
+        overflow: hidden;
+        margin-top: 0px;
     }
 }
 </style>
