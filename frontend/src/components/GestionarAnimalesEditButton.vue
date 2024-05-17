@@ -36,7 +36,7 @@
                                     placeholder="Introduce nombre"
                                     v-model="nombre_afiliado">
                                 </ion-input>
-                                <div v-if="mostrarErrorAfiliado" class="error-message">{{ mensaje_errorAfiliado }}</div>
+                                <ion-text v-if="mostrarErrorAfiliado" class="error-message">{{ mensaje_errorAfiliado }}</ion-text>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
@@ -111,7 +111,7 @@
 
                                     v-model="animalData.habitacionId">
                                 </ion-input>
-                                <div v-if="mostrarErrorHabitacion" class="error-message">{{ mensaje_errorHabitacion }}</div>
+                                <ion-text v-if="mostrarErrorHabitacion" class="error-message">{{ mensaje_errorHabitacion }}</ion-text>
                             </ion-col>
                             <ion-col>
                                 <ion-input
@@ -227,7 +227,7 @@
                                     />
                             </ion-col>
                         </ion-row>
-                        <div v-if="mostrarErrorFecha" class="error-message">{{ mensaje_errorFecha }}</div>
+                        <ion-text v-if="mostrarErrorFecha" class="error-message">{{ mensaje_errorFecha }}</ion-text>
                     </ion-grid>
                     <ion-grid>
                         <ion-row>
@@ -253,7 +253,7 @@
                     </ion-row>
                     <ion-row>
                             <ion-col>
-                                <div v-if="campo_vacio" class="error-message">Tienes campos vacios</div>
+                                <ion-text v-if="campo_vacio" class="error-message">Tienes campos vacios</ion-text>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
@@ -298,6 +298,7 @@ import {
     IonCol,
     IonTextarea,
     IonIcon,
+    IonText
 } from "@ionic/vue";
 import {  createOutline } from "ionicons/icons";
 import { ref, computed, inject, Ref, onBeforeMount} from "vue";
@@ -485,8 +486,7 @@ const verificarCamposVacios = async () =>{
     animalData.value.peso == "" ||
     animalData.value.tamanyo == "" ||
     animalData.value.raza == "" ||
-    animalData.value.sexo == "" ||
-    animalData.value.img == ""
+    animalData.value.sexo == ""
   ){
     campo_vacio.value=true
   }
