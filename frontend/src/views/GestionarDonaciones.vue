@@ -43,7 +43,7 @@
             <ion-title>AÑADIR DONACIÓN</ion-title>
             <ion-buttons slot="end">
               <ion-button @click="setOpen(false)">Cerrar</ion-button>
-              <ion-button>Enviar</ion-button>
+              <ion-button @click="addDonation()">Enviar</ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
@@ -51,29 +51,35 @@
           <ion-grid>
             <ion-row>
               <ion-col size="12">
-                <ion-input label="Título" type="text"></ion-input>
+                <ion-input v-model="titulo" label="Título" label-placement="floating" type="text"></ion-input>
               </ion-col>
               <ion-col size="12">
-                <ion-textarea label="Contexto"></ion-textarea>
+                <ion-textarea v-model="contexto" label="Contexto" label-placement="floating"></ion-textarea>
               </ion-col>
               <ion-col size="12">
                 <ion-row>
                   <ion-col size="12" size-sm="2"><label>Imagen</label></ion-col>
-                  <ion-col><input id="image" name="image" type="file"></ion-col>
+                  <ion-col><input id="image" name="image" type="file" v-on:change="subirImagen"></ion-col>
                 </ion-row>
               </ion-col>
               <ion-col size="12">
-                <ion-input label="Dinero necesario" type="number"></ion-input>
+                <ion-input v-model="dinero_necesario" label="Dinero necesario" label-placement="floating"
+                           type="number"></ion-input>
               </ion-col>
               <!--              Fecha de inicio usar Date.now-->
               <ion-col size="12">
-                <ion-select aria-label="Animal" interface="popover" placeholder="Seleccionar Animal">
-                  <ion-select-option>Animal 1</ion-select-option>
+                <ion-select v-model="animal" aria-label="Animal" interface="popover" placeholder="Seleccionar Animal">
+                  <ion-select-option v-for="animal in animales" :key="animal.id">
+                    {{ animal.id }}.{{ animal.nombre }}
+                  </ion-select-option>
                 </ion-select>
               </ion-col>
               <ion-col size="12">
-                <ion-select aria-label="Afiliado" interface="popover" placeholder="Seleccionar Afiliado">
-                  <ion-select-option>Afiliado 1</ion-select-option>
+                <ion-select v-model="afiliado" aria-label="Afiliado" interface="popover"
+                            placeholder="Seleccionar Afiliado">
+                  <ion-select-option v-for="afiliado in afiliados" :key="afiliado.id">
+                    {{ afiliado.id }}.{{ afiliado.nombre }}
+                  </ion-select-option>
                 </ion-select>
               </ion-col>
             </ion-row>
@@ -96,6 +102,8 @@ import {
   IonModal,
   IonPage,
   IonRow,
+  IonSelect,
+  IonSelectOption,
   IonTextarea,
   IonTitle,
   IonToolbar
@@ -104,9 +112,13 @@ import {AgGridVue} from "ag-grid-vue3";
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import AppFooter from "@/components/AppFooter.vue";
-import {onMounted, ref} from "vue";
+import {onMounted, Ref, ref} from "vue";
 import router from "@/router";
-import {getDonaciones} from "@/services/donacion";
+import {addDonacion, getDonaciones} from "@/services/donacion";
+import {getAfiliados} from "@/services/afiliado";
+import {getAllAnimales} from "@/services/animal";
+import {Afiliado} from "@/types/Afiliado";
+import {Animal} from "@/types/Animal";
 
 //Modal
 const isOpen = ref(false);
@@ -114,22 +126,55 @@ const setOpen = (open: boolean) => (isOpen.value = open);
 
 //Tabla
 const columnDefs = ref([
-  {headerName: "Título", field: "titulo", sorteable: true, filter: true},
-  {headerName: "Contexto", field: "contexto", sorteable: true, filter: true},
-  {headerName: "Imagen", field: "img", sorteable: true, filter: true},
-  {headerName: "Dinero necesario", field: "dinero_necesario", sorteable: true, filter: true},
-  {headerName: "Dinero alcanzado", field: "dinero_alcanzado", sorteable: true, filter: true},
-  {headerName: "Fecha de inicio", field: "fecha_inicio", sorteable: true, filter: true},
-  {headerName: "Animal", field: "animalId", sorteable: true, filter: true},
-  {headerName: "Afiliado", field: "afiliadoId", sorteable: true, filter: true},
+  {headerName: "Título", field: "titulo", sortable: true, filter: true},
+  {headerName: "Contexto", field: "contexto", sortable: true, filter: true},
+  {headerName: "Imagen", field: "img", sortable: true, filter: true},
+  {headerName: "Dinero necesario", field: "dinero_necesario", sortable: true, filter: true},
+  {headerName: "Dinero alcanzado", field: "dinero_alcanzado", sortable: true, filter: true},
+  {headerName: "Fecha de inicio", field: "fecha_inicio", sortable: true, filter: true},
+  {headerName: "Animal", field: "animalId", sortable: true, filter: true},
+  {headerName: "Afiliado", field: "afiliadoId", sortable: true, filter: true},
 
 ])
 const rowData: any = ref([])
+
+//Datos de animales y afiliados
+const afiliados: Ref<Array<Afiliado> | undefined> = ref()
+const animales: Ref<Array<Animal> | undefined> = ref()
+
+//Añadir donación
+const titulo = ref()
+const contexto = ref()
+const dinero_necesario = ref()
+const fecha_inicio = new Date().toISOString()
+const animal = ref()
+const afiliado = ref()
+const image = ref()
+const subirImagen = (e: any) => {
+  image.value = e.target.files[0];
+};
+
+async function addDonation() {
+  const newDonacion = {
+    titulo: titulo.value,
+    contexto: contexto.value,
+    img: image.value,
+    dinero_necesario: dinero_necesario.value,
+    dinero_alcanzado: "0",
+    fecha_inicio: fecha_inicio,
+    animalId: animal.value.split(".")[0],
+    afiliadoId: afiliado.value.split(".")[0]
+  };
+
+  await addDonacion(newDonacion)
+}
 
 
 onMounted(async () => {
   try {
     rowData.value = await getDonaciones()
+    afiliados.value = await getAfiliados()
+    animales.value = await getAllAnimales()
   } catch (error) {
     console.error("Error al obtener las donaciones")
   }
