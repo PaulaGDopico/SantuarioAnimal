@@ -15,6 +15,36 @@ router.get("/", async (req, res) => {
     }
 })
 
+// MOSTRAR 5 donaciones NO COMPLETADAS
+router.get("/otros/", async (req, res) => {
+    try {
+        const donaciones = await donacionesService.getFiveDonations()
+        res.json(donaciones)
+    } catch (error) {
+        console.error("Error recibiendo la donación", error)
+    }
+})
+router.put("/donar/:donacionId", async (req, res) => {
+    try {
+        const donacionId = parseInt(req.params.donacionId);
+        const {dineroASumar} = req.body;
+        console.log(req.body)
+        const updateResult = await donacionesService.updateDineroAlcanzado(
+            donacionId,
+            parseInt(dineroASumar)
+        );
+
+
+        if (updateResult.success) {
+            res.json(updateResult.data);
+        } else {
+            res.status(400).json({error: updateResult.error});
+        }
+    } catch (error) {
+        console.error("Error updating donacion:", error);
+        res.status(500).json({error: "Internal server error"});
+    }
+})
 router.get("/:id", async (req, res) => {
     try {
         const donacionId = parseInt(req.params.id)
