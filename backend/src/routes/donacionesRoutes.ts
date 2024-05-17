@@ -38,7 +38,7 @@ router.post("/", upload.single("image"), async (req, res) => {
             animalId,
             afiliadoId,
         } = req.body;
-        const imageName = req.file ? req.file.path : "";
+        const imageName = req.file ? "/uploads/" + req.file.filename : ""
         const newDonacion = await donacionesService.createDonacion({
             titulo,
             contexto,
@@ -69,7 +69,7 @@ router.put("/:donacionId", upload.single("image"), async (req, res) => {
 
         const updateDonacion = await donacionesService.updateDonacion(
             donacionId,
-            {...req.body, img: imageName}
+            {...req.body, afiliadoId: Number(req.body.afiliadoId), animalId: Number(req.body.animalId), img: imageName}
         );
 
         res.json(updateDonacion);

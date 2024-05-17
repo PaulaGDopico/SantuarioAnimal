@@ -125,6 +125,7 @@ import {getAllAnimales} from "@/services/animal";
 import {Afiliado} from "@/types/Afiliado";
 import {Animal} from "@/types/Animal";
 import GestionarDonacionDeleteButton from "@/components/GestionarDonacionDeleteButton.vue";
+import GestionarDonacionEditButton from "@/components/GestionarDonacionEditButton.vue";
 
 // Modal
 const isOpen = ref(false);
@@ -134,12 +135,19 @@ const setOpen = (open: boolean) => (isOpen.value = open);
 const columnDefs = ref([
   {headerName: "Título", field: "titulo", sortable: true, filter: true},
   {headerName: "Contexto", field: "contexto", sortable: true, filter: true},
-  {headerName: "Imagen", cellRenderer: imageRenderer},
+  {headerName: "Imagen", field: "image", cellRenderer: imageRenderer},
   {headerName: "Dinero necesario", field: "dinero_necesario", sortable: true, filter: true},
   {headerName: "Dinero alcanzado", field: "dinero_alcanzado", sortable: true, filter: true},
   {headerName: "Fecha de inicio", field: "fecha_inicio", sortable: true, filter: true},
   {headerName: "Animal", field: "animalId", sortable: true, filter: true},
   {headerName: "Afiliado", field: "afiliadoId", sortable: true, filter: true},
+  {
+    headerName: "Editar",
+    cellRenderer: GestionarDonacionEditButton,
+    cellRendererParams: (params: any) => ({
+      datosFila: params.data,
+    }),
+  },
   {
     headerName: "Eliminar",
     cellRenderer: GestionarDonacionDeleteButton,

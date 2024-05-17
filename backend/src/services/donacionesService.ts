@@ -33,13 +33,13 @@ export const createDonacion = async (donacion: Prisma.DonacionCreateInput) => {
     return prisma.donacion.create({
         data: {
             titulo: donacion.titulo,
-            contexto:  donacion.contexto,
-            dinero_necesario:  donacion.dinero_necesario,
+            contexto: donacion.contexto,
+            dinero_necesario: donacion.dinero_necesario,
             dinero_alcanzado: donacion.dinero_alcanzado,
-            fecha_inicio:  donacion.fecha_inicio,
-            animal:  donacion.animal,
-            afiliado:  donacion.afiliado,
-            img:  donacion.img,
+            fecha_inicio: donacion.fecha_inicio,
+            animal: donacion.animal,
+            afiliado: donacion.afiliado,
+            img: donacion.img,
         },
     });
 }
@@ -50,7 +50,16 @@ export const updateDonacion = async (
 ) => {
     return prisma.donacion.update({
         where: {id: donacionId},
-        data: newData,
+        data: {
+            titulo: newData.titulo,
+            contexto: newData.contexto,
+            dinero_necesario: newData.dinero_necesario,
+            dinero_alcanzado: newData.dinero_alcanzado,
+            fecha_inicio: newData.fecha_inicio,
+            animal: newData.animal,
+            afiliado: newData.afiliado,
+            img: newData.img,
+        },
     });
 };
 
