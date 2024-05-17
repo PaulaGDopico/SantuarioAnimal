@@ -36,7 +36,7 @@
                                     placeholder="Introduce nombre"
                                     v-model="nombre_afiliado">
                                 </ion-input>
-                                <ion-text v-if="mostrarErrorAfiliado" class="error-message">{{ mensaje_errorAfiliado }}</ion-text>
+                                <ion-text v-if="mostrarErrorAfiliado" color="danger">{{ mensaje_errorAfiliado }}</ion-text>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
@@ -111,7 +111,7 @@
 
                                     v-model="animalData.habitacionId">
                                 </ion-input>
-                                <ion-text v-if="mostrarErrorHabitacion" class="error-message">{{ mensaje_errorHabitacion }}</ion-text>
+                                <ion-text v-if="mostrarErrorHabitacion" color="danger">{{ mensaje_errorHabitacion }}</ion-text>
                             </ion-col>
                             <ion-col>
                                 <ion-input
@@ -227,7 +227,7 @@
                                     />
                             </ion-col>
                         </ion-row>
-                        <ion-text v-if="mostrarErrorFecha" class="error-message">{{ mensaje_errorFecha }}</ion-text>
+                        <ion-text v-if="mostrarErrorFecha" color="danger">{{ mensaje_errorFecha }}</ion-text>
                     </ion-grid>
                     <ion-grid>
                         <ion-row>
@@ -253,7 +253,7 @@
                     </ion-row>
                     <ion-row>
                             <ion-col>
-                                <ion-text v-if="campo_vacio" class="error-message">Tienes campos vacios</ion-text>
+                                <ion-text v-if="campo_vacio" color="danger">Tienes campos vacios</ion-text>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
