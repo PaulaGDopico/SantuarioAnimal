@@ -68,7 +68,7 @@ router.post("/", upload.single("image"), async (req, res) => {
             animalId,
             afiliadoId,
         } = req.body;
-        const imageName = req.file ? "/uploads/" + req.file.filename : "";
+        const imageName = req.file ? "/uploads/" + req.file.filename : ""
         const newDonacion = await donacionesService.createDonacion({
             titulo,
             contexto,
@@ -99,7 +99,7 @@ router.put("/:donacionId", upload.single("image"), async (req, res) => {
 
         const updateDonacion = await donacionesService.updateDonacion(
             donacionId,
-            {...req.body, img: imageName}
+            {...req.body, afiliadoId: Number(req.body.afiliadoId), animalId: Number(req.body.animalId), img: imageName}
         );
 
         res.json(updateDonacion);
@@ -108,6 +108,28 @@ router.put("/:donacionId", upload.single("image"), async (req, res) => {
         res.status(500).json({error: "Internal server error"});
     }
 });
+
+router.put("/donar/:donacionId", async (req, res) => {
+    try {
+        const donacionId = parseInt(req.params.donacionId);
+        const {dineroASumar} = req.body;
+
+        const updateResult = await donacionesService.updateDineroAlcanzado(
+            donacionId,
+            parseInt(dineroASumar)
+        );
+
+
+        if (updateResult.success) {
+            res.json(updateResult.data);
+        } else {
+            res.status(400).json({error: updateResult.error});
+        }
+    } catch (error) {
+        console.error("Error updating donacion:", error);
+        res.status(500).json({error: "Internal server error"});
+    }
+})
 
 router.delete("/:donacionId", async (req, res) => {
     try {

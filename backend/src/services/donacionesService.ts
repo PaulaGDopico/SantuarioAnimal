@@ -49,7 +49,16 @@ export const updateDonacion = async (
 ) => {
     return prisma.donacion.update({
         where: {id: donacionId},
-        data: newData,
+        data: {
+            titulo: newData.titulo,
+            contexto: newData.contexto,
+            dinero_necesario: newData.dinero_necesario,
+            dinero_alcanzado: newData.dinero_alcanzado,
+            fecha_inicio: newData.fecha_inicio,
+            animal: newData.animal,
+            afiliado: newData.afiliado,
+            img: newData.img,
+        },
     });
 };
 
