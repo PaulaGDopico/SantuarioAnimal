@@ -1,5 +1,5 @@
 <template>
-    <ion-col size="7" size-md="2" class="cartaAnimal">
+    <ion-col size="7" size-lg="2" size-md="3" size-sm="5" class="cartaAnimal">
         <h3 :class="retoCumplidoClass">{{ retoCumplidoTitle }}</h3>
         <div class="contenedorImg">
             <img :src="props.urlImg" alt="Foto animal">
@@ -35,11 +35,11 @@ const props = defineProps({
         required: true
     },
     donado: {
-        type: Number,
+        type: String,
         required: true
     },
     fondoNecesario: {
-        type: Number,
+        type: String,
         required: true
     }
 })
@@ -54,7 +54,7 @@ function retoConseguido(donado:number,fondoNecesario:number) {
     }
 }
 onMounted( ()=>{
-   retoConseguido(props.donado,props.fondoNecesario) 
+   retoConseguido(parseInt(props.donado),parseInt(props.fondoNecesario)) 
 });
 </script>
 <style scoped lang="scss">
@@ -108,7 +108,9 @@ ion-col {
     p {
         padding: 5px;
         height: 15%;
-        text-align: justify;
+        text-align: center;
+        overflow: hidden;
+        margin-top: 0px;
     }
 }
 </style>

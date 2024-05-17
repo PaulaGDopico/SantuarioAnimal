@@ -17,5 +17,5 @@ export interface Animal {
     descripcion: string | null;
     habitacionId: number;
     donaciones_recibidas: Array<Donacion> | null;
-    afiliadoId: number | null;
+    afiliadoId: number;
 }
