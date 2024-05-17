@@ -1,4 +1,4 @@
-import express, { response } from "express";
+import express from "express";
 import * as afiliadoService from "../services/afiliadoService";
 
 const router = express.Router();

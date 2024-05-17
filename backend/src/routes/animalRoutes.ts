@@ -1,8 +1,6 @@
 import express from "express";
 import upload from "../middleware/multerMiddleware";
 import * as animalService from "../services/animalService";
-import { API_FILE_URL } from "../middleware/secrets";
-import { connect } from "http2";
 
 const router = express.Router();
 //Multiples animales
@@ -20,6 +18,20 @@ interface Filtros {
     peso: string,
     // Agrega más filtros según sea necesario
 }
+
+
+//5 primeros animales
+router.get("/primeros", async (req, res) => {
+    try {
+        const primerosAnimales = await animalService.getFiveFirstAnimals();
+        res.json(primerosAnimales)
+    } catch (error) {
+        console.error("Error recibiendo los primeros", error);
+        res.status(400).json({error: "No se han podido recibir los primeros animales"})
+    }
+})
+
+
 router.get("/:page", async (req, res) => {
     try {
         const pageNum = parseInt(req.params.page as string);
@@ -48,7 +60,7 @@ router.get("/:page", async (req, res) => {
         res.json(animales);
     } catch (error) {
         console.error("Error retrieving animales:", error);
-        res.status(400).json({ error: "Invalid parameters" });
+        res.status(400).json({error: "Invalid parameters"});
     }
 });
 
@@ -59,7 +71,7 @@ router.get("/", async (req, res) => {
         res.json(animales);
     } catch (error) {
         console.error("Error recibiendo los animales", error);
-        res.status(400).json({ error: "Parámetros invalidos" });
+        res.status(400).json({error: "Parámetros invalidos"});
     }
 });
 
@@ -76,7 +88,7 @@ router.get("/animal/:animalId", async (req, res) => {
         res.json(animal);
     } catch (error) {
         console.error("Error retrieving animales:", error);
-        res.status(400).json({ error: "Invalid parameters" });
+        res.status(400).json({error: "Invalid parameters"});
     }
 });
 
@@ -110,14 +122,16 @@ router.post("/", upload.single("image"), async (req, res) => {
             sexo,
             img: imageName,
             descripcion,
-            Habitacion: { connect: { id: Number(habitacionId) } },
-            Afiliado: { connect: { id: Number(afiliadoId) } }
+
+            Habitacion: {connect: {id: Number(habitacionId)}},
+            Afiliado: {connect: {id: Number(afiliadoId)}}
+
         });
 
         res.status(201).json(newAnimal);
     } catch (error) {
         console.error("Error creating animal:", error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({error: "Internal server error"});
     }
 });
 
@@ -125,22 +139,22 @@ router.put("/:animalId", upload.single("img"), async (req, res) => {
     try {
         const animalId = parseInt(req.params.animalId);
 
+
         let imageName = req.file ? "/uploads/" + req.file.filename : req.body.img;
         req.body.habitacionId = parseInt(req.body.habitacionId);
-        //const habitacionId = parseInt(req.body.habitacionId);
         delete req.body.Donaciones_recibidas
         req.body.afiliadoId = parseInt(req.body.afiliadoId)
+
 
         const updatedAnimal = await animalService.updateAnimal(
             animalId,
             { ...req.body, img: imageName}
-            //Habitacion: { connect: { id: Number(habitacionId) } }
         );
 
         res.json(updatedAnimal);
     } catch (error) {
         console.error("Error updating animal:", error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({error: "Internal server error"});
     }
 });
 
@@ -154,7 +168,7 @@ router.delete("/:animalId", async (req, res) => {
         });
     } catch (error) {
         console.error("Error deleting animal:", error);
-        res.status(500).json({ error: "Internal server error" });
+        res.status(500).json({error: "Internal server error"});
     }
 });
 

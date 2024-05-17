@@ -282,36 +282,38 @@
                 </ion-grid>
             </div>
         </ion-content>
-        
     </ion-modal>
 </template>
-<script setup lang="ts">
+<script lang="ts" setup>
 import {
-    IonContent,
-    IonItem,
-    IonModal,
-    IonButton,
-    IonButtons,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonInput,
-    IonPage,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonSelect,
-    IonSelectOption,
-    IonTextarea,
-    IonList,
+  IonButton,
+  IonButtons,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonInput,
+  IonItem,
+  IonList,
+  IonModal,
+  IonPage,
+  IonRow,
+  IonSelect,
+  IonSelectOption,
+  IonTextarea,
+  IonTitle,
+  IonToolbar,
 } from "@ionic/vue";
+
 import { ref, onMounted, computed, onBeforeMount, provide } from "vue";
 import { AgGridVue } from "ag-grid-vue3"; // AG Grid Component
+
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import AppFooter from "@/components/AppFooter.vue";
 import GestionarAnimalesEditButton from "@/components/GestionarAnimalesEditButton.vue";
 import GestionarAnimalesDeleteButton from "@/components/GestionarAnimalesDeleteButton.vue";
+
 import { getAllAnimalsWithoutPagination } from "@/services/animal";
 import { pushAnimal } from "@/services/animal";
 //import { getAfiliados } from "@/services/afiliados";
@@ -319,11 +321,13 @@ import { pushAnimal } from "@/services/animal";
 import { Habitacion } from "@/types/Habitacion";
 import { getHabitaciones } from "@/services/habitacion";
 //import { getAfiliados } from "@/services/afiliados";
+
 // BOTONES MODAL
 const isOpen = ref(false);
 const setOpen = (open: boolean) => (isOpen.value = open);
 
 const columnDefs = ref([
+
     { headerName: "Nombre", field: "nombre", sortable: true, filter: true },
     { headerName: "Tipo", field: "tipo", sortable: true, filter: true },
     { headerName: "Sexo", field: "sexo", sortable: true, filter: true },
@@ -349,7 +353,7 @@ const columnDefs = ref([
         cellRendererParams: (params: any) => ({
             datosFila: params.data,
         }),
-    },
+    }
 ]);
 
 const rowData: any = ref([]);
@@ -516,8 +520,8 @@ const handleDeleteRow = async () => {
 };
 
 const subirImagen = (e: any) => {
-    animalData.value.img = e.target.files[0];
-    console.log(animalData.value.img);
+  animalData.value.img = e.target.files[0];
+  console.log(animalData.value.img);
 };
 
 onBeforeMount(()=>{
@@ -538,33 +542,32 @@ onMounted(async () => {
     }
 });
 
-
 function imageRenderer(params: any) {
-    const wrapper = document.createElement("div");
+  const wrapper = document.createElement("div");
 
-    const image = document.createElement("img");
-    image.src += "http://localhost:3000/" + params.data.img;
-    image.style.width = "100px";
-    image.style.height = "100px";
-    wrapper.appendChild(image);
+  const image = document.createElement("img");
+  image.src += "http://localhost:3000/" + params.data.img;
+  image.style.width = "100px";
+  image.style.height = "100px";
+  wrapper.appendChild(image);
 
-    return wrapper;
+  return wrapper;
 }
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 h1 {
-    text-align: center;
-    margin: 0px;
+  text-align: center;
+  margin: 0;
 }
 
 a {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 .buttonDelete {
-    background-color: rgb(145, 30, 30);
-    color: white;
+  background-color: rgb(145, 30, 30);
+  color: white;
 }
 
 .error-input {
@@ -577,3 +580,4 @@ a {
     margin-top: 5px; /* Espaciado superior para separar el mensaje de error del campo de entrada */
 }
 </style>
+

@@ -1,12 +1,9 @@
 //import router from "@/router";
-import { API_URL } from "@/middleware/secrets";
-import { Animal } from "@/types/Animal";
+import {API_URL} from "@/middleware/secrets";
+import {Animal} from "@/types/Animal";
 
-import {
-    EstadoAdopcionAnimal,
-    estadoAdopcionLabels,
-} from "@/types/AnimalEstadoAdopcion";
-import { Filtros } from "@/types/Filtros";
+import {EstadoAdopcionAnimal, estadoAdopcionLabels,} from "@/types/AnimalEstadoAdopcion";
+import {Filtros} from "@/types/Filtros";
 
 export const getAnimal = async (animalId: string) => {
     try {
@@ -29,8 +26,9 @@ export const getAnimal = async (animalId: string) => {
         //Formatear estado
         animal.estado_adopcion =
             estadoAdopcionLabels[
-            animal.estado_adopcion as EstadoAdopcionAnimal
-            ];
+                animal.estado_adopcion as EstadoAdopcionAnimal
+                ];
+
 
         return animal;
     } catch (error) {
@@ -69,7 +67,6 @@ export const getAllAnimales = async () => {
             API_URL + "/animales/",
         );
         const animales: Array<Animal> = await response.json();
-        console.log(response)
         return animales;
     } catch (error) {
         console.log(error);

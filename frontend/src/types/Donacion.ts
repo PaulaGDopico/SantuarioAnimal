@@ -1,4 +1,5 @@
 export interface Donacion {
+    id:string,
     titulo:string,
     contexto:string,
     img:string,
@@ -7,4 +8,7 @@ export interface Donacion {
     fecha_inicio:string,  
     animalId:number,
     afiliadoId:number
+    animal: {
+        nombre: string
+    }
 }

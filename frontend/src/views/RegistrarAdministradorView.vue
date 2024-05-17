@@ -124,16 +124,10 @@ function validarFormulario() {
         ? ""
         : "Teléfono requerido";
 
-    if (
-        errors.email.value ||
+    return !(errors.email.value ||
         errors.password.value ||
         errors.nombre.value ||
-        errors.telefono.value
-    ) {
-        return false;
-    } else {
-        return true;
-    }
+        errors.telefono.value);
 }
 
 async function enviarFormulario() {
@@ -143,7 +137,7 @@ async function enviarFormulario() {
         return;
     }
 
-    register(email.value, password.value, nombre.value, telefono.value);
+    await register(email.value, password.value, nombre.value, telefono.value);
     errors.envio.value = "Administrador creado";
     abrirNotificacionEnvio(true);
 }
