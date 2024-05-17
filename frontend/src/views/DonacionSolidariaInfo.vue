@@ -26,7 +26,7 @@
           <h2>Necesitamos {{ infoDonacion?.dinero_necesario }}€</h2>
           <div class="progress">
             <div :style="{ width: progressBarWidth }" class="progress-done">
-              <span class="progress-text">Dinero Recaudad: {{ progressBarWidth }}</span>
+              <span class="progress-text">Dinero Recaudado: {{ progressBarWidth }}</span>
             </div>
           </div>
         </section>
@@ -87,7 +87,7 @@ onMounted(async () => {
 <style lang="scss" scoped>
 .main-wrapper {
   max-width: 1280px;
-  padding: 0px 20px;
+  padding: 0 20px;
 }
 
 .img-height {
@@ -130,7 +130,6 @@ onMounted(async () => {
     height: 100%;
     border-radius: 71px;
     color: #fff;
-    background: #a17c8d;
     font-size: 18px;
     font-weight: 600;
     line-height: 54px;

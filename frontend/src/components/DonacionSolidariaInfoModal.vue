@@ -90,7 +90,7 @@ const isExpiryValid = computed(() => isValidExpiry(creditCard.value.expiry));
 const isCvvValid = computed(() => isValidCvv(creditCard.value.cvv));
 
 // Función para enviar el formulario (aquí puedes agregar la lógica de envío)
-const submitForm = async (donacionId: number, dinero_necesario_string: string) => {
+const submitForm = async (donacionId: string, dinero_necesario_string: string) => {
   const dinero_necesario = parseInt(dinero_necesario_string);
   const importeDonarValue = parseFloat(importeDonar.value); // Convert to number
 
