@@ -191,15 +191,6 @@
                                     </ion-item>
                                 </ion-list>
                             </ion-col>
-                            <!-- <ion-col>
-                                <ion-input
-                                    type="number"
-                                    label="Donativos Necesarios"
-                                    label-placement="floating"
-                                    fill="solid"
-                                    :value="props.params.datosFila.donaciones_recibidas"
-                                    min="1"></ion-input>
-                            </ion-col> -->
                         </ion-row>
                     </ion-grid>
                     <ion-grid>

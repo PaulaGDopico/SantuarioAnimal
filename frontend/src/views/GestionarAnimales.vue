@@ -63,17 +63,6 @@
                                 required>
                             </ion-input>
                         </ion-col>
-                        <!-- <ion-col>
-                            <ion-input
-                                v-model="nombre_afiliado"
-                                :class="errorInputAfiliadoStyle"
-                                label="Nombre Afiliado"
-                                label-placement="floating"
-                                fill="solid"
-                                placeholder="Introduce nombre">
-                            </ion-input>
-                            <div v-if="mostrarErrorAfiliado" class="error-message">{{ mensaje_errorAfiliado }}</div>
-                        </ion-col> -->
                     </ion-row>
                 </ion-grid>
                 <ion-grid>
@@ -209,10 +198,6 @@
                                 </ion-item>
                             </ion-list>
                         </ion-col>
-                        <!-- <ion-col>
-              <ion-input v-model="animalData.donativosNecesarios" type="number" label="Donativos Necesarios" label-placement="floating" fill="solid"
-                min="1"></ion-input>
-            </ion-col> -->
                     </ion-row>
                 </ion-grid>
                 <ion-grid>
@@ -316,11 +301,10 @@ import GestionarAnimalesDeleteButton from "@/components/GestionarAnimalesDeleteB
 
 import { getAllAnimalsWithoutPagination } from "@/services/animal";
 import { pushAnimal } from "@/services/animal";
-//import { getAfiliados } from "@/services/afiliados";
-//import { Afiliado } from "@/types/Afiliado";
+
 import { Habitacion } from "@/types/Habitacion";
 import { getHabitaciones } from "@/services/habitacion";
-//import { getAfiliados } from "@/services/afiliados";
+
 
 // BOTONES MODAL
 const isOpen = ref(false);

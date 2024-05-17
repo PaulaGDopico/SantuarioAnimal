@@ -3,7 +3,7 @@ import { Donacion } from "./Donacion";
 import { Animal } from "./Animal";
 
 export interface Afiliado {
-    id:number | null;
+    id:number;
     nombre:string;
     email:string;
     telefono:string;
