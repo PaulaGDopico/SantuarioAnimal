@@ -29,6 +29,7 @@ export const getAnimal = async (animalId: string) => {
                 animal.estado_adopcion as EstadoAdopcionAnimal
                 ];
 
+
         return animal;
     } catch (error) {
         console.log(error);
@@ -71,6 +72,7 @@ export const getAllAnimales = async () => {
         console.log(error);
     }
 };
+
 export const getAllAnimalsWithoutPagination = async () => {
     try {
         const response = await fetch(API_URL + "/animales");
@@ -80,6 +82,7 @@ export const getAllAnimalsWithoutPagination = async () => {
         console.log(error);
     }
 };
+
 export const pushAnimal = async (animalData: Animal) => {
     try {
         const formData = new FormData();
@@ -132,6 +135,62 @@ export const pushAnimal = async (animalData: Animal) => {
         return false;
     }
 };
+
+export const updateAnimal = async (animalId:number, animalData:Animal) => {
+    try {
+        
+        const formData = new FormData();
+        
+        formData.append("createdAt", animalData.createdAt);
+        formData.append("updatedAt", animalData.updatedAt);
+        formData.append("nombre", animalData.nombre);
+        formData.append("tipo", animalData.tipo);
+        formData.append("estado_adopcion", animalData.estado_adopcion);
+        formData.append("peso", animalData.peso);
+        formData.append("tamanyo", animalData.tamanyo);
+        formData.append("raza", animalData.raza);
+        formData.append("fecha_nacimiento", animalData.fecha_nacimiento);
+        formData.append("fecha_ingreso", animalData.fecha_ingreso);
+        formData.append("sexo", animalData.sexo);
+        formData.append("img", animalData.img);
+        formData.append("descripcion", animalData.descripcion ?? "");
+        formData.append("habitacionId", animalData.habitacionId.toString());
+        if (animalData.donaciones_recibidas) {
+            formData.append(
+                "Donaciones_recibidas",
+                JSON.stringify(animalData.donaciones_recibidas)
+            );
+        } else {
+            formData.append("donaciones_recibidas", "");
+        }
+        formData.append(
+            "afiliadoId",
+            animalData.afiliadoId !== null
+                ? animalData.afiliadoId.toString()
+                : ""
+        );
+
+        const response = await fetch(API_URL + `/animales/${animalId}`, {
+            method: "PUT",
+            body: formData,
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.info("Modificacion exitosa:", data);
+        }
+        if (!response.ok) {
+            throw new Error("Error al intentar modificar el animal.");
+        }
+        return true;
+    } catch (error) {
+        // Manejar errores en caso de que la solicitud falle
+        console.error("Error updating animal:", error);
+        throw error; // Re-lanzar el error para que el componente que llama pueda manejarlo
+    }
+};
+
+
 
 export const deleteAnimal = async (id: number) => {
     try {

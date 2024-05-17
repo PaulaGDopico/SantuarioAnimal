@@ -1,11 +1,12 @@
-import {Donacion} from "@/types/Donacion";
-import {Animal} from "@/types/Animal";
+
+import { Donacion } from "./Donacion";
+import { Animal } from "./Animal";
 
 export interface Afiliado {
-    id: number,
-    nombre: string,
-    email: string,
-    telefono: string,
-    Donaciones_realizadas: Donacion[]
-    Animales_custodiados: Animal[]
+    id:number | null;
+    nombre:string;
+    email:string;
+    telefono:string;
+    Donaciones_realizadas:Array<Donacion>
+    Animales_custodiados:Array<Animal>
 }

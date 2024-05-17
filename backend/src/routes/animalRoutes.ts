@@ -19,6 +19,7 @@ interface Filtros {
     // Agrega más filtros según sea necesario
 }
 
+
 //5 primeros animales
 router.get("/primeros", async (req, res) => {
     try {
@@ -29,6 +30,7 @@ router.get("/primeros", async (req, res) => {
         res.status(400).json({error: "No se han podido recibir los primeros animales"})
     }
 })
+
 
 router.get("/:page", async (req, res) => {
     try {
@@ -120,8 +122,10 @@ router.post("/", upload.single("image"), async (req, res) => {
             sexo,
             img: imageName,
             descripcion,
+
             Habitacion: {connect: {id: Number(habitacionId)}},
             Afiliado: {connect: {id: Number(afiliadoId)}}
+
         });
 
         res.status(201).json(newAnimal);
@@ -131,15 +135,20 @@ router.post("/", upload.single("image"), async (req, res) => {
     }
 });
 
-router.put("/:animalId", upload.single("image"), async (req, res) => {
+router.put("/:animalId", upload.single("img"), async (req, res) => {
     try {
         const animalId = parseInt(req.params.animalId);
 
-        const imageName = req.file ? "/uploads/" + req.file.filename : req.body.img;
+
+        let imageName = req.file ? "/uploads/" + req.file.filename : req.body.img;
+        req.body.habitacionId = parseInt(req.body.habitacionId);
+        delete req.body.Donaciones_recibidas
+        req.body.afiliadoId = parseInt(req.body.afiliadoId)
+
 
         const updatedAnimal = await animalService.updateAnimal(
             animalId,
-            req.body
+            { ...req.body, img: imageName}
         );
 
         res.json(updatedAnimal);
@@ -148,6 +157,7 @@ router.put("/:animalId", upload.single("image"), async (req, res) => {
         res.status(500).json({error: "Internal server error"});
     }
 });
+
 
 router.delete("/:animalId", async (req, res) => {
     try {
