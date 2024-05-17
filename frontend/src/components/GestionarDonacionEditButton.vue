@@ -171,10 +171,12 @@ async function modifyDonation() {
 
   try {
     await putDonacion(props.params.datosFila.id, newDonacion);
+    setOpen(false);
     if (recargarDatos) {
       await recargarDatos()
     }
-    setOpen(false);  // Cierra el modal si la donación se añade exitosamente
+    console.log("aaa")
+    // Cierra el modal si la donación se añade exitosamente
   } catch (error) {
     console.error("Error al añadir la donación", error);
   }
