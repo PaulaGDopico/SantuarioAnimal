@@ -11,7 +11,7 @@ export const getDonaciones = async () => {
     }
 }
 
-export const getDonacionInfo = async (donacionId:string) => {
+export const getDonacionInfo = async (donacionId: string) => {
     try {
         const response = await fetch(API_URL + "/donaciones/" + donacionId);
         const donaciones = await response.json();
@@ -31,13 +31,15 @@ export const getDonacionesOtras = async () => {
     }
 }
 
-export const realizarDonacion = async (donacionId:string, dineroASumar: string) => {
-    const formData = new FormData();
-
-    formData.append("dineroASumar", dineroASumar);
-    const response = await fetch(API_URL+"/donaciones/donar/"+donacionId, {
+export const realizarDonacion = async (donacionId: string, dineroASumar: number) => {
+    console.log(typeof (dineroASumar))
+    console.log(JSON.stringify({"dineroASumar": dineroASumar}))
+    const response = await fetch(API_URL + "/donaciones/donar/" + donacionId, {
         method: "PUT",
-        body: formData
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({"dineroASumar": dineroASumar})
     });
     if (response.ok) {
         const data = await response.json();

@@ -28,7 +28,7 @@ router.put("/donar/:donacionId", async (req, res) => {
     try {
         const donacionId = parseInt(req.params.donacionId);
         const {dineroASumar} = req.body;
-
+        console.log(req.body)
         const updateResult = await donacionesService.updateDineroAlcanzado(
             donacionId,
             parseInt(dineroASumar)
