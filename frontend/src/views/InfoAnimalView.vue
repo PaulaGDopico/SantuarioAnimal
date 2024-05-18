@@ -4,98 +4,62 @@
             <div class="content main-wrapper">
                 <ion-grid class="justify-content-center infoAnimal">
                     <ion-row v-if="animal">
-                        <ion-col
-                            size="12"
-                            size-sm="12"
-                            size-lg="4"
-                            class="datosTecnicos">
-                            <img
-                                :src="API_FILE_URL + animal.img"
-                                alt="Foto de perro"
-                                class="w100" />
+                        <ion-col size="12" size-sm="12" size-lg="4" class="datosTecnicos">
+                            <img :src="API_FILE_URL + animal.img" alt="Foto de perro" class="w100" />
                             <ion-grid>
                                 <ion-row>
-                                    <ion-col size="6" size-sm="3" class="key"
-                                        >Animal</ion-col
-                                    >
+                                    <ion-col size="6" size-sm="3" class="key">Animal</ion-col>
                                     <ion-col size="6" size-sm="3">{{
-                                        animal?.raza
-                                    }}</ion-col>
-                                    <ion-col size="6" size-sm="3" class="key"
-                                        >Estado</ion-col
-                                    >
+                        animal?.raza
+                    }}</ion-col>
+                                    <ion-col size="6" size-sm="3" class="key">Estado</ion-col>
                                     <ion-col size="6" size-sm="3">{{
-                                        animal?.estado_adopcion
-                                    }}</ion-col>
+                            animal?.estado_adopcion
+                        }}</ion-col>
                                 </ion-row>
                                 <ion-row>
-                                    <ion-col size="6" size-sm="3" class="key"
-                                        >Sexo</ion-col
-                                    >
+                                    <ion-col size="6" size-sm="3" class="key">Sexo</ion-col>
                                     <ion-col size="6" size-sm="3">{{
-                                        animal?.sexo
-                                    }}</ion-col>
-                                    <ion-col size="6" size-sm="3" class="key"
-                                        >Raza</ion-col
-                                    >
+                            animal?.sexo
+                        }}</ion-col>
+                                    <ion-col size="6" size-sm="3" class="key">Raza</ion-col>
                                     <ion-col size="6" size-sm="3">{{
-                                        animal?.raza
-                                    }}</ion-col>
+                            animal?.raza
+                        }}</ion-col>
                                 </ion-row>
                                 <ion-row>
-                                    <ion-col size="6" size-sm="3" class="key"
-                                        >Peso</ion-col
-                                    >
+                                    <ion-col size="6" size-sm="3" class="key">Peso</ion-col>
                                     <ion-col size="6" size-sm="3">{{
-                                        animal?.peso
-                                    }}</ion-col>
-                                    <ion-col size="6" size-sm="3" class="key"
-                                        >Altura</ion-col
-                                    >
+                            animal?.peso
+                        }}</ion-col>
+                                    <ion-col size="6" size-sm="3" class="key">Altura</ion-col>
                                     <ion-col size="6" size-sm="3">{{
-                                        animal?.peso
-                                    }}</ion-col>
+                            animal?.peso
+                        }}</ion-col>
                                 </ion-row>
                                 <ion-row>
-                                    <ion-col size="6" size-sm="3" class="key"
-                                        >Nacimiento</ion-col
-                                    >
+                                    <ion-col size="6" size-sm="3" class="key">Nacimiento</ion-col>
                                     <ion-col size="6" size-sm="3">{{
-                                        animal?.fecha_nacimiento
-                                    }}</ion-col>
-                                    <ion-col size="6" size-sm="3" class="key"
-                                        >Entrada</ion-col
-                                    >
+                            animal?.fecha_nacimiento
+                        }}</ion-col>
+                                    <ion-col size="6" size-sm="3" class="key">Entrada</ion-col>
                                     <ion-col size="6" size-sm="3">{{
-                                        animal?.fecha_ingreso
-                                    }}</ion-col>
+                            animal?.fecha_ingreso
+                        }}</ion-col>
                                 </ion-row>
                             </ion-grid>
                         </ion-col>
-                        <ion-col
-                            size="11"
-                            size-md="12"
-                            size-lg="7"
-                            class="w60 adoptaBotones">
+                        <ion-col size="11" size-md="12" size-lg="7" class="w60 adoptaBotones">
                             <h1>{{ animal?.nombre }}</h1>
                             <p>{{ animal?.descripcion }}</p>
                             <div class="d-flex justify-content-center">
-                                <button
-                                    class="btn btn-primary"
-                                    id="open-adopta-modal"
-                                    @click="openAdoptaModal">
+                                <button class="btn btn-primary" id="open-adopta-modal" @click="openAdoptaModal">
                                     Adopta a {{ animal?.nombre }}
                                 </button>
-                                <button
-                                    class="btn btn-primary"
-                                    id="open-apadrina-modal"
-                                    @click="openApadrinaModal">
+                                <button class="btn btn-primary" id="open-apadrina-modal" @click="openApadrinaModal">
                                     Apadrina a {{ animal?.nombre }}
                                 </button>
-                                <RouterLink
-                                    class="btn btn-secondary"
-                                    :to="{ name: 'Voluntariado' }"
-                                    >Hazte Voluntario
+                                <RouterLink class="btn btn-secondary" :to="{ name: 'Voluntariado' }">Hazte Voluntario
                                 </RouterLink>
                             </div>
                         </ion-col>
@@ -113,15 +77,9 @@
 
                     <IonGrid class="cartasAnimal">
                         <ion-row class="justify-content-center">
-                            <AppCartaAnimal
-                                v-for="animal in infoAnimal"
-                                :key="animal.Nombre"
-                                :id="1"
-                                :animal="animal.animal"
-                                :estado-adopcion="animal.estado"
-                                :nombre="animal.Nombre"
-                                :raza="animal.raza"
-                                :urlImg="animal.urlImg" />
+                            <AppCartaAnimal v-for="animal in infoAnimal" :id="animal.id" :key="animal.nombre"
+                                :animal="animal.tipo" :estado-adopcion="animal.estado_adopcion" :nombre="animal.nombre"
+                                :raza="animal.raza" :urlImg="API_FILE_URL + animal.img" />
                         </ion-row>
                     </IonGrid>
                 </section>
@@ -149,7 +107,7 @@ import AppCartaAnimal from "@/components/AppCartaAnimal.vue";
 import { onMounted, ref } from "vue";
 
 import { useRoute } from "vue-router";
-import { getAnimal } from "@/services/animal";
+import { cincoAnimales, getAnimal } from "@/services/animal";
 import { Animal } from "@/types/Animal";
 import { enviarMail } from "@/services/mail";
 //import InfoAnimalAdoptaModal from "@/components/InfoAnimalAdoptaModal.vue";
@@ -185,66 +143,15 @@ const openApadrinaModal = async () => {
 };
 
 const animal = ref<Animal | undefined>(undefined);
+const infoAnimal = ref();
 
 onMounted(async () => {
     const route = useRoute();
     const animalId = route.params.animal_id;
     animal.value = await getAnimal(animalId as string);
+    infoAnimal.value = await cincoAnimales();
 });
 
-//TODO hacer fetch de 5 animales relacionados
-const infoAnimal = ref([
-    {
-        animal: "Perro",
-        estado: "adopcion-urgente",
-        Nombre: "Max",
-        raza: "Labrador Retriever",
-        urlImg: "https://q4grcdwffd4aa6wn.public.blob.vercel-storage.com/uploads/German-Shepherd-dog-Alsatian.webp",
-        altura: "grande",
-        sexo: "macho",
-        peso: 30,
-    },
-    {
-        animal: "Gato",
-        estado: "apadrinado",
-        Nombre: "Luna",
-        raza: "Siamés",
-        urlImg: "https://q4grcdwffd4aa6wn.public.blob.vercel-storage.com/uploads/German-Shepherd-dog-Alsatian.webp",
-        altura: "mediano",
-        sexo: "hembra",
-        peso: 5,
-    },
-    {
-        animal: "Perro",
-        estado: "casos-especiales",
-        Nombre: "Rocky",
-        raza: "Bulldog Francés",
-        urlImg: "https://q4grcdwffd4aa6wn.public.blob.vercel-storage.com/uploads/German-Shepherd-dog-Alsatian.webp",
-        altura: "pequeño",
-        sexo: "macho",
-        peso: 15,
-    },
-    {
-        animal: "Gato",
-        estado: "sin-estado",
-        Nombre: "Simba",
-        raza: "Maine Coon",
-        urlImg: "https://q4grcdwffd4aa6wn.public.blob.vercel-storage.com/uploads/German-Shepherd-dog-Alsatian.webp",
-        altura: "mgrande",
-        sexo: "macho",
-        peso: 20,
-    },
-    {
-        animal: "Perro",
-        estado: "casos-especiales",
-        Nombre: "Bella",
-        raza: "Poodle",
-        urlImg: "https://q4grcdwffd4aa6wn.public.blob.vercel-storage.com/uploads/German-Shepherd-dog-Alsatian.webp",
-        altura: "pequeño",
-        sexo: "hembra",
-        peso: 10,
-    },
-]);
 </script>
 
 <style lang="scss" scoped>
