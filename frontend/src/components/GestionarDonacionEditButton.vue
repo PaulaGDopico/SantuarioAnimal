@@ -68,7 +68,9 @@
 
   </ion-content>
 </template>
+<style lang="scss" scoped>
 
+</style>
 <script lang="ts" setup>
 import {
   IonButton,
