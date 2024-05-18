@@ -130,6 +130,7 @@ import {Afiliado} from "@/types/Afiliado";
 import {Animal} from "@/types/Animal";
 import GestionarDonacionDeleteButton from "@/components/GestionarDonacionDeleteButton.vue";
 import GestionarDonacionEditButton from "@/components/GestionarDonacionEditButton.vue";
+import {API_URL} from "@/middleware/secrets";
 
 // Modal
 const isOpen = ref(false);
@@ -188,7 +189,7 @@ function imageRenderer(params: any) {
   const wrapper = document.createElement("div");
 
   const image = document.createElement("img");
-  image.src += "http://localhost:3000/" + params.data.img;
+  image.src += API_URL +"/"+ params.data.img;
   image.style.width = "100px";
   image.style.height = "100px";
   wrapper.appendChild(image);
