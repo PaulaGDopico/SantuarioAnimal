@@ -11,7 +11,7 @@
               <ion-col>
                 <h1>{{ infoDonacion.titulo }}</h1>
                 <p><strong>Nombre:</strong> {{ infoDonacion.animal.nombre }}</p>
-                <p><strong>Fecha de inicio:</strong> {{ infoDonacion.fecha_inicio }}</p>
+                <p><strong>Fecha de inicio:</strong> {{ dateFormatter(infoDonacion.fecha_inicio) }}</p>
                 <p><strong>Importe:</strong> {{ infoDonacion.dinero_necesario }}€</p>
                 <DonacionSolidariaInfoModal :animal-id="infoDonacion.id.toString()"
                                             :animal-name="infoDonacion.animal.nombre"/>
@@ -66,6 +66,16 @@ function calculateProgress(dinero_necesario: number, dinero_alcanzado: number) {
   progressBarWidth.value = total as unknown as string + '%'
 }
 
+function dateFormatter(dateString: string) {
+  if (dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+  return '';
+}
 
 onMounted(async () => {
   const route = useRoute();
