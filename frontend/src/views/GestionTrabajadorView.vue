@@ -61,7 +61,7 @@
 
 <script lang="ts" setup>
 import AppFooter from "@/components/AppFooter.vue";
-import {IonContent, IonPage} from "@ionic/vue";
+import {IonCol, IonContent, IonGrid, IonPage, IonRow} from "@ionic/vue";
 </script>
 
 <style lang="scss" scoped>
