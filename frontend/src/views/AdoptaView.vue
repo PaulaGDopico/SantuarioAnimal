@@ -1,11 +1,9 @@
 <template>
   <ion-page>
     <ion-content>
-      <SubHeader
-          img-url="/img/pexels-helena-lopes-1959054.jpg"
-          infoBtn="Requisitos para adoptar"
-          texto="En cada mirada, en cada movimiento, en cada latido, un animal en espera de adopción te ofrece un vínculo indeleble lleno de gratitud y afecto. Descubre el regalo incomparable de la compañía animal, y sé parte de una historia donde el amor encuentra su hogar. ¡Adopta hoy y cambia dos vidas para siempre!"
-          titulo="¡Adopta, ama, y sé amado!"></SubHeader>
+      <SubHeader img-url="/img/pexels-helena-lopes-1959054.jpg" infoBtn="Requisitos para adoptar"
+        texto="En cada mirada, en cada movimiento, en cada latido, un animal en espera de adopción te ofrece un vínculo indeleble lleno de gratitud y afecto. Descubre el regalo incomparable de la compañía animal, y sé parte de una historia donde el amor encuentra su hogar. ¡Adopta hoy y cambia dos vidas para siempre!"
+        titulo="¡Adopta, ama, y sé amado!"></SubHeader>
       <div class="content main-wrapper">
         <ion-grid>
           <ion-row>
@@ -13,99 +11,47 @@
               <section class="filtros">
                 <form action="">
                   <h2>Tipo Animal</h2>
-                  <ion-checkbox
-                      id="perro"
-                      v-model="filtros.tipoPerro"
-                      label-placement="end"
-                      name="perro"
-                  >Perro
-                  </ion-checkbox
-                  >
-                  <br/>
-                  <ion-checkbox
-                      id="gato"
-                      v-model="filtros.tipoGato"
-                      label-placement="end"
-                      name="gato"
-                  >Gato
-                  </ion-checkbox
-                  >
+                  <ion-checkbox id="perro" v-model="filtros.tipoPerro" label-placement="end" name="perro">Perro
+                  </ion-checkbox>
+                  <br />
+                  <ion-checkbox id="gato" v-model="filtros.tipoGato" label-placement="end" name="gato">Gato
+                  </ion-checkbox>
                   <h2>Estado</h2>
-                  <ion-checkbox
-                      id="urgente"
-                      v-model="filtros.urgente"
-                      label-placement="end"
-                      name="urgente"
-                  >Adopción urgente
-                  </ion-checkbox
-                  >
-                  <br/>
-                  <ion-checkbox
-                      id="especial"
-                      v-model="filtros.especial"
-                      label-placement="end"
-                      name="especial"
-                  >Casos especiales
-                  </ion-checkbox
-                  >
-                  <br/>
-                  <ion-checkbox
-                      id="apadrinando"
-                      v-model="filtros.apadrinando"
-                      label-placement="end"
-                      name="apadrinando"
-                  >Apadrinando
-                  </ion-checkbox
-                  >
-                  <br/>
-                  <ion-checkbox
-                      id="sinEstado"
-                      v-model="filtros.sinEstado"
-                      label-placement="end"
-                      name="sinEstado"
-                  >Sin clasificación
-                  </ion-checkbox
-                  >
+                  <ion-checkbox id="urgente" v-model="filtros.urgente" label-placement="end" name="urgente">Adopción
+                    urgente
+                  </ion-checkbox>
+                  <br />
+                  <ion-checkbox id="especial" v-model="filtros.especial" label-placement="end" name="especial">Casos
+                    especiales
+                  </ion-checkbox>
+                  <br />
+                  <ion-checkbox id="apadrinando" v-model="filtros.apadrinando" label-placement="end"
+                    name="apadrinando">Apadrinando
+                  </ion-checkbox>
+                  <br />
+                  <ion-checkbox id="sinEstado" v-model="filtros.sinEstado" label-placement="end" name="sinEstado">Sin
+                    clasificación
+                  </ion-checkbox>
                   <h2>Sexo</h2>
-                  <ion-checkbox
-                      id="hembra"
-                      v-model="filtros.hembra"
-                      label-placement="end"
-                      name="hembra"
-                  >Hembra
-                  </ion-checkbox
-                  >
-                  <br/>
-                  <ion-checkbox
-                      id="macho"
-                      v-model="filtros.macho"
-                      label-placement="end"
-                      name="macho"
-                  >Macho
-                  </ion-checkbox
-                  >
+                  <ion-checkbox id="hembra" v-model="filtros.hembra" label-placement="end" name="hembra">Hembra
+                  </ion-checkbox>
+                  <br />
+                  <ion-checkbox id="macho" v-model="filtros.macho" label-placement="end" name="macho">Macho
+                  </ion-checkbox>
                   <h2>Tamaño</h2>
-                  <select
-                      id="tamanyo"
-                      v-model="filtros.tamanyo"
-                      name="tamanyo">
+                  <select id="tamanyo" v-model="filtros.tamanyo" name="tamanyo">
                     <option selected value="todos">Todos</option>
-                    <option value="mgrande">Muy grande</option>
-                    <option value="grande">Grande</option>
-                    <option value="mediano">Mediano</option>
-                    <option value="pequeño">Pequeño</option>
-                    <option value="mpequeño">Muy pequeño</option>
+                    <option value="MUY_GRANDE">Muy grande</option>
+                    <option value="GRANDE">Grande</option>
+                    <option value="MEDIANO">Mediano</option>
+                    <option value="PEQUEÑO">Pequeño</option>
+                    <option value="MUY_PEQUEÑO">Muy pequeño</option>
                   </select>
                   <h2>Peso</h2>
                   <div class="d-flex align-peso">
                     <label class="peso" for="peso">0</label>
-                    <ion-range
-                        id="peso"
-                        v-model="filtros.peso"
-                        :pin="true"
-                        :pin-formatter="pinFormatter"
-                        aria-label="Range with pin"
-                        name="peso"></ion-range>
+                    <ion-range id="peso" v-model="filtros.peso" :pin="true" :pin-formatter="pinFormatter"
+                      aria-label="Range with pin" name="peso"></ion-range>
                     <label class="peso" for="peso">100</label>
                   </div>
                 </form>
@@ -116,26 +62,17 @@
                 <ion-grid>
                   <ion-row class="cartasAnimal">
 
-                    <AppCartaAnimal
-                        v-for="animal in infoAnimal"
-                        :id="animal.id"
-                        :key="animal.nombre"
-                        :animal="animal.tipo"
-                        :estado-adopcion="animal.estado_adopcion"
-                        :nombre="animal.nombre"
-                        :raza="animal.raza"
-                        :urlImg="API_FILE_URL + animal.img"/>
+                    <AppCartaAnimal v-for="animal in infoAnimal" :id="animal.id" :key="animal.id"
+                      :animal="animal.tipo" :estado-adopcion="animal.estado_adopcion" :nombre="animal.nombre"
+                      :raza="animal.raza" :urlImg="API_FILE_URL + animal.img" />
                   </ion-row>
                 </ion-grid>
                 <div class="d-flex justify-content-center paginacion">
                   <button class="buttonPag" @click="anteriorPag()">
                     Anterior
                   </button>
-                  <button
-                      v-for="(numero, index) in paginacion"
-                      :key="index"
-                      class="numberPag"
-                      @click="clickPage(numero)">
+                  <button v-for="(numero, index) in paginacion" :key="index" class="numberPag"
+                    @click="clickPage(numero)">
                     {{ index + 1 }}
                   </button>
                   <button class="buttonPag" @click="siguientePag()">
@@ -153,14 +90,15 @@
   </ion-page>
 </template>
 <script lang="ts" setup>
-import {API_FILE_URL} from "@/middleware/secrets";
+import { API_FILE_URL } from "@/middleware/secrets";
 import SubHeader from "@/components/SubHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
-import {IonCheckbox, IonCol, IonContent, IonGrid, IonPage, IonRange, IonRow} from "@ionic/vue";
+import { IonCheckbox, IonCol, IonContent, IonGrid, IonPage, IonRange, IonRow } from "@ionic/vue";
 import AppCartaAnimal from "@/components/AppCartaAnimal.vue";
-import {onMounted, ref, watch} from "vue";
-import {getAllAnimales, getAnimales} from "@/services/animal";
-import {Animal} from "@/types/Animal";
+import { onMounted, ref, watch } from "vue";
+import { getAllAnimales, getAllAnimalsConFiltros, getAnimales } from "@/services/animal";
+import { Animal } from "@/types/Animal";
+import { Filtros } from "@/types/Filtros";
 
 const pinFormatter = (value: any) => `${value}kg`;
 const infoAnimal = ref<Animal[] | null>(null);
@@ -180,26 +118,40 @@ const filtros = ref({
   peso: 0,
 });
 watch(
-    filtros,
-    async () => {
-      console.log(filtros.value.tamanyo);
-      const animals = await getAnimales(paginaActual.value, filtros.value);
-      if (Array.isArray(animals)) {
-        infoAnimal.value = animals;
-      } else {
-        console.error("Error: Array de animales vacio");
-        infoAnimal.value = null;
-      }
-      if (animals) {
-        paginacion.value = Math.ceil(animals.length / 20);
-        console.log(animals.length); // Suponiendo que hay 20 animales por página
-      } else {
-        // Manejar el caso en que response es undefined
-        console.error("Error: La respuesta de getAllAnimales es undefined");
-      }
-    },
-    {deep: true}
+  filtros,
+  async () => {
+    paginaActual.value = 1;
+    infoAnimal.value = []; //Vaciamos array para evitar posibles errores
+    console.log(filtros.value.tamanyo);
+    const animalsPaginados = await getAnimales(paginaActual.value, filtros.value);
+    if (Array.isArray(animalsPaginados)) {
+      infoAnimal.value = animalsPaginados;
+    } else {
+      console.error("Error: Array de animales vacio");
+      infoAnimal.value = null;
+    }
+    //Calcular animales paginados Filtrados
+    actualizarPaginacionFiltrada(filtros.value)
+  },
+  { deep: true }
 );
+
+async function actualizarPaginacionFiltrada(filtros:Filtros) {
+  const paginacionAnimales = await getAllAnimalsConFiltros(filtros);
+    console.log("ESTOY AQUI", paginacionAnimales)
+    if (paginacionAnimales?.length) {
+      if (paginacionAnimales.length > 0) {
+        paginacion.value = Math.ceil(paginacionAnimales.length / 20);
+        console.log(paginacion.value); // Suponiendo que hay 20 animales por página
+      } else {
+        paginacion.value = 1;
+      }
+
+    } else {
+      // Manejar el caso en que response es undefined
+      console.error("Error: La respuesta de getAllAnimales es undefined");
+    }
+}
 onMounted(async () => {
   const animals = await getAnimales(paginaActual.value, filtros.value);
   if (Array.isArray(animals)) {
@@ -219,8 +171,9 @@ onMounted(async () => {
 });
 
 async function siguientePag() {
-  paginaActual.value++;
+  console.log(paginaActual.value)
   if (paginaActual.value < paginacion.value) {
+    paginaActual.value++;
     const animals = await getAnimales(paginaActual.value, filtros.value);
     if (Array.isArray(animals)) {
       infoAnimal.value = animals;
@@ -232,12 +185,13 @@ async function siguientePag() {
 }
 
 async function anteriorPag() {
-  if (paginaActual.value >= 1) {
+  if (paginaActual.value > 1) {
     paginaActual.value--;
+    console.log(paginaActual.value)
     if (paginaActual.value < paginacion.value) {
       const animals = await getAnimales(
-          paginaActual.value,
-          filtros.value
+        paginaActual.value,
+        filtros.value
       );
       if (Array.isArray(animals)) {
         infoAnimal.value = animals;

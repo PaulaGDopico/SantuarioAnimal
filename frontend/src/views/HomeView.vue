@@ -156,25 +156,14 @@ import SubHeader from "@/components/SubHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
 import {IonCol, IonContent, IonGrid, IonPage, IonRow} from "@ionic/vue";
 import AppCartaAnimal from "@/components/AppCartaAnimal.vue";
-import {getAnimales} from "@/services/animal";
+import {cincoAnimalesUrgentes, getAnimales} from "@/services/animal";
 import {onMounted, ref} from "vue";
 import {API_FILE_URL} from "@/middleware/secrets";
 
 const infoAnimal = ref();
-const filtros = ref({
-  tipoPerro: false,
-  tipoGato: false,
-  urgente: false,
-  especial: false,
-  apadrinando: false,
-  sinEstado: false,
-  hembra: false,
-  macho: false,
-  tamanyo: "todos",
-  peso: 0,
-});
+
 onMounted(async () => {
-  infoAnimal.value = await getAnimales(1, filtros.value);
+  infoAnimal.value = await cincoAnimalesUrgentes();
 });
 </script>
 <style lang="scss" scoped>
