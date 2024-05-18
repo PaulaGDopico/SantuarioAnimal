@@ -14,7 +14,7 @@ interface Filtros {
     sinEstado: boolean,
     hembra: boolean,
     macho: boolean,
-    altura: string,
+    tamanyo: string,
     peso: string,
     // Agrega más filtros según sea necesario
 }
@@ -30,7 +30,39 @@ router.get("/primeros", async (req, res) => {
         res.status(400).json({error: "No se han podido recibir los primeros animales"})
     }
 })
+//5 primeros animales URGENTEs para pagina de inicio.
+router.get("/primerosUrgentes", async (req, res) => {
+    try {
+        const primerosAnimales = await animalService.getFiveFirstUrgentAnimals();
+        res.json(primerosAnimales)
+    } catch (error) {
+        console.error("Error recibiendo los primeros", error);
+        res.status(400).json({error: "No se han podido recibir los primeros animales"})
+    }
+})
 
+router.get("/allAnimalsWithFilter", async (req, res) => {
+    try {
+        const filtros: Filtros = {
+            tipoPerro: req.query.tipoPerro === 'true',
+            tipoGato: req.query.tipoGato === 'true',
+            urgente: req.query.urgente === 'true',
+            especial: req.query.especial === 'true',
+            apadrinando: req.query.apadrinando === 'true',
+            sinEstado: req.query.sinEstado === 'true',
+            hembra: req.query.hembra === 'true',
+            macho: req.query.macho === 'true',
+            tamanyo: req.query.tamanyo as string || "todos",
+            peso: req.query.peso as string || '0',
+        };
+
+        const animales = await animalService.getAllAnimalsConFiltros(filtros);
+        res.json(animales);
+    } catch (error) {
+        console.error("Error retrieving animales:", error);
+        res.status(400).json({error: "Invalid parameters"});
+    }
+});
 
 router.get("/:page", async (req, res) => {
     try {
@@ -51,7 +83,7 @@ router.get("/:page", async (req, res) => {
             sinEstado: req.query.sinEstado === 'true',
             hembra: req.query.hembra === 'true',
             macho: req.query.macho === 'true',
-            altura: req.query.altura as string || "todos",
+            tamanyo: req.query.tamanyo as string || "todos",
             peso: req.query.peso as string || '0',
         };
 

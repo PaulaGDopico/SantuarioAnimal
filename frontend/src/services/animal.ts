@@ -72,10 +72,54 @@ export const getAllAnimales = async () => {
         console.log(error);
     }
 };
+export const getAllAnimalsConFiltros = async (filtros: Filtros) => {
+    try {
+        // Construir la URL de la solicitud con parámetros de consulta para los filtros
+        let url = API_URL + "/animales/allAnimalsWithFilter";
+        if (filtros) {
+            const queryParams = new URLSearchParams();
+            Object.entries(filtros).forEach(([key, value]) => {
+                if (typeof value === 'boolean') {
+                    queryParams.append(key, value.toString());
+                } else if (typeof value === 'string' || typeof value === 'number') {
+                    queryParams.append(key, value.toString());
+                }
+            });
+            console.log(queryParams)
+            url += `?${queryParams.toString()}`;
+        }
 
+        const response = await fetch(url);
+        const animales: Array<Animal> = await response.json();
+        console.log(response);
+        return animales;
+    } catch (error) {
+        console.log(error);
+    }
+};
 export const getAllAnimalsWithoutPagination = async () => {
     try {
         const response = await fetch(API_URL + "/animales");
+        const animales: Array<Animal> = await response.json();
+        return animales;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const cincoAnimalesUrgentes = async () => {
+    try {
+        const response = await fetch(API_URL + "/animales/primerosUrgentes");
+        const animales: Array<Animal> = await response.json();
+        return animales;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const cincoAnimales = async () => {
+    try {
+        const response = await fetch(API_URL + "/animales/primeros");
         const animales: Array<Animal> = await response.json();
         return animales;
     } catch (error) {

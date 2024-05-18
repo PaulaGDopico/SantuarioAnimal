@@ -1,37 +1,40 @@
 <template>
   <ion-page>
     <ion-content>
+
       <ion-grid>
-        <ion-row class="ion-align-items-center">
-          <ion-col size="2">
-            <ion-button @click="() => router.push('/gestion')">
-              Volver Atrás
-            </ion-button>
-          </ion-col>
-          <ion-col class="ion-text-center" size="">
-            <h1>Gestionar Donaciones</h1>
-          </ion-col>
-          <ion-col size="2">
-            <div class="d-flex ion-justify-content-end">
-              <ion-button @click="setOpen(true)">
-                Añadir donación
+        <div class="container">
+          <ion-row class="ion-align-items-center">
+            <ion-col size="2">
+              <ion-button @click="() => router.push('/gestion')">
+                Volver Atrás
               </ion-button>
-            </div>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <ag-grid-vue :animateRows="true"
-                         :columnDefs="columnDefs"
-                         :editType="'fullRow'"
-                         :pagination="true"
-                         :rowData="rowData"
-                         :suppressClickEdit="true"
-                         class="ag-theme-quartz"
-                         style="height: 500px">
-            </ag-grid-vue>
-          </ion-col>
-        </ion-row>
+            </ion-col>
+            <ion-col class="ion-text-center" size="">
+              <h1>Gestionar Donaciones</h1>
+            </ion-col>
+            <ion-col size="2">
+              <div class="d-flex ion-justify-content-end">
+                <ion-button @click="setOpen(true)">
+                  Añadir donación
+                </ion-button>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ag-grid-vue :animateRows="true"
+                           :columnDefs="columnDefs"
+                           :editType="'fullRow'"
+                           :pagination="true"
+                           :rowData="rowData"
+                           :suppressClickEdit="true"
+                           class="ag-theme-quartz"
+                           style="height: 500px">
+              </ag-grid-vue>
+            </ion-col>
+          </ion-row>
+        </div>
         <ion-row>
           <app-footer></app-footer>
         </ion-row>
@@ -88,6 +91,7 @@
               </ion-col>
             </ion-row>
           </ion-grid>
+
         </ion-content>
       </ion-modal>
     </ion-content>
@@ -138,7 +142,7 @@ const columnDefs = ref([
   {headerName: "Imagen", field: "image", cellRenderer: imageRenderer},
   {headerName: "Dinero necesario", field: "dinero_necesario", sortable: true, filter: true},
   {headerName: "Dinero alcanzado", field: "dinero_alcanzado", sortable: true, filter: true},
-  {headerName: "Fecha de inicio", field: "fecha_inicio", sortable: true, filter: true},
+  {headerName: "Fecha de inicio", field: "fecha_inicio", sortable: true, filter: true, cellRenderer: dateFormatter},
   {headerName: "Animal", field: "animalId", sortable: true, filter: true},
   {headerName: "Afiliado", field: "afiliadoId", sortable: true, filter: true},
   {
@@ -158,6 +162,18 @@ const columnDefs = ref([
   },
 ])
 const rowData: any = ref([])
+
+function dateFormatter(params: any) {
+  if (params.value) {
+    const date = new Date(params.value);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+  return '';
+}
+
 const recargarDatos = async () => {
   try {
     rowData.value = await getDonaciones();
@@ -271,6 +287,7 @@ onMounted(async () => {
 </script>
 <style lang="scss" scoped>
 .container {
-  margin: 5vh 10vw;
+  margin: 20px auto;
+  max-width: 1440px;
 }
 </style>

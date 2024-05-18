@@ -1,4 +1,4 @@
-import {Prisma} from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import prisma from "../prismaClient";
 
 interface Filtros {
@@ -10,7 +10,7 @@ interface Filtros {
     sinEstado: boolean,
     hembra: boolean,
     macho: boolean,
-    altura: string,
+    tamanyo: string,
     peso: string,
     // Agrega más filtros según sea necesario
 }
@@ -34,7 +34,7 @@ export const getAllAnimals = async (page_num: number, offset: number, filtros: F
                 };
                 if (filtros.urgente) where.estado_adopcion.in.push('ADOPCION_URGENTE');
                 if (filtros.especial) where.estado_adopcion.in.push('CASOS_ESPECIALES');
-                if (filtros.apadrinando) where.estado_adopcion.in.push('APADRINANDO');
+                if (filtros.apadrinando) where.estado_adopcion.in.push('APADRINADO');
                 if (filtros.sinEstado) where.estado_adopcion.in.push('SIN_ESTADO');
             }
             if (filtros.hembra || filtros.macho) {
@@ -44,9 +44,9 @@ export const getAllAnimals = async (page_num: number, offset: number, filtros: F
                 if (filtros.hembra) where.sexo.in.push('HEMBRA');
                 if (filtros.macho) where.sexo.in.push('MACHO');
             }
-            if (filtros.altura !== "todos") {
+            if (filtros.tamanyo !== "todos") {
                 where.tamanyo = {
-                    equals: filtros.altura
+                    equals: filtros.tamanyo
                 };
             }
             if (parseInt(filtros.peso) > 0) {
@@ -78,18 +78,79 @@ export const getAllAnimals = async (page_num: number, offset: number, filtros: F
     }
 };
 
+// Coger todos los animales filtrados SIN PAGINACION
+export const getAllAnimalsConFiltros = async (filtros: Filtros) => {
+    try {
+        let where: any = {}; // Inicializar el objeto de filtros
+
+        // Construir el objeto de filtros basado en los parámetros proporcionados
+        if (filtros) {
+            if (filtros.tipoPerro || filtros.tipoGato) {
+                where.tipo = {
+                    in: []
+                };
+                if (filtros.tipoPerro) where.tipo.in.push('PERRO');
+                if (filtros.tipoGato) where.tipo.in.push('GATO');
+            }
+            if (filtros.urgente || filtros.especial || filtros.apadrinando || filtros.sinEstado) {
+                where.estado_adopcion = {
+                    in: []
+                };
+                if (filtros.urgente) where.estado_adopcion.in.push('ADOPCION_URGENTE');
+                if (filtros.especial) where.estado_adopcion.in.push('CASOS_ESPECIALES');
+                if (filtros.apadrinando) where.estado_adopcion.in.push('APADRINADO');
+                if (filtros.sinEstado) where.estado_adopcion.in.push('SIN_ESTADO');
+            }
+            if (filtros.hembra || filtros.macho) {
+                where.sexo = {
+                    in: []
+                };
+                if (filtros.hembra) where.sexo.in.push('HEMBRA');
+                if (filtros.macho) where.sexo.in.push('MACHO');
+            }
+            if (filtros.tamanyo !== "todos") {
+                where.tamanyo = {
+                    equals: filtros.tamanyo
+                };
+            }
+            if (parseInt(filtros.peso) > 0) {
+                where.peso = {
+                    equals: filtros.peso
+                };
+            }
+        }
+        // Si se proporcionaron filtros, aplicarlos a la consulta
+        return await prisma.animal.findMany({
+            where,
+        });
+
+    } catch (error) {
+        console.error("Error retrieving animales:", error);
+        throw error;
+    }
+};
+
+//Coger todos los animales sin paginacion ni filtros
 export const getAllAnimalsWithoutPagination = async () => {
     return prisma.animal.findMany({})
 }
 
 export const getFiveFirstAnimals = async () => {
-    return prisma.animal.findMany({take: 5})
+    return prisma.animal.findMany({ take: 5 })
+}
+export const getFiveFirstUrgentAnimals = async () => {
+    return prisma.animal.findMany({
+        take: 5,
+        where: {
+            estado_adopcion: "ADOPCION_URGENTE"
+        }
+    })
 }
 
 
 export const getAnimal = async (animalId: number) => {
     return prisma.animal.findUnique({
-        where: {id: animalId},
+        where: { id: animalId },
     });
 };
 
@@ -119,7 +180,7 @@ export const updateAnimal = async (
     newData: Prisma.AnimalUpdateInput
 ) => {
     return prisma.animal.update({
-        where: {id: animalId},
+        where: { id: animalId },
         data: newData,
     });
 };
@@ -128,11 +189,11 @@ export const deleteAnimal = async (animalId: number) => {
     try {
         await prisma.$transaction(async (tx) => {
             await tx.donacion.deleteMany({
-                where: {animalId: animalId},
+                where: { animalId: animalId },
             });
 
             await tx.animal.delete({
-                where: {id: animalId},
+                where: { id: animalId },
             });
         });
 

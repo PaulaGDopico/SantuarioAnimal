@@ -100,7 +100,7 @@
                       label="Nombre"
                       label-placement="floating"
                       placeholder="Introduce tu nombre"></ion-input>
-                  <p>{{ errors.nombre.value }}</p>
+                  <ion-text color="danger">{{ errors.nombre.value }}</ion-text>
                 </ion-col>
               </ion-col>
               <ion-col size="12" size-sm="6">
@@ -112,7 +112,7 @@
                       label="Apellidos"
                       label-placement="floating"
                       placeholder="Introduce tus apellidos"></ion-input>
-                  <p>{{ errors.apellidos.value }}</p>
+                  <ion-text color="danger">{{ errors.apellidos.value }}</ion-text>
                 </ion-col>
               </ion-col>
             </ion-row>
@@ -127,7 +127,7 @@
                       label="Teléfono"
                       label-placement="floating"
                       placeholder="Introduce tu teléfono"></ion-input>
-                  <p>{{ errors.telefono.value }}</p>
+                  <ion-text color="danger">{{ errors.telefono.value }}</ion-text>
                 </ion-col>
               </ion-col>
 
@@ -140,7 +140,7 @@
                       label="Correo"
                       label-placement="floating"
                       placeholder="Introduce tu correo"></ion-input>
-                  <p>{{ errors.correo.value }}</p>
+                  <ion-text color="danger">{{ errors.correo.value }}</ion-text>
                 </ion-col>
               </ion-col>
               <ion-col size="12" size-sm="6">
@@ -154,9 +154,10 @@
                       label-placement="floating"
                       placeholder="Introduce tu fecha de nacimiento"
                       type="date"></ion-input>
-                  <p>
+                  <ion-text color="danger">
                     {{ errors.fecha_nacimiento.value }}
-                  </p></ion-col
+                  </ion-text>
+                </ion-col
                 >
               </ion-col
               >
@@ -180,7 +181,7 @@
                 </ion-checkbox>
               </ion-col>
               <ion-col size="12">
-                <p>{{ politicaAceptadaError }}</p>
+                <ion-text color="danger">{{ politicaAceptadaError }}</ion-text>
               </ion-col>
             </ion-row>
             <ion-row>
@@ -381,5 +382,17 @@ watch(fecha_nacimiento, (newValue) => {
 
 .orange {
   background-color: var(--ion-color-primary);
+  position: relative;
+}
+
+.orange::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2); /*Ajustar la opacidad*/
+  pointer-events: none;
 }
 </style>

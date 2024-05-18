@@ -1,7 +1,7 @@
 <template>
   <ion-col class="cartaAnimal" size="12" size-lg="2" size-md="3" size-sm="5">
     <div class="contenedorImg">
-      <h3 :class="props.estadoAdopcion">{{ props.estadoAdopcion }}</h3>
+      <h3 :class="props.estadoAdopcion">{{ estadoAdopcionTitle }}</h3>
       <img :src="props.urlImg" alt="Foto animal">
     </div>
     <h1>{{ props.nombre }}</h1>
@@ -19,6 +19,7 @@
 </template>
 <script lang="ts" setup>
 import {IonCol} from "@ionic/vue";
+import { ref } from "vue";
 
 const props = defineProps({
   id: {
@@ -46,6 +47,20 @@ const props = defineProps({
     required: true
   }
 })
+const estadoAdopcionTitle = asignarTituloEstado(props.estadoAdopcion)
+function asignarTituloEstado(estadoAdopcion:string) {
+  switch(estadoAdopcion) {
+    case 'ADOPCION_URGENTE':
+      return 'Adopción urgente';
+    case 'CASOS_ESPECIALES':
+      return 'Casos Especiales';
+    case 'APADRINADO':
+      return 'Apadrinado';
+    case 'SIN_ESTADO':
+      return '';
+  }
+}
+
 </script>
 <style lang="scss" scoped>
 ion-col {

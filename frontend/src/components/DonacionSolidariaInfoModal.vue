@@ -13,34 +13,35 @@
     <ion-content class="ion-padding">
       <ion-list>
         <ion-item>
-          <ion-input label="causa" label-placement="floating" required type="text"></ion-input>
+          <ion-input label="Causa" label-placement="floating" required type="text"></ion-input>
         </ion-item>
         <ion-item>
           <ion-input v-model="importeDonar" label="Importe" label-placement="floating" required
                      type="number"></ion-input>
         </ion-item>
+        <ion-text class="error" color="danger">{{ errorimporteDonar }}</ion-text>
         <ion-item :class="{ 'ion-invalid': !isCardNumberValid }">
           <ion-input v-model="creditCard.number" label="Número de tarjeta" label-placement="floating" required
                      type="number"></ion-input>
         </ion-item>
+        <ion-text class="error" color="danger">{{ errorisCardNumberValid }}</ion-text>
         <ion-item :class="{ 'ion-invalid': !isNameValid }">
           <ion-input v-model="creditCard.name" label="Nombre en la tarjeta" label-placement="floating" required
                      type="text"></ion-input>
         </ion-item>
+        <ion-text class="error" color="danger">{{ errorisNameValid }}</ion-text>
         <ion-item :class="{ 'ion-invalid': !isExpiryValid }">
           <ion-input v-model="creditCard.expiry" label="Fecha de Vencimiento (MM/YY)" label-placement="floating"
                      required type="text"></ion-input>
         </ion-item>
+        <ion-text class="error" color="danger">{{ errorisExpiryValid }}</ion-text>
         <ion-item :class="{ 'ion-invalid': !isCvvValid }">
           <ion-input v-model="creditCard.cvv" label="Código de Seguridad (CVV)" label-placement="floating" required
                      type="number"></ion-input>
         </ion-item>
+        <ion-text class="error" color="danger">{{ errorisCvvValid }}</ion-text>
       </ion-list>
       <ion-button expand="block" @click="submitForm(props.animalId,importeDonar)">Enviar</ion-button>
-      <p class="error">{{ errorisCardNumberValid }}</p>
-      <p class="error">{{ errorisNameValid }}</p>
-      <p class="error">{{ errorisExpiryValid }}</p>
-      <p class="error">{{ errorisCvvValid }}</p>
     </ion-content>
   </ion-modal>
 </template>
@@ -57,7 +58,8 @@ import {
   IonList,
   IonModal,
   IonTitle,
-  IonToolbar
+  IonToolbar,
+  IonText
 } from "@ionic/vue";
 import {computed, ref} from "vue";
 
@@ -104,7 +106,7 @@ const submitForm = async (donacionId: string, dinero_necesario_string: string) =
     errorisCardNumberValid.value = 'La longitud debe ser de 16 dígitos';
   }
   if (!isExpiryValid.value) {
-    errorisExpiryValid.value = 'Formato de fecha de caducidad Incorrecto. Asegurate de usar formato MM/YY.';
+    errorisExpiryValid.value = 'Formato incorrecto. Asegurate de usar formato MM/YY.';
   }
   if (!isCvvValid.value) {
     errorisCvvValid.value = 'CVV No valido';
@@ -116,7 +118,7 @@ const submitForm = async (donacionId: string, dinero_necesario_string: string) =
     errorimporteDonar.value = 'El importe debe ser mayor a 0€';
   }
 
-  if (isCardNumberValid.value && isNameValid.value && isExpiryValid.value && isCvvValid.value) {
+  if (isCardNumberValid.value && isNameValid.value && isExpiryValid.value && isCvvValid.value && importeDonarValue <= 0 ) {
     try {
       console.log(`
         Dinero a sumar: ${dinero_necesario}:${typeof dinero_necesario}
@@ -149,6 +151,6 @@ const isValidCvv = (cvv: string) => {
 </script>
 <style lang="scss" scoped>
 .error {
-  color: red;
+  margin-left:20px; 
 }
 </style>
