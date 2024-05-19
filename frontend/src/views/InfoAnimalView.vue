@@ -32,9 +32,9 @@
                                     <ion-col size="6" size-sm="3">{{
                             animal?.peso
                         }}</ion-col>
-                                    <ion-col size="6" size-sm="3" class="key">Altura</ion-col>
+                                    <ion-col size="6" size-sm="3" class="key">Tamaño</ion-col>
                                     <ion-col size="6" size-sm="3">{{
-                            animal?.peso
+                            animal?.tamanyo
                         }}</ion-col>
                                 </ion-row>
                                 <ion-row>

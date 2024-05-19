@@ -476,7 +476,6 @@ const resetFormData = async () => {
 };
 
 const subirAnimal = async (animalData: any) => {
-  console.log(animalData);
   try {
     existe_habitacion.value = false
     fecha_incorrecta.value = false
