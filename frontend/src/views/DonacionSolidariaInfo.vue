@@ -6,7 +6,7 @@
           <ion-grid v-if="infoDonacion" class="fondo-naranja">
             <ion-row>
               <ion-col size="12" size-md="4">
-                <img :src="`${API_URL}${infoDonacion.img}`" alt="Foto Animal Urgente" class="img-height">
+                <img :src="`${infoDonacion.img}`" alt="Foto Animal Urgente" class="img-height">
               </ion-col>
               <ion-col>
                 <h1>{{ infoDonacion.titulo }}</h1>
@@ -37,7 +37,7 @@
                                      :descripcion="donacion.contexto" :donado="donacion.dinero_alcanzado"
                                      :fondoNecesario="donacion.dinero_necesario"
                                      :nombre="donacion.animal.nombre"
-                                     :urlImg="`${API_FILE_URL}${donacion.img}`"/>
+                                     :urlImg="`${donacion.img}`"/>
             </ion-row>
           </ion-grid>
         </section>
@@ -55,7 +55,6 @@ import AppFooter from '@/components/AppFooter.vue';
 import {getDonacionesOtras, getDonacionInfo} from "@/services/donacion";
 import {useRoute} from "vue-router";
 import {Donacion} from "@/types/Donacion";
-import {API_FILE_URL, API_URL} from "@/middleware/secrets";
 
 const infoDonacion = ref<Donacion | undefined>(undefined);
 const listaDonaciones = ref();

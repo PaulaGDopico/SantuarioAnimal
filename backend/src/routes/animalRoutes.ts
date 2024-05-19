@@ -1,6 +1,7 @@
 import express from "express";
 import upload from "../middleware/multerMiddleware";
 import * as animalService from "../services/animalService";
+import {CustomFile} from "../types/customfile";
 
 const router = express.Router();
 //Multiples animales
@@ -124,7 +125,7 @@ router.get("/animal/:animalId", async (req, res) => {
     }
 });
 
-router.post("/", upload.single("image"), async (req, res) => {
+router.post("/", upload, async (req, res) => {
 
     try {
         const {
@@ -141,7 +142,11 @@ router.post("/", upload.single("image"), async (req, res) => {
             habitacionId,
             afiliadoId
         } = req.body;
-        const imageName = req.file ? "/uploads/" + req.file.filename : "";
+
+        let imageName: string;
+        const file: CustomFile = req.file as CustomFile
+        imageName = file.blob.url;
+
         const newAnimal = await animalService.createAnimal({
             nombre,
             tipo,
@@ -167,12 +172,19 @@ router.post("/", upload.single("image"), async (req, res) => {
     }
 });
 
-router.put("/:animalId", upload.single("img"), async (req, res) => {
+router.put("/:animalId", upload, async (req, res) => {
     try {
         const animalId = parseInt(req.params.animalId);
 
+        let imageName: string;
 
-        let imageName = req.file ? "/uploads/" + req.file.filename : req.body.img;
+        if (req.file){
+            const file: CustomFile = req.file as CustomFile
+            imageName = file.blob.url;
+        }else{
+            imageName = req.body.img
+        }
+
         req.body.habitacionId = parseInt(req.body.habitacionId);
         delete req.body.Donaciones_recibidas
         req.body.afiliadoId = parseInt(req.body.afiliadoId)

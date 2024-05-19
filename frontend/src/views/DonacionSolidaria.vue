@@ -34,7 +34,7 @@
                     <ion-row class="ion-justify-content-center">
                         <DonacionSolidariaCard v-for="donacion in listaDonaciones" :key="donacion.id" :id="donacion.id"
                             :nombre="donacion.animal.nombre" :descripcion="donacion.contexto" :donado="donacion.dinero_alcanzado"
-                            :fondoNecesario="donacion.dinero_necesario" :urlImg="`${API_FILE_URL}${donacion.img}`" />
+                            :fondoNecesario="donacion.dinero_necesario" :urlImg="`${donacion.img}`" />
                     </ion-row>
                 </ion-grid>
             </div>
@@ -56,7 +56,6 @@ import DonacionSolidariaCard from '@/components/DonacionSolidariaCard.vue';
 import { onMounted, ref } from 'vue';
 import AppFooter from '@/components/AppFooter.vue';
 import { getDonaciones } from "@/services/donacion";
-import {API_FILE_URL} from "@/middleware/secrets";
 
 const listaDonaciones = ref();
 

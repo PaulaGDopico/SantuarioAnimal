@@ -2,6 +2,7 @@ import express from "express";
 import * as donacionesService from "../services/donacionesService";
 import {getDonacion} from "../services/donacionesService";
 import upload from "../middleware/multerMiddleware";
+import {CustomFile} from "../types/customfile";
 
 const router = express.Router();
 
@@ -57,7 +58,7 @@ router.get("/:id", async (req, res) => {
     }
 })
 
-router.post("/", upload.single("image"), async (req, res) => {
+router.post("/", upload, async (req, res) => {
     try {
         const {
             titulo,
@@ -68,7 +69,11 @@ router.post("/", upload.single("image"), async (req, res) => {
             animalId,
             afiliadoId,
         } = req.body;
-        const imageName = req.file ? "/uploads/" + req.file.filename : ""
+
+        let imageName: string;
+        const file: CustomFile = req.file as CustomFile
+        imageName = file.blob.url;
+
         const newDonacion = await donacionesService.createDonacion({
             titulo,
             contexto,
@@ -87,7 +92,7 @@ router.post("/", upload.single("image"), async (req, res) => {
     }
 })
 
-router.put("/:donacionId", upload.single("image"), async (req, res) => {
+router.put("/:donacionId", upload, async (req, res) => {
     try {
         const donacionId = parseInt(req.params.donacionId);
         const donacion = await getDonacion(donacionId)
@@ -95,8 +100,14 @@ router.put("/:donacionId", upload.single("image"), async (req, res) => {
             res.status(400).json({error: "No existe esa donación"})
             return
         }
-        const imageName = req.file ? "/uploads/" + req.file.filename : donacion.img;
 
+        let imageName:string;
+        if (req.file){
+            const file: CustomFile = req.file as CustomFile
+            imageName = file.blob.url;
+        }else{
+            imageName = req.body.img
+        }
         const updateDonacion = await donacionesService.updateDonacion(
             donacionId,
             {...req.body, afiliadoId: Number(req.body.afiliadoId), animalId: Number(req.body.animalId), img: imageName}

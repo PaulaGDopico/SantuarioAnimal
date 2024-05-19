@@ -5,7 +5,7 @@
                 <ion-grid class="justify-content-center infoAnimal">
                     <ion-row v-if="animal">
                         <ion-col size="12" size-sm="12" size-lg="4" class="datosTecnicos">
-                            <img :src="API_FILE_URL + animal.img" alt="Foto de perro" class="w100" />
+                            <img :src="animal.img" alt="Foto de perro" class="w100" />
                             <ion-grid>
                                 <ion-row>
                                     <ion-col size="6" size-sm="3" class="key">Animal</ion-col>
@@ -79,7 +79,7 @@
                         <ion-row class="justify-content-center">
                             <AppCartaAnimal v-for="animal in infoAnimal" :id="animal.id" :key="animal.nombre"
                                 :animal="animal.tipo" :estado-adopcion="animal.estado_adopcion" :nombre="animal.nombre"
-                                :raza="animal.raza" :urlImg="API_FILE_URL + animal.img" />
+                                :raza="animal.raza" :urlImg="animal.img" />
                         </ion-row>
                     </IonGrid>
                 </section>
@@ -90,7 +90,6 @@
 </template>
 
 <script setup lang="ts">
-import { API_FILE_URL } from "@/middleware/secrets";
 import InfoAnimalAdoptaModal from "@/components/InfoAnimalAdoptaModal.vue";
 import InfoAnimalApadrinaModal from "@/components/InfoAnimalApadrinaModal.vue";
 import AppFooter from "@/components/AppFooter.vue";

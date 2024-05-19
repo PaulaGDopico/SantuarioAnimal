@@ -538,12 +538,12 @@ onMounted(async () => {
     console.error("Error al obtener los animales:", error);
   }
 });
-import { API_URL } from "@/middleware/secrets";
+
 function imageRenderer(params: any) {
   const wrapper = document.createElement("div");
 
   const image = document.createElement("img");
-  image.src += API_URL+"/" + params.data.img;
+  image.src += params.data.img;
   image.style.width = "100px";
   image.style.height = "100px";
   wrapper.appendChild(image);

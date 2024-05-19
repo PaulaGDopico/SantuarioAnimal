@@ -77,7 +77,7 @@
                 :estado-adopcion="animal.estado_adopcion"
                 :nombre="animal.nombre"
                 :raza="animal.raza"
-                :urlImg="API_FILE_URL + animal.img"/>
+                :urlImg="animal.img"/>
           </ion-row>
         </ion-grid>
       </section>
@@ -158,7 +158,6 @@ import {IonCol, IonContent, IonGrid, IonPage, IonRow} from "@ionic/vue";
 import AppCartaAnimal from "@/components/AppCartaAnimal.vue";
 import {cincoAnimalesUrgentes} from "@/services/animal";
 import {onMounted, ref} from "vue";
-import {API_FILE_URL} from "@/middleware/secrets";
 
 const infoAnimal = ref();
 
