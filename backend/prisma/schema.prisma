@@ -22,7 +22,7 @@ enum Sexo {
 enum EstadoAdopcionAnimal {
   ADOPCION_URGENTE
   CASOS_ESPECIALES
-  APADRINANDO
+  APADRINADO
   SIN_ESTADO
 }
 
@@ -50,8 +50,8 @@ model Animal {
   Habitacion           Habitacion @relation(fields: [habitacionId], references: [id])
   habitacionId         Int
   Donaciones_recibidas Donacion[]
-  Afiliado             Afiliado @relation(fields: [afiliadoId], references: [id])
-  afiliadoId           Int
+  Afiliado             Afiliado?  @relation(fields: [afiliadoId], references: [id])
+  afiliadoId           Int?
 }
 
 model Habitacion {

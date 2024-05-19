@@ -1,12 +1,19 @@
 import prisma from "../prismaClient";
 
 export const getAllHabitaciones = async () => {
-	return prisma.habitacion.findMany();
+	return prisma.habitacion.findMany({
+		include: {
+            animals: true, // Incluye la relación de animales
+        },
+	});
 };
 
 export const getHabitacionById = async (id: number) => {
 	return prisma.habitacion.findUnique({
 		where: { id },
+		include: {
+            animals: true, // Incluye la relación de animales
+        },
 	});
 };
 

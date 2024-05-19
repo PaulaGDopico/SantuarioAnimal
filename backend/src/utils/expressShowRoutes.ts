@@ -23,7 +23,7 @@ function split(thing: any) {
 	} else if (thing.fast_slash) {
 		return "";
 	} else {
-		var match = thing
+		const match = thing
 			.toString()
 			.replace("\\/?", "")
 			.replace("(?=\\/|$)", "$")

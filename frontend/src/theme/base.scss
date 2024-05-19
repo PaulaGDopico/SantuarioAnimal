@@ -1,6 +1,7 @@
 $urgente: rgba(255, 0, 0, 0.445);
 $especial: rgba(255, 0, 255, 0.445);
 $apadrinado: rgba(0, 255, 76, 0.445);
+$retoConseguido: rgba(0, 255, 76, 0.986);
 
 *{
     font-family: "Ubuntu", sans-serif;
@@ -12,20 +13,23 @@ h1,h2,h3,h4,h5 {
     margin: 20px auto;
 	max-width: 1440px;
 }
-.adopcion-urgente {
+.ADOPCION_URGENTE {
     background-color: $urgente;
 }
 
-.casos-especiales {
+.CASOS_ESPECIALES {
     background-color: $especial;
 }
 
-.apadrinado {
+.APADRINADO {
     background-color: $apadrinado;
 }
 
-.sin-estado {
-    background-color: none;
+.SIN_ESTADO {
+    background-color: transparent;
+}
+.Reto_conseguido {
+    background-color: $retoConseguido;
 }
 .btn {
     padding: 10px;

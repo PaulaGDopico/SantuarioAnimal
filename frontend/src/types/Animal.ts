@@ -1,3 +1,5 @@
+import { Donacion } from "./Donacion";
+
 export interface Animal {
     id: number;
     createdAt: string;
@@ -14,5 +16,6 @@ export interface Animal {
     img: string;
     descripcion: string | null;
     habitacionId: number;
+    donaciones_recibidas: Array<Donacion> | null;
     afiliadoId: number;
 }

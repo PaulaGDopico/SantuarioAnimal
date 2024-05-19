@@ -1,10 +1,10 @@
 <template>
 	<ion-page>
 		<ion-content>
+			<SubHeader titulo="Conoce Más Sobre Nuestra Protectora y Nuestra Misión"
+				texto="Desde nuestros humildes comienzos hasta nuestros logros más recientes, cada capítulo de nuestra historia está impregnado de la pasión y el compromiso de nuestro equipo por hacer del mundo un lugar mejor para todos los seres vivos. Explora nuestra página para descubrir cómo puedes formar parte de nuestra familia y hacer una diferencia significativa en la vida de los animales necesitados."
+				img-url="/img/pexels-umutart-20012844.jpg" infoBtn="Requisitos para adoptar"></SubHeader>
 			<div class="main">
-				<div class="cabecera">
-					<img src="/img/subheader.png" />
-				</div>
 				<section class="informacion">
 					<h1>Sobre Nosotros</h1>
 					<p>¡Bienvenido a Santuario Animal!</p>
@@ -58,16 +58,16 @@
 				</section>
 				<section class="fotografias">
 					<div class="primera">
-						<img src="/img/buneaPersona 1.png" />
+						<img src="/img/buneaPersona 1.png" alt="persona con dos perritos"/>
 					</div>
 					<div class="segunda">
-						<img src="/img/pataPerro 1.png" />
+						<img src="/img/pataPerro 1.png" alt="hombre dándole la mano a perro"/>
 					</div>
 					<div class="tercera">
-						<img src="/img/pexels-goochie-poochie-19145897 1.png" />
+						<img src="/img/pexels-goochie-poochie-19145897 1.png" alt="hombre lavando perrito"/>
 					</div>
 					<div class="cuarta">
-						<img src="/img/rejas 1.png" />
+						<img src="/img/rejas 1.png" alt="perros oliendo una mano a través de una reja"/>
 					</div>
 				</section>
 			</div>
@@ -79,6 +79,7 @@
 <script setup lang="ts">
 import AppFooter from "@/components/AppFooter.vue";
 import { IonPage, IonContent } from "@ionic/vue";
+import SubHeader from "@/components/SubHeader.vue";
 </script>
 
 <style lang="scss" scoped>
@@ -87,26 +88,18 @@ import { IonPage, IonContent } from "@ionic/vue";
 	flex-direction: column;
 	align-items: center;
 }
-.cabecera {
-	width: 100%;
-	img {
-		width: 100%;
-	}
-}
+
 .informacion {
 	background-color: white;
 	color: black;
 	padding: 50px;
 	width: 90%;
-	margin-left: 5%;
-	margin-right: 5%;
-	margin-top: 50px;
-	border-radius: 20px;
+  border-radius: 20px;
 	border-left: 1px solid #ff914d;
 	border-right: 1px solid #ff914d;
 	border-bottom: 10px solid #ff914d;
-	margin-bottom: 50px;
-	text-align: justify;
+  margin: 50px 5%;
+  text-align: justify;
 	h1 {
 		margin-bottom: 30px;
 		margin-top: 0;
