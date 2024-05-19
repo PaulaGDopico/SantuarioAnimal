@@ -19,7 +19,6 @@
 </template>
 <script lang="ts" setup>
 import {IonCol} from "@ionic/vue";
-import { ref } from "vue";
 
 const props = defineProps({
   id: {

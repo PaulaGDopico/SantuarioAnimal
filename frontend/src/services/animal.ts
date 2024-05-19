@@ -180,7 +180,7 @@ export const pushAnimal = async (animalData: Animal) => {
     }
 };
 
-export const updateAnimal = async (animalId:number, animalData:Animal) => {
+export const updateAnimal = async (animalId:number, animalData:Animal, image?:File) => {
     try {
         
         const formData = new FormData();
@@ -196,7 +196,9 @@ export const updateAnimal = async (animalId:number, animalData:Animal) => {
         formData.append("fecha_nacimiento", animalData.fecha_nacimiento);
         formData.append("fecha_ingreso", animalData.fecha_ingreso);
         formData.append("sexo", animalData.sexo);
-        formData.append("img", animalData.img);
+        if(image){
+            formData.append("image", image);
+        }
         formData.append("descripcion", animalData.descripcion ?? "");
         formData.append("habitacionId", animalData.habitacionId.toString());
         if (animalData.donaciones_recibidas) {
@@ -224,6 +226,24 @@ export const updateAnimal = async (animalId:number, animalData:Animal) => {
             console.info("Modificacion exitosa:", data);
         }
         if (!response.ok) {
+            console.log(`
+    createdAt: ${animalData.createdAt}
+    updatedAt: ${animalData.updatedAt}
+    nombre: ${animalData.nombre}
+    tipo: ${animalData.tipo}
+    estado_adopcion: ${animalData.estado_adopcion}
+    peso: ${animalData.peso}
+    tamanyo: ${animalData.tamanyo}
+    raza: ${animalData.raza}
+    fecha_nacimiento: ${animalData.fecha_nacimiento}
+    fecha_ingreso: ${animalData.fecha_ingreso}
+    sexo: ${animalData.sexo}
+    img: ${animalData.img}
+    descripcion: ${animalData.descripcion ?? ""}
+    habitacionId: ${animalData.habitacionId.toString()}
+    Donaciones_recibidas: ${animalData.donaciones_recibidas ? JSON.stringify(animalData.donaciones_recibidas) : ""}
+    afiliadoId: ${animalData.afiliadoId !== null ? animalData.afiliadoId.toString() : ""}
+`);
             throw new Error("Error al intentar modificar el animal.");
         }
         return true;

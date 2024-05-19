@@ -174,6 +174,10 @@ router.post("/", upload, async (req, res) => {
 
 router.put("/:animalId", upload, async (req, res) => {
     try {
+
+        console.log("Request Body:", req.body);
+        console.log("Request File:", req.file); // Log the uploaded file to check if it's being received
+
         const animalId = parseInt(req.params.animalId);
 
         let imageName: string;
@@ -184,6 +188,8 @@ router.put("/:animalId", upload, async (req, res) => {
         }else{
             imageName = req.body.img
         }
+        console.log("Animal ID:", animalId);
+        console.log("Image Name:", imageName);
 
         req.body.habitacionId = parseInt(req.body.habitacionId);
         delete req.body.Donaciones_recibidas

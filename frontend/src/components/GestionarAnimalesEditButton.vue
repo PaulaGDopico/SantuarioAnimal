@@ -362,16 +362,15 @@ const animalData = ref({
     fecha_nacimiento: fechaNacimientoConvertida,
     fecha_ingreso: fechaIngresoConvertida,
     sexo: props.params.datosFila.sexo,
-    img: props.params.datosFila.img,
     descripcion: props.params.datosFila.descripcion,
     habitacionId: props.params.datosFila.habitacionId,
     donaciones_recibidas: [],
     afiliadoId: props.params.datosFila.afiliado_id,
 });
 
-
+let image:File
 const subirImagen = (e: any) => {
-    animalData.value.img = e.target.files[0];
+   image = e.target.files[0];
 };
 
 const getNombreAfiliado = (afiliadosData:Array<Afiliado> | undefined)=>{
@@ -398,8 +397,6 @@ const getNombreAfiliado = (afiliadosData:Array<Afiliado> | undefined)=>{
 
 
 const verificarAfiliado = async(afiliadosData:Array<Afiliado> | undefined) => {
-    console.log("Hola")
-    console.log(animalData.value.afiliadoId)
     if (!afiliadosData || afiliadosData.length === 0) {
             es_afiliado.value = false;
     }else{
@@ -440,7 +437,6 @@ const verificarHabitacion = async (habitacionData:Array<Habitacion> | undefined)
                 mensaje_errorHabitacion.value=""
                 break;
             }
-            console.log(habitacionData[i].id)
         }
         if(!existe_habitacion.value){
             console.log(animalData.value.habitacionId)
@@ -517,7 +513,7 @@ const modificarAnimal = async(animalData:any)=>{
             }
             return;    
         }else{
-            await updateAnimal(props.params.datosFila.id, animalData);
+            await updateAnimal(props.params.datosFila.id, animalData, image);
             if(gridContext && gridContext.value && gridContext.value.handleDeleteRow){
                 gridContext.value.handleDeleteRow();
             }

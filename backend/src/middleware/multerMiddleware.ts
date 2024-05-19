@@ -27,19 +27,21 @@ export const upload = async (req: Request, res: Response, next: NextFunction) =>
 			return res.status(400).send('Error uploading file');
 		}
 
-		if (!req.file) {
-			return res.status(400).send('No file uploaded');
+		if (req.file) {
+			try {
+				// Cast req.file to CustomFile to access the blob property
+				const fileWithBlob = req.file as CustomFile;
+				fileWithBlob.blob = await uploadToVercelBlob(fileWithBlob); // Attach the blob information to the file object
+				next(); // Continue to the next middleware/controller
+			} catch (uploadErr) {
+				console.error('Error uploading to Vercel Blob:', uploadErr);
+				res.status(500).send('Failed to upload to Vercel Blob');
+			}
+		}else{
+			next();
 		}
 
-		try {
-			// Cast req.file to CustomFile to access the blob property
-			const fileWithBlob = req.file as CustomFile;
-			fileWithBlob.blob = await uploadToVercelBlob(fileWithBlob); // Attach the blob information to the file object
-			next(); // Continue to the next middleware/controller
-		} catch (uploadErr) {
-			console.error('Error uploading to Vercel Blob:', uploadErr);
-			res.status(500).send('Failed to upload to Vercel Blob');
-		}
+
 	});
 };
 
