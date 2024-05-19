@@ -156,7 +156,7 @@ import SubHeader from "@/components/SubHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
 import {IonCol, IonContent, IonGrid, IonPage, IonRow} from "@ionic/vue";
 import AppCartaAnimal from "@/components/AppCartaAnimal.vue";
-import {cincoAnimalesUrgentes, getAnimales} from "@/services/animal";
+import {cincoAnimalesUrgentes} from "@/services/animal";
 import {onMounted, ref} from "vue";
 import {API_FILE_URL} from "@/middleware/secrets";
 
