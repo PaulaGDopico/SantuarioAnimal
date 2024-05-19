@@ -64,7 +64,7 @@
 
                     <AppCartaAnimal v-for="animal in infoAnimal" :id="animal.id" :key="animal.id"
                       :animal="animal.tipo" :estado-adopcion="animal.estado_adopcion" :nombre="animal.nombre"
-                      :raza="animal.raza" :urlImg="API_FILE_URL + animal.img" />
+                      :raza="animal.raza" :urlImg="animal.img" />
                   </ion-row>
                 </ion-grid>
                 <div class="d-flex justify-content-center paginacion">
@@ -90,7 +90,6 @@
   </ion-page>
 </template>
 <script lang="ts" setup>
-import { API_FILE_URL } from "@/middleware/secrets";
 import SubHeader from "@/components/SubHeader.vue";
 import AppFooter from "@/components/AppFooter.vue";
 import { IonCheckbox, IonCol, IonContent, IonGrid, IonPage, IonRange, IonRow } from "@ionic/vue";

@@ -1,21 +1,46 @@
 import multer from "multer";
-import { Request } from "express";
+import {NextFunction, Request, Response} from "express";
+import {put} from "@vercel/blob";
 
 // Multer storage configuration
-const storage = multer.diskStorage({
-	destination: function (
-		req: Request,
-		file: Express.Multer.File,
-		cb: Function
-	) {
-		cb(null, "./public/uploads/"); // Specify the destination directory
-	},
-	filename: function (req: Request, file: Express.Multer.File, cb: Function) {
-		cb(null, file.originalname); // Use the original filename
-	},
-});
+const memoryStorage = multer.memoryStorage();
 
-// Multer upload instance
-const upload = multer({ storage: storage });
+// Multer upload instance for memory storage
+const memoryUpload = multer({ storage: memoryStorage });
+
+
+interface CustomFile extends Express.Multer.File {
+	blob?: any; // Define the blob property, can be any type you expect
+}
+const uploadToVercelBlob = async (file:Express.Multer.File) => {
+	return await put("uploads/" + file.originalname, file.buffer, { access: 'public' });
+
+};
+
+
+export const upload = async (req: Request, res: Response, next: NextFunction) => {
+	// Determine which multer instance to use based on environment
+	const upload = memoryUpload.single('image')
+
+	upload(req, res, async (err: any) => {
+		if (err) {
+			return res.status(400).send('Error uploading file');
+		}
+
+		if (!req.file) {
+			return res.status(400).send('No file uploaded');
+		}
+
+		try {
+			// Cast req.file to CustomFile to access the blob property
+			const fileWithBlob = req.file as CustomFile;
+			fileWithBlob.blob = await uploadToVercelBlob(fileWithBlob); // Attach the blob information to the file object
+			next(); // Continue to the next middleware/controller
+		} catch (uploadErr) {
+			console.error('Error uploading to Vercel Blob:', uploadErr);
+			res.status(500).send('Failed to upload to Vercel Blob');
+		}
+	});
+};
 
 export default upload;
