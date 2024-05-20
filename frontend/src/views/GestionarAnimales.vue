@@ -7,7 +7,7 @@
               class="ion-justify-content-between ion-align-items-center">
             <ion-col>
               <ion-button>
-                <RouterLink :to="{ name: 'InicioSesion' }"
+                <RouterLink :to="{ name: 'gestion' }"
                 >Volver Atras
                 </RouterLink
                 >
