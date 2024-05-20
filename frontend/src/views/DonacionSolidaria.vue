@@ -72,6 +72,7 @@ onMounted(async () => {
 <style scoped lang="scss">
 .main-wrapper {
     max-width: 1200px;
+    margin: 50px;
 }
 
 .info {

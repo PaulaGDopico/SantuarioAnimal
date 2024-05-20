@@ -10,7 +10,7 @@
                                 <ion-row>
                                     <ion-col size="6" size-sm="3" class="key">Animal</ion-col>
                                     <ion-col size="6" size-sm="3">{{
-                        animal?.raza
+                        animal?.tipo
                     }}</ion-col>
                                     <ion-col size="6" size-sm="3" class="key">Estado</ion-col>
                                     <ion-col size="6" size-sm="3">{{
